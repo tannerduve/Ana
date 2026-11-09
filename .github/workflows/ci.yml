@@ -8,7 +8,26 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Install native build and transport dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential libssl-dev curl bubblewrap
+        run: sudo apt-get update && sudo apt-get install -y build-essential libssl-dev curl bubblewrap apparmor
+      - name: Enable and check evaluation namespaces
+        run: |
+          # Ubuntu 24.04 restricts unprivileged user namespaces with AppArmor.
+          # Permit the packaged bubblewrap on this ephemeral CI runner only;
+          # retain the global restriction and run all tests without sudo.
+          sudo tee /etc/apparmor.d/bwrap > /dev/null <<'PROFILE'
+          abi <abi/4.0>,
+          include <tunables/global>
+          profile bwrap /usr/bin/bwrap flags=(unconfined) {
+            userns,
+          }
+          PROFILE
+          sudo apparmor_parser -r /etc/apparmor.d/bwrap
+          # The outer evaluation shares the broker network; checker workers
+          # create nested namespaces with their own network and /proc.
+          bwrap --unshare-all --share-net --die-with-parent --new-session \
+            --ro-bind / / --proc /proc --dev /dev -- \
+            bwrap --unshare-all --die-with-parent --new-session \
+              --ro-bind / / --proc /proc --dev /dev -- /bin/true
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24.16.0

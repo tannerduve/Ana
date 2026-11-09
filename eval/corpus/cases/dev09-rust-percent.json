@@ -1,0 +1,68 @@
+[
+  {
+    "args": [
+      ""
+    ],
+    "value": "OK:"
+  },
+  {
+    "args": [
+      "a+b"
+    ],
+    "value": "OK:612062"
+  },
+  {
+    "args": [
+      "%41%2f%CE%BB"
+    ],
+    "value": "OK:412fcebb"
+  },
+  {
+    "args": [
+      "λ🙂"
+    ],
+    "value": "OK:cebbf09f9982"
+  },
+  {
+    "args": [
+      "%00"
+    ],
+    "value": "OK:00"
+  },
+  {
+    "args": [
+      "%"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "%0"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "%GG"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "%FF"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "%C0%AF"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "%F0%9F%99%82"
+    ],
+    "value": "OK:f09f9982"
+  }
+]

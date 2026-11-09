@@ -1,0 +1,14 @@
+{
+  "model": "REPLACE_WITH_YOUR_MODEL_ID",
+  "workspace": ".",
+  "commands": "ask",
+  "executionProfile": "bubblewrap",
+  "maxModelAttempts": 20,
+  "maxToolCalls": 100,
+  "maxContextBytes": 200000,
+  "maxOutputTokens": 4096,
+  "maxRetries": 2,
+  "maxResponseRepairs": 2,
+  "operationTimeoutMs": 120000,
+  "maxElapsedMs": 1800000
+}

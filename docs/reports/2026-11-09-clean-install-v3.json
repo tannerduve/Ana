@@ -1,0 +1,78 @@
+{
+  "schema_version": 3,
+  "date": "2026-11-09",
+  "result": "passed",
+  "scope": "Fresh product source and product/Rust outputs with existing pinned dependency checkouts/build artifacts reused through .lake/packages symlink. Installed toolchains and native system libraries reused. No evaluation sources or model calls. Not a clean OS or cache-free build.",
+  "binary_identities": {
+    "harness": "77f760248d53d59b1b4e0ac6c10e020bc5f65bbdf2eaaff31954400c8c4cfab8",
+    "harness_tests": "eff392a709ef003def8088c1e3c5eae13513816820a642ea039d8309a0b33d1a",
+    "runtime_contracts": "d1e77cf600327c4c9c8830ddf36d0ab334b1cd059f1dfcb77387cbbb79664a7c",
+    "runtime_properties": "d2dc8c5a634dae97913a8e897d5894a021bda49e20fac972420e28d9db3883c2"
+  },
+  "all_four_match_validated_main_binaries": true,
+  "source": {
+    "files": 97,
+    "inventory_sha256": "5f3115fce0a08d38167d3bf684317223246b0d5ad7ad76dfd32382670267f568",
+    "unchanged_during_validation": true,
+    "evaluation_sources_present": false,
+    "local_plan_present": false,
+    "evidence_directory": "/tmp/lean-harness-clean-install-v3-20261109"
+  },
+  "build": {
+    "exit_code": 0,
+    "elapsed_seconds": 72.041,
+    "log_sha256": "46537d4b1d64993444142d9770fcdfcdcfdd7a39dcc4d378b9b8b3b8dcfe41b5",
+    "explicit_cargo_path": "/home/tannerduve/.cargo/bin",
+    "fresh_product_outputs": true,
+    "jobs": 1576,
+    "dependency_cache_reuse": "Pinned dependency checkouts and compiled artifacts reused via .lake/packages; all product outputs and native Rust outputs built from an empty .lake/build."
+  },
+  "prior_attempt": {
+    "exit_code": 1,
+    "elapsed_seconds": 75.898,
+    "reason": "Installed Cargo was absent from the test shell PATH; native library could not launch Cargo. Lean modules and proofs compiled. This log is preserved.",
+    "log_sha256": "9f10dd639a580b450944d5aaa6eb72fbf7db7201be228d1b41af2cce3d1c5af6",
+    "retry_changed_product_source": false
+  },
+  "tool_versions": {
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "lean": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)"
+  },
+  "smoke": {
+    "runtime_profile": "bubblewrap",
+    "path": "/nonexistent",
+    "scripted_provider": true,
+    "paid_calls": 0,
+    "run_exit": 0,
+    "elapsed_seconds": 1.381,
+    "model_attempts": 4,
+    "tool_dispatches": 3,
+    "process_check_exit": 0,
+    "expected_file_bytes": true,
+    "inspect_equals_replay": true,
+    "terminal_resume_does_not_append": true,
+    "journal_sha256": "c6d5dc9205b2734477bb1ae2e4400a4d60f56e7b7fbf5e3209ed5b331fcf1b95",
+    "execve_trace_sha256": "9a16adcd61c2ccc0c57c3af2c5162de73ce289ac09f34f03dfe213a6a63101e9",
+    "python_exec_observed": false,
+    "evaluation_sources_present": false
+  },
+  "logs_sha256": {
+    "build-attempt1.log": "9f10dd639a580b450944d5aaa6eb72fbf7db7201be228d1b41af2cce3d1c5af6",
+    "build.log": "46537d4b1d64993444142d9770fcdfcdcfdd7a39dcc4d378b9b8b3b8dcfe41b5",
+    "smoke-driver.log": "34353adb9a8a9a9e9342b494c24485f351b9faa81ceb1c342b586be2b06d3ff5",
+    "runtime-execve.log": "9a16adcd61c2ccc0c57c3af2c5162de73ce289ac09f34f03dfe213a6a63101e9"
+  },
+  "cleanup": {
+    "own_generated_product_build_removed": true,
+    "installed_dependency_cache_preserved": true,
+    "main_binary_replays_smoke_after_removal": true,
+    "binary_preservation": "Identical four tested executables remain in the main checkout; old evaluated candidate is separately archived."
+  },
+  "validation_scope": "Binary equality connects this build to the separately recorded134 adapter+5codec gate,114-name proof audit and default generated IO suite. Those suites were not repeated here. Hosted clean-machine CI remains a separate gate.",
+  "limitations": [
+    "Installed native libraries, toolchains and compiled dependencies were reused; this is not a clean operating-system installation or cache-free dependency build.",
+    "Python ran the build/test driver; the harness itself launched no Python process, as checked by execve tracing.",
+    "No paid model calls or task-quality measurements."
+  ]
+}

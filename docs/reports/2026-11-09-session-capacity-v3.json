@@ -1,0 +1,65 @@
+{
+  "scope": "synthetic real CLI capacity; loopback provider, no paid calls or task-quality claim",
+  "memory_measurement": "GNU time maximum per-process RSS of the command and waited-for children; not simultaneous process-tree memory",
+  "driver_sha256": "62504921bda84a10a5c0000dba4d1e6c5b23dcc7da39354e3e0306cbea34a343",
+  "streaming_fixture_sha256": "33c59d6cfef6b58af89b8f55a3d1a234b01de018d0206aef435a22de39f42491",
+  "binary_sha256": "eed8666165f9347037a0726d4779852cf27bb13aaa20f8a0e2a1e1975c0907e5",
+  "config": {
+    "model": "capacity-fixture",
+    "commands": "allow",
+    "executionProfile": "bubblewrap",
+    "compactionEnabled": false,
+    "maxModelAttempts": 80,
+    "maxToolCalls": 100,
+    "maxContextBytes": 1300000,
+    "maxRetries": 0,
+    "maxToolOutputBytes": 16384,
+    "maxElapsedMs": 1200000,
+    "operationTimeoutMs": 30000,
+    "maxArtifactBytes": 16777216,
+    "maxSessionArtifactBytes": 67108864
+  },
+  "run": {
+    "exit_code": 2,
+    "seconds": 518.4475479330868,
+    "peak_worker_rss_kib": 659304
+  },
+  "inspect": {
+    "exit_code": 0,
+    "seconds": 2.2693521827459335,
+    "peak_worker_rss_kib": 422664
+  },
+  "replay": {
+    "exit_code": 0,
+    "seconds": 2.1691277539357543,
+    "peak_worker_rss_kib": 424044
+  },
+  "model_requests": 58,
+  "tool_dispatches": 61,
+  "reserved_model_attempts": 59,
+  "pending": false,
+  "terminal": false,
+  "journal_frames": 595,
+  "journal_bytes": 66794610,
+  "artifact_bytes": 67108864,
+  "artifact_count": 5,
+  "beyond_display_retrieval": true,
+  "zero_retained_quota_marker": true,
+  "storage_refusal_preserved_replay": true,
+  "no_unjournaled_model_dispatch": true,
+  "provider": "Scripted loopback SSE; no paid model calls",
+  "request_wire_bytes": {
+    "minimum": 5074,
+    "maximum": 1167750
+  },
+  "raw_report_sha256": "a8cd5523a06907d252715131462b1e974c2fab9a114e38fa0ea8186e9784ce27",
+  "previous_report": "2026-11-09-session-capacity.json",
+  "scope_notes": [
+    "Current executable includes lexical JSON admission and lossless journal preflight; all executable and fixture bytes were snapshotted before the run.",
+    "Allowance was set to 1200 seconds before execution. The prior report used 600 seconds and an older executable; these single shared-host runs are not a controlled latency benchmark.",
+    "The next model attempt reservation was durable, but its intent exceeded journal capacity; no corresponding provider request occurred.",
+    "The preserved prefix remains inspectable and replayable. No terminal outcome could be saved; this does not show that a full journal can resume.",
+    "Compaction was deliberately disabled for this synthetic capacity measurement. Task-quality and sustained compaction/restart trials are separate.",
+    "The runner revalidates the full journal on each append. This run exposes that cumulative cost; it is not a throughput guarantee."
+  ]
+}

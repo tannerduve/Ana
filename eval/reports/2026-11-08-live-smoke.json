@@ -1,0 +1,36 @@
+{
+  "model": "claude-opus-5-5",
+  "harness_commit": "9e3ff64ba63d87fb4f689709f26cd929f5dc8261",
+  "binary_sha256": "f6144bacd49b520d6a58cc1d826182cfcec1d6cb368503f1025a7056ffb343af",
+  "baseline_checker_exit": 1,
+  "harness_exit": 0,
+  "checker_exit": 0,
+  "fixture_tests_unchanged": true,
+  "elapsed_seconds": 24.622,
+  "watchdog_fired": false,
+  "inspection_ok": true,
+  "model_attempts": 5,
+  "tool_dispatches": 7,
+  "known_input_tokens": 18565,
+  "known_output_tokens": 2032,
+  "unknown_usage_observations": 0,
+  "success": true,
+  "helper_sha256": "eea811256ce84fdf540132aeeb987ee291cf8b042a39bf65d5bd3e5262c85bfe",
+  "checker_sha256": "a687cd4fd9ddb2220cb2003f1978b9d9a7390de5cff9714f9055c81a4584af95",
+  "fixture_sha256": {
+    "README.md": "9c520301eed78c170f3ef4ac77ed73fbba009f003defbb8c265b6b510dee08f1",
+    "ranges.py": "147ea713c90ae273fd9de752b6ce299fef00b7db70da7864b07883ad23c86f63",
+    "test_ranges.py": "f306a6d924c347bb7bcafa88b6f6ad53614ea72d04d1afc91fe5ff1a414e7779"
+  },
+  "dirty_source_tree": true,
+  "independent_check": {
+    "passed": true,
+    "case_count": 43,
+    "fixture_integrity_checks": 2,
+    "source_sha256": "752a8b27f5ad6f08f2cbd1436d0d0e36424faae7a79b47fc78e532426eabaf8a",
+    "failures": [],
+    "label": "self-authored development smoke; not held-out"
+  },
+  "baseline_failed_cases": 24,
+  "evaluation": "single self-authored development smoke; not held-out or Pi comparison"
+}

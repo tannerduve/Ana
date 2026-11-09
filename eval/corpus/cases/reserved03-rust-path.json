@@ -1,0 +1,56 @@
+[
+  {
+    "args": [
+      ""
+    ],
+    "value": "OK:2e"
+  },
+  {
+    "args": [
+      "a//b/../c"
+    ],
+    "value": "OK:612f63"
+  },
+  {
+    "args": [
+      "./λ/../x/"
+    ],
+    "value": "OK:78"
+  },
+  {
+    "args": [
+      "a/.."
+    ],
+    "value": "OK:2e"
+  },
+  {
+    "args": [
+      ".."
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "/a"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "a/../../b"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "a\\b"
+    ],
+    "value": "ERR"
+  },
+  {
+    "args": [
+      "a\u0000b"
+    ],
+    "value": "ERR"
+  }
+]

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "kind": "fixture validation; no agent performance measurement",
+  "manifest_sha256": "9f9b7f6cd7827c77104c2e8def84ffe6b42541a94e22cb643a49c79f8965a069",
+  "passed": true,
+  "tasks": [
+    {
+      "task_id": "dev01-inventory-cli",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 8,
+      "seconds": 0.144,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev02-config-overlay",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 7,
+      "seconds": 0.049,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev03-repo-graph",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 7,
+      "seconds": 0.054,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev04-csv-report",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 9,
+      "seconds": 0.152,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev05-version-order",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 12,
+      "seconds": 0.051,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev06-js-intervals",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 9,
+      "seconds": 0.059,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev07-js-query",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 8,
+      "seconds": 0.062,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev08-js-window",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 9,
+      "seconds": 0.317,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev09-rust-percent",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 11,
+      "seconds": 0.203,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev10-rust-tail",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 7,
+      "seconds": 0.212,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev11-lean-reverse",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 1,
+      "seconds": 1.765,
+      "reference_failures": []
+    },
+    {
+      "task_id": "dev12-lean-append",
+      "split": "development",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 1,
+      "seconds": 1.733,
+      "reference_failures": []
+    },
+    {
+      "task_id": "reserved01-atomic-settings",
+      "split": "reserved",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 9,
+      "seconds": 0.145,
+      "reference_failures": []
+    },
+    {
+      "task_id": "reserved02-js-ledger",
+      "split": "reserved",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 6,
+      "seconds": 0.062,
+      "reference_failures": []
+    },
+    {
+      "task_id": "reserved03-rust-path",
+      "split": "reserved",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 9,
+      "seconds": 0.211,
+      "reference_failures": []
+    },
+    {
+      "task_id": "reserved04-lean-map",
+      "split": "reserved",
+      "baseline_failed": true,
+      "reference_passed": true,
+      "case_count": 1,
+      "seconds": 1.699,
+      "reference_failures": []
+    }
+  ]
+}

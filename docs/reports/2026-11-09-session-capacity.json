@@ -1,0 +1,66 @@
+{
+  "scope": "synthetic real CLI capacity; loopback provider, no paid calls or task-quality claim",
+  "memory_measurement": "GNU time maximum per-process RSS of the command and waited-for children; not simultaneous process-tree memory",
+  "binary_sha256": "fae77950e4d6a13a33cae1029d91d893bf0d8b0a91ba0b3c76bd9a8c27fef78a",
+  "config": {
+    "model": "capacity-fixture",
+    "commands": "allow",
+    "executionProfile": "bubblewrap",
+    "compactionEnabled": false,
+    "maxModelAttempts": 80,
+    "maxToolCalls": 100,
+    "maxContextBytes": 1300000,
+    "maxRetries": 0,
+    "maxToolOutputBytes": 16384,
+    "maxElapsedMs": 600000,
+    "operationTimeoutMs": 30000,
+    "maxArtifactBytes": 16777216,
+    "maxSessionArtifactBytes": 67108864
+  },
+  "run": {
+    "exit_code": 2,
+    "seconds": 375.235876172781,
+    "peak_worker_rss_kib": 670460
+  },
+  "inspect": {
+    "exit_code": 0,
+    "seconds": 1.7182123893871903,
+    "peak_worker_rss_kib": 416408
+  },
+  "replay": {
+    "exit_code": 0,
+    "seconds": 1.5676999855786562,
+    "peak_worker_rss_kib": 426976
+  },
+  "model_requests": 58,
+  "tool_dispatches": 61,
+  "journal_frames": 595,
+  "journal_bytes": 66794609,
+  "artifact_bytes": 67108864,
+  "artifact_count": 5,
+  "beyond_display_retrieval": true,
+  "zero_retained_quota_marker": true,
+  "storage_refusal_preserved_replay": true,
+  "no_unjournaled_model_dispatch": true,
+  "provider": "scripted loopback SSE; no paid model calls",
+  "request_wire_bytes": {
+    "minimum": 5074,
+    "maximum": 1167750
+  },
+  "reserved_model_attempts": 59,
+  "pending": false,
+  "terminal": false,
+  "raw_report_sha256": "1e7d7b90844caa9d4f0c1fb15becaf83a79a374b1d464d91c857977f90c763b0",
+  "scope_notes": [
+    "Measured executable predates the later process-stat parser fix; journal and artifact implementation was unchanged.",
+    "The next model attempt reservation was durable, but its intent exceeded journal capacity; no corresponding provider request occurred.",
+    "The preserved prefix remains inspectable and replayable. This is not a successful terminal outcome or evidence that a full journal can resume.",
+    "Request wire bytes and the pure context estimator are different quantities.",
+    "The original driver was not snapshotted or hashed at execution. Later driver changes added assertions for these observed fields and future source snapshots."
+  ],
+  "previous_attempt": {
+    "version": 1,
+    "classification": "test-fixture error",
+    "detail": "Tail assertion did not decode the nested ToolResult JSON. Four artifacts and tail retrieval completed; run was cancelled and retained. Version 2 corrected only that fixture interpretation."
+  }
+}

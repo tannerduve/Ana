@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-11",
+  "scope": "Evaluator fixes applied after all16 live runs and immutable final aggregation. These tests do not rerun or reinterpret live tasks. Product sources and CLI binary are unchanged.",
+  "changes": [
+    "Copy validated schema7 turn identity into compact checkpoints; keep strict auditor unchanged.",
+    "Retain optional bounded thinking/effort/output-ceiling metadata before forwarding, without changing request bytes or admission."
+  ],
+  "sources_sha256": {
+    "eval/runner/public_bench.py": "bf11cd88b83039f8ee4ad0fb60024ca31bac722dbd7ad89fda408121ede39edf",
+    "eval/runner/request_evidence.py": "694128fff3f7ce8fdc789d1532f7f5cb0f8243fa729efa3979b1a40926c6ab3f",
+    "eval/Tests/sustained.py": "112cc416e3525d46b83e0385a5d5da43e1034c0d2f64cbaf1dd34b803773be22",
+    "eval/Tests/continuation_audit.py": "942a6c6315f33b01364a22f65a97a675e57c96d9bfcd1b9180c3cad2ec252c79",
+    "eval/Tests/broker_requests.py": "a882b7831500e271e67c16cbd5f8317eb766703225a761728a441e3bd215bc32"
+  },
+  "suites": [
+    {
+      "suite": "eval/Tests/sustained.py",
+      "tests": 16,
+      "seconds": 0.093,
+      "passed": true,
+      "log_sha256": "206c280b716ca7ef568a85ee19d7c5e9e0d44a4b67f1db1955eb0eb865f2ece6"
+    },
+    {
+      "suite": "eval/Tests/continuation_audit.py",
+      "tests": 23,
+      "seconds": 1.246,
+      "passed": true,
+      "log_sha256": "37e219385ffe1ef61033608b1c91e80fc3afb80720552ea9e45e28343043398f"
+    },
+    {
+      "suite": "eval/Tests/broker_requests.py",
+      "tests": 14,
+      "seconds": 3.626,
+      "passed": true,
+      "log_sha256": "5b7ab663b6ab08447068f8cd15a00b04cad0c86265a83c5beec865f6a278a503"
+    }
+  ],
+  "tests_total": 53,
+  "live_aggregate_sha256": "660934343258c95d1df1e2d94684a7d59193d99f5492a687bf8e6f4cb71ea570",
+  "limitations": [
+    "Historical requests have body hashes/lengths, not newly added settings evidence.",
+    "Configured effort controls do not prove effective provider behavior."
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "version": "diagnostic-2-lean-4.33.1-json",
+  "scope": "Post-hoc audit only; original cohort verdicts, artifacts and sources unchanged. Exact decimals, Lean control escapes, ASCII-LF framing. No model reruns.",
+  "original_auditor_sha256": "7d32d622264ba9222b5ebe028c596355df8ca61f59ba4c3164c3e64c828f9507",
+  "encoder_sha256": "6e3b478ed8ccf031820fb24e46600b31fd96721932ebb8478d98efe78b2f84ac",
+  "runs": [
+    {
+      "run_id": "pytest-dev__pytest-5227-lean-0-3cfb2160",
+      "source_hashes": {
+        "result.json": "4874eccc94f98e8fee151bbba3a36fa31a79311098e0e4f3509e52ff2a620347",
+        "inspection.json": "118312a86e4c2f860395d98335f33a41f6a5761b16f375295717a197352f466b",
+        "replay.json": "118312a86e4c2f860395d98335f33a41f6a5761b16f375295717a197352f466b",
+        "sessions/session/journal.jsonl": "15a5a1ecb9378619db21041631feb23c39ee70651aedcb4dfdcf32aeb51012ec"
+      },
+      "original_session_integrity": {
+        "passed": false,
+        "reason": "journal frame checksum differs"
+      },
+      "original_success": false,
+      "changed_test_files": [
+        "testing/logging/test_reporting.py"
+      ],
+      "posthoc_status": {
+        "passed": true,
+        "journal_frames": 302,
+        "model_attempts": 28,
+        "tool_dispatches": 34,
+        "verified_artifacts": 2,
+        "verified_artifact_bytes": 30800,
+        "usage": {
+          "known_input_tokens": 412754,
+          "known_output_tokens": 8464,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 28,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      }
+    },
+    {
+      "run_id": "pylint-dev__pylint-7114-lean-0-f5b209da",
+      "source_hashes": {
+        "result.json": "0975e9688f848bbda0a2edd17e88562313efd7a1f268f41f0d40a4c8838e9b4a",
+        "inspection.json": "5425897ac164cdc1b75079a835d4134e3ebd4a07c3b50c9906aebfae83f5c6ee",
+        "replay.json": "5425897ac164cdc1b75079a835d4134e3ebd4a07c3b50c9906aebfae83f5c6ee",
+        "sessions/session/journal.jsonl": "ce44703a340ab36e7b66130f5bcef4a4a3ef65be979526917658200b01d0b0c6"
+      },
+      "original_session_integrity": {
+        "passed": true,
+        "journal_frames": 276,
+        "model_attempts": 27,
+        "tool_dispatches": 29,
+        "verified_artifacts": 0,
+        "verified_artifact_bytes": 0,
+        "usage": {
+          "known_input_tokens": 370222,
+          "known_output_tokens": 13983,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 27,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "original_success": false,
+      "changed_test_files": [
+        "tests/lint/unittest_lint.py"
+      ],
+      "posthoc_status": {
+        "passed": true,
+        "journal_frames": 276,
+        "model_attempts": 27,
+        "tool_dispatches": 29,
+        "verified_artifacts": 0,
+        "verified_artifact_bytes": 0,
+        "usage": {
+          "known_input_tokens": 370222,
+          "known_output_tokens": 13983,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 27,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      }
+    },
+    {
+      "run_id": "sphinx-doc__sphinx-8721-lean-0-29de6b6a",
+      "source_hashes": {
+        "result.json": "d44f9f5fff4ca7f994b65fca4c63bf72e452092892b2e5a82f2e7d34ee2f2d53",
+        "inspection.json": "c4138bfcb6524bf7536d2bd15e53f861e3099beeb2577bce8ea43b9edbdd0442",
+        "replay.json": "c4138bfcb6524bf7536d2bd15e53f861e3099beeb2577bce8ea43b9edbdd0442",
+        "sessions/session/journal.jsonl": "2bdf23dfa76960171849fbfde7acc6504c804b650c56d6d5927dde0194ebad9e"
+      },
+      "original_session_integrity": {
+        "passed": false,
+        "reason": "journal frame checksum differs"
+      },
+      "original_success": false,
+      "changed_test_files": [
+        "tests/test_ext_viewcode.py"
+      ],
+      "posthoc_status": {
+        "passed": true,
+        "journal_frames": 130,
+        "model_attempts": 13,
+        "tool_dispatches": 13,
+        "verified_artifacts": 1,
+        "verified_artifact_bytes": 30868,
+        "usage": {
+          "known_input_tokens": 148091,
+          "known_output_tokens": 4402,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 13,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      }
+    },
+    {
+      "run_id": "sympy__sympy-18189-lean-0-358df533",
+      "source_hashes": {
+        "result.json": "11955eec8d41db38d7c5338c273748a3bc3938ccb8def8674c725a2fd000fb6d",
+        "inspection.json": "24fa5d322f39d28a121141e10a3f689245480eff1326d058d63ccb2f1cac4d87",
+        "replay.json": "24fa5d322f39d28a121141e10a3f689245480eff1326d058d63ccb2f1cac4d87",
+        "sessions/session/journal.jsonl": "fcef223d448678e69f25b906a0b374f2ef560f7a141139a825b26d101ae53103"
+      },
+      "original_session_integrity": {
+        "passed": true,
+        "journal_frames": 84,
+        "model_attempts": 8,
+        "tool_dispatches": 9,
+        "verified_artifacts": 0,
+        "verified_artifact_bytes": 0,
+        "usage": {
+          "known_input_tokens": 36434,
+          "known_output_tokens": 2089,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 8,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "original_success": false,
+      "changed_test_files": [
+        "sympy/solvers/tests/test_diophantine.py"
+      ],
+      "posthoc_status": {
+        "passed": true,
+        "journal_frames": 84,
+        "model_attempts": 8,
+        "tool_dispatches": 9,
+        "verified_artifacts": 0,
+        "verified_artifact_bytes": 0,
+        "usage": {
+          "known_input_tokens": 36434,
+          "known_output_tokens": 2089,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 8,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      }
+    }
+  ]
+}

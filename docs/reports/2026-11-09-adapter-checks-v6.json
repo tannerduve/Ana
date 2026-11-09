@@ -1,0 +1,291 @@
+{
+  "version": 6,
+  "recorded_unix": 1794222683.038132,
+  "status": "passed",
+  "scope": "Schema5 settled sandbox timeouts and absolute invocation deadlines across IO preparation. Standard adapter coverage combines139 checks with the separately completed17 timeout/deadline checks on identical binaries; no paid model calls.",
+  "binaries_sha256": {
+    "harness": "53a0665d8d5a60e53fece784943ca1c9defef3a6aeb7f3f16904e77b9a933d7c",
+    "harness_tests": "544dbd5fca2ff6aa4bc326402ace2aedba886ec4a19d2398fc9d951ff0130c98",
+    "runtime_contracts": "fca36a823fec33f9d30c316763f3703156b867fce0d0b0743479248f4dd39c18",
+    "runtime_properties": "886326ac69417dcd03b185fef91d0df42d87ca953ac9181858d1ee7770616f38"
+  },
+  "adapter_checks": 156,
+  "independent_json_codec_checks": 5,
+  "skipped_checks": 0,
+  "selected_axiom_audit_names": 130,
+  "generated_tests": {
+    "pure_cases": 900,
+    "io_data_cases": 100,
+    "filesystem_sequences": 200,
+    "filesystem_sequence_length": 30,
+    "recovery_sequences": 40,
+    "recovery_sequence_length": 12
+  },
+  "source_inventory": {
+    "path": "/tmp/lean-harness-deadline-gate-20261109/identity.json",
+    "sha256": "11728fd2c6cb6669f111fcc9c9a8d3d62fd87cedf52eafa9d5f082b92d40da0d"
+  },
+  "standard_gate_result": {
+    "path": "/tmp/lean-harness-deadline-gate-20261109/result.json",
+    "sha256": "2a81c51302339ef80ec52a93bbe141cb1dcec22a6e9823c8d85478a3ce4bb981"
+  },
+  "timeout_gate_result": {
+    "path": "/tmp/lean-harness-absolute-deadline-contracts-20261109-v3/result.json",
+    "sha256": "4fdfe3f8807419393bc25137a7253a5e26ee4e76609e160f4099a788d298c219"
+  },
+  "tests": [
+    {
+      "name": "core",
+      "command": [
+        ".lake/build/bin/harness_tests"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1590251298621297,
+      "tests": null,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/core.log",
+      "log_sha256": "23bbf5b5ef0b10133125cb1196a3d85e0a4f25cc08011a75a442be2f1e0ba709"
+    },
+    {
+      "name": "generated_io",
+      "command": [
+        ".lake/build/bin/runtime_properties"
+      ],
+      "exit_code": 0,
+      "seconds": 66.4760357644409,
+      "tests": null,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/generated_io.log",
+      "log_sha256": "e7ec17275130d539501eb882078f1888cceb0d333aa1d01b772801393360cdc3"
+    },
+    {
+      "name": "proof_audit",
+      "command": [
+        "python3",
+        "scripts/check_core.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2989877834916115,
+      "tests": null,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/proof_audit.log",
+      "log_sha256": "abfe2ceb2b10bbc692afb3ee5ddfb85ffc88d7b502750984f33422f36a909d18"
+    },
+    {
+      "name": "runtime_contracts",
+      "command": [
+        "python3",
+        "Tests/runtime_contracts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 6.8576813684776425,
+      "tests": 26,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/runtime_contracts.log",
+      "log_sha256": "eafbc46944404cbc8d2ec58288ef6869115a77135d4ff06bee40f8235bfa6798"
+    },
+    {
+      "name": "native_abi",
+      "command": [
+        "python3",
+        "Tests/native_abi.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.486198365688324,
+      "tests": 3,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/native_abi.log",
+      "log_sha256": "408814561e7735fa2c6a9daa7e51e737db3666adf2085a1d0a2ed262835a9615"
+    },
+    {
+      "name": "provider_transport",
+      "command": [
+        "python3",
+        "Tests/provider_transport.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.424739991314709,
+      "tests": 8,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/provider_transport.log",
+      "log_sha256": "553fcc3c266fb17090d094a77b1f9eb72badd5a8693d8416b5b52f6f8f421045"
+    },
+    {
+      "name": "provider_streaming",
+      "command": [
+        "python3",
+        "Tests/provider_streaming.py"
+      ],
+      "exit_code": 0,
+      "seconds": 7.096821580082178,
+      "tests": 11,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/provider_streaming.log",
+      "log_sha256": "60409fe8133954be6d7ddabc147d3f8e8b6e9fa42381ca0df2abe53a1fb8a61b"
+    },
+    {
+      "name": "provider_json_bounds",
+      "command": [
+        "python3",
+        "Tests/provider_json_bounds.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.621486086398363,
+      "tests": 7,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/provider_json_bounds.log",
+      "log_sha256": "dd3e7156d250e1098e4a1a53ac36ee69bb84415503d1b0f364ee60ec2f9da376"
+    },
+    {
+      "name": "event_output",
+      "command": [
+        "python3",
+        "Tests/event_output.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.6530086155980825,
+      "tests": 8,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/event_output.log",
+      "log_sha256": "fcbc582493b2d72b5963701fc90f986028d6ac46dbad039b1fd4f09075ccf946"
+    },
+    {
+      "name": "integration",
+      "command": [
+        "python3",
+        "Tests/integration.py"
+      ],
+      "exit_code": 0,
+      "seconds": 11.772274254821241,
+      "tests": 20,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/integration.log",
+      "log_sha256": "448b23d409ef19cc878cd00d866234ae0b5a04424e9c5ae733d19670746a28fb"
+    },
+    {
+      "name": "crash_recovery",
+      "command": [
+        "python3",
+        "Tests/crash_recovery.py"
+      ],
+      "exit_code": 0,
+      "seconds": 8.24028574116528,
+      "tests": 10,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/crash_recovery.log",
+      "log_sha256": "57f81489847b78bf1a3aa367d3d75a39c0283f891a2dac60f588156a2233ffc5"
+    },
+    {
+      "name": "journal_serialization",
+      "command": [
+        "python3",
+        "Tests/journal_serialization.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.814632290042937,
+      "tests": 4,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/journal_serialization.log",
+      "log_sha256": "0420f0c409ddc5497fb98432890e34d33e07dde38933fda06a77d2581e00e93d"
+    },
+    {
+      "name": "recovery_observations",
+      "command": [
+        "python3",
+        "Tests/recovery_observations.py"
+      ],
+      "exit_code": 0,
+      "seconds": 20.546907681040466,
+      "tests": 11,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/recovery_observations.log",
+      "log_sha256": "9feab97e9cf9895e54bc8cb65c0f5e73e5516f0352081fc749ff71bebc9457f8"
+    },
+    {
+      "name": "session_boundaries",
+      "command": [
+        "python3",
+        "Tests/session_boundaries.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.8462610486894846,
+      "tests": 12,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/session_boundaries.log",
+      "log_sha256": "550fe44c423f6d70aa24d4ecbeb37c5a289ead354d967679ed859c4a7f46f97c"
+    },
+    {
+      "name": "sandbox_contracts",
+      "command": [
+        "python3",
+        "Tests/sandbox_contracts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.248415476642549,
+      "tests": 12,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/sandbox_contracts.log",
+      "log_sha256": "005607ccb0609e7da901a06f53ddd404512847cfd8790da6a83a24839aebc9c5"
+    },
+    {
+      "name": "artifacts",
+      "command": [
+        "python3",
+        "Tests/artifacts.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.4170126654207706,
+      "tests": 7,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/artifacts.log",
+      "log_sha256": "d9905722d057f7b1bf69e52503747a449d2d574f5cbb6e6a14b50a13a3fbbbf0"
+    },
+    {
+      "name": "json_codec",
+      "command": [
+        "python3",
+        "eval/Tests/json_codec.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6595385083928704,
+      "tests": 5,
+      "log": "/tmp/lean-harness-deadline-gate-20261109/json_codec.log",
+      "log_sha256": "f15e0993a8268809a52034446ae178bd082b0cc81393fa74a01cce87763b5271"
+    }
+  ],
+  "additional_evidence": {
+    "old_new_deadline_regression": {
+      "path": "/tmp/lean-harness-absolute-deadline-comparison-20261109/evidence-v2.json",
+      "sha256": "2b0fa966eeb603c7daed06a75d24b01ba2e44360f8d7b86ff0e20d7028c409e9"
+    },
+    "deadline_source_review": {
+      "path": "/tmp/lean-harness-absolute-deadline-review-20261109/evidence.json",
+      "sha256": "2098686d35b3b7afebf2a3cc1383d7096c1fe3ab14cd89d07f01f2a65c58e5f7"
+    },
+    "actual_timeout_trace": {
+      "path": "/tmp/lean-harness-settled-timeout-actual-trace-20261109-v2/evidence.json",
+      "sha256": "d05a44565eef43403f929bf9b65b91ad6d37a5fd2ac156c9e33e98bbf339f6f9"
+    },
+    "independent_context_reconstruction": {
+      "path": "/tmp/lean-harness-eval-schema5-context3-actual-v2-20261109/actual-trace-crosscheck.json",
+      "sha256": "1ebfc3a59133eceae572256a45373f43d2031b5e704542d0f8a33d3fec810be6"
+    },
+    "proxy_build": {
+      "path": "/tmp/lean-harness-deadline-proxy-build-20261109.log",
+      "sha256": "ee692bcb3b694b11c6b79feea98660a36b759bd3ee9f53853dcdbed89f2b08e4"
+    },
+    "pi_adapter_fake_http": {
+      "path": "/tmp/lean-harness-deadline-pi-adapter-20261109.log",
+      "sha256": "6c9fa6688854af74bd9bdad77de17a348f552bf14baf094d5ee4fa24ee04dc8b"
+    }
+  },
+  "retained_attempts": {
+    "first_build_test_type_failure": {
+      "path": "/tmp/lean-harness-deadline-combined-build-20261109.log",
+      "sha256": "124f58591e4c041908f72a4dfcd522201840c6c51f0968f3bcdf77de000d64e9"
+    },
+    "successful_build": {
+      "path": "/tmp/lean-harness-deadline-combined-build-20261109-v2.log",
+      "sha256": "ff98263d93f8e000b4beafde2ce705d7267e1812b572bebdfc947d7df2adc16b"
+    },
+    "first_provider_fixture_interception_failure": {
+      "path": "/tmp/lean-harness-absolute-deadline-contracts-20261109-v1/result.json",
+      "sha256": "267dfd39dd79587ce84912a722fa118a0a53d7a9fe01a49ba9b04df90af29ac7"
+    },
+    "corrected_focused_provider_fixture": {
+      "path": "/tmp/lean-harness-absolute-deadline-contracts-20261109-v2/result.json",
+      "sha256": "fea85bac59ed0991bbd69650146e3c3a98d97ea8bdcc673a275665df84fca63f"
+    }
+  },
+  "limitations": [
+    "Physical settlement remains an adapter/OS contract; clocks cannot preempt a blocked trusted syscall.",
+    "No current-candidate live task-quality claim; prior calibration/sustained outcomes remain unchanged.",
+    "Three historical sandbox cleanup failures remain unexplained.",
+    "Extended IO, capacity and standalone packaging require separate evidence."
+  ],
+  "eval_proxy_sha256": "57488d57103ce65a3f324df4255cb3ae37c6d436cb873eac762568feaae99390"
+}

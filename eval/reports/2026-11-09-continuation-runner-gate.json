@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "scope": "actual public.run_one with localhost fake SSE, broker accounting, production bwrap tools, safe75 restart, stopped trusted snapshot and fresh Docker grader; no paid requests",
+  "run_id": "offline-sphinx-fixture-lean-0-4161d739",
+  "harness_sha256": "bf2b090dda48d5352e5c2377c400f6937eae53bc8d805fe4fc56c1addba1a6cf",
+  "provider_attempts": 5,
+  "tool_dispatches": 4,
+  "invocation_exits": [
+    75,
+    0
+  ],
+  "accepted_summaries": 2,
+  "continuation_audit": {
+    "run": "offline-sphinx-fixture-lean-0-4161d739",
+    "status": "passed",
+    "successful_summaries": 2,
+    "summary_operation_ids": [
+      8,
+      17
+    ],
+    "restart_operations": [
+      12
+    ],
+    "post_summary_restart_operations": [
+      12
+    ],
+    "process_invocations": 2,
+    "model_attempts": 5,
+    "tool_dispatches": 4,
+    "unknown_usage": 0,
+    "raw_history_messages": 6,
+    "journal_frames": 42,
+    "accounted_usd": 0.0012799999999999999
+  },
+  "verified_artifacts": 2,
+  "snapshot_git_filter_inert": true,
+  "no_candidate_exec_after_stop": true,
+  "candidate_removed": true,
+  "session_integrity": {
+    "passed": true,
+    "journal_frames": 42,
+    "model_attempts": 5,
+    "tool_dispatches": 4,
+    "verified_artifacts": 2,
+    "verified_artifact_bytes": 8194,
+    "usage": {
+      "known_input_tokens": 70,
+      "known_output_tokens": 50,
+      "core_unknown_attempts": 0,
+      "provider_unknown_attempts": 0,
+      "attempts_aligned": true,
+      "matched_known_attempts": 5,
+      "known_core_unknown_provider": 0,
+      "unknown_core_known_provider": 0
+    },
+    "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+  },
+  "memory": {
+    "method": "sampled cgroup-v2 memory.current",
+    "scope": "whole candidate container during agent invocation",
+    "includes_page_cache": true,
+    "is_process_rss": false,
+    "sampling_interval_seconds": 0.1,
+    "samples": 20,
+    "baseline_bytes": 22122496,
+    "sampled_peak_bytes": 191098880,
+    "elapsed_seconds": 1.962,
+    "unavailable_reason": null
+  },
+  "paid_cost_usd": 0,
+  "scope_notes": [
+    "Scripted responses contain deliberately padded text to trigger compaction. This is an evaluation-pipeline mechanism gate, not evidence of summary quality or useful long-task performance.",
+    "The continuation auditor reconciles synthetic usage against a local fake-HTTP broker ledger; its accounted_usd is a calculated fixture value, not an API payment."
+  ],
+  "raw_report_sha256": "2b5e94fda7f2a8fdee83d13f08ebaa6ff248fac3676c30b3080f366a61fdf600",
+  "driver_sha256": "a7e677bb801dea4ecc314ad3467f21f7ca28d83469d25894f0a4d478254405f2"
+}

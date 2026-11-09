@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "date": "2026-11-09",
+  "result": "passed",
+  "scope": "Fresh product-only build and scripted sandboxed CLI workflow on the supported Linux host. Existing system dependencies/toolchains and dependency download caches reused. No model API calls; separate from hosted CI and task-quality evaluation.",
+  "binary_sha256": "eed8666165f9347037a0726d4779852cf27bb13aaa20f8a0e2a1e1975c0907e5",
+  "matches_frozen_product_binary": true,
+  "source": {
+    "snapshot_inventory_sha256": "969e958344aa355f21229fc148c4e6280268ae401ce330004edf1d52799ef9f8",
+    "snapshot_files": 110,
+    "product_build_inventory_sha256": "2547c22b6e293da0dc444c018eb2cf0ed9e96b28d09b0b1415af192e6481f81b",
+    "product_build_files": 60,
+    "excluded": [
+      ".lake",
+      ".git",
+      "eval",
+      "docs/NextMilestone.md"
+    ],
+    "unchanged_during_validation": true,
+    "private_evidence_directory": "/tmp/lean-harness-clean-install-v2-20261109"
+  },
+  "tool_versions": {
+    "lean": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+    "bubblewrap": "bubblewrap 0.9.0"
+  },
+  "build": {
+    "jobs": 1567,
+    "elapsed_seconds": 85.677,
+    "cache_reuse": "Fresh source, dependency checkouts and product/Rust build outputs. Installed toolchains, Cargo registry sources and downloaded Mathlib artifacts may be reused.",
+    "dependency_cache_command": "lake exe cache get --cache-from=master Mathlib.Data.PFunctor.Univariate.Basic",
+    "cache_scope_note": "--cache-from=master (existing/downloaded artifacts; not a cache-free dependency rebuild)",
+    "commands": [
+      "lake build",
+      "python3 scripts/check_core.py",
+      ".lake/build/bin/harness_tests",
+      ".lake/build/bin/runtime_properties"
+    ]
+  },
+  "checks": {
+    "exact_name_theorem_audit": {
+      "passed": true,
+      "names": 100
+    },
+    "executable_core_tests_passed": true,
+    "io_properties": {
+      "passed": true,
+      "cases": 100,
+      "seeds": [
+        52000,
+        52099
+      ]
+    },
+    "stateful_io": {
+      "passed": true,
+      "sequences": 200,
+      "operations_per_sequence": 30,
+      "seeds": [
+        61000,
+        61199
+      ]
+    },
+    "bubblewrap_namespace_prerequisite_passed": true,
+    "adapter_matrix_not_repeated": "The fresh executable and runtime test binaries match the separately recorded 129-check adapter gate exactly."
+  },
+  "smoke": {
+    "runtime_profile": "bubblewrap",
+    "path": "/nonexistent",
+    "scripted_provider": true,
+    "paid_calls": 0,
+    "run_exit": 0,
+    "elapsed_seconds": 1.629,
+    "model_attempts": 4,
+    "tool_dispatches": 3,
+    "process_check_exit": 0,
+    "expected_file_bytes": true,
+    "inspect_equals_replay": true,
+    "terminal_resume_does_not_append": true,
+    "journal_sha256": "74a44d0213ae70b8c2df996c466ef43d91e055969d6e8390912c70ba7dc754f8",
+    "execve_trace_sha256": "4df7ab448d85c6740c328d7b265232a0545a9a9f285dcdb225c765b535289ebb",
+    "python_exec_observed": false,
+    "evaluation_sources_present": false
+  },
+  "binary_identities": {
+    "harness": "eed8666165f9347037a0726d4779852cf27bb13aaa20f8a0e2a1e1975c0907e5",
+    "harness_tests": "23dba4fd0c4c8dc3afce04d0ec755de1398161cf3807215dd387b60bbd5ce765",
+    "runtime_contracts": "d1e77cf600327c4c9c8830ddf36d0ab334b1cd059f1dfcb77387cbbb79664a7c",
+    "runtime_properties": "289280fb6994bdac0e3aa9fcf05391d8ef708639aeb94fb17d951578016d9ecc"
+  },
+  "logs_sha256": {
+    "dependencies.log": "8000d314209d2449bab047b9faf86209376f20d2b86fa652cf2b27a31a5acd46",
+    "build.log": "fb81d3b7e0328f68f4747a6a9ca5528680980817821eaa41e39c0d21f633d2e3",
+    "audit.log": "1a9bdcea1ca6be411655e3edd2d349c1855e723ef4842fcae663d6c5991a6f74",
+    "core-tests.log": "7d24f16dc2c9e161730052f99e48ab0aa5a45d334e4b87b58360a84c44d2b064",
+    "runtime-properties.log": "1ed07fdbc8556635d32cb4e2ca975048ae0c498a20e0db162b6f79c40b51257c",
+    "sandbox-prerequisite.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "smoke-driver.log": "a96bd6bf928febf906a5c9f86cd14f20f631f63fa572d2d855bf465be7b5e90a"
+  },
+  "preservation": {
+    "binary_archive_sha256": "fca5fcab61ce31c4d5b392a2562104b77fc4013b09d4ed73b9fcc324393c4440",
+    "binary_archive_bytes": 155300762,
+    "archive_compared_before_raw_binaries_removed": true,
+    "generated_build_cache_removed": true,
+    "preserved_binary_replays_after_build_cache_removal": true
+  },
+  "limitations": [
+    "Installed system dependencies and pinned toolchains were reused; this is not a clean operating-system installation or cache-free dependency rebuild.",
+    "Python ran the test driver and source audit; execve tracing found no Python process launched by the standalone harness.",
+    "No model API calls were made. This gate does not measure task quality or resolve the three previously unexplained sandbox cleanup deadlines."
+  ]
+}

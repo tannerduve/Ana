@@ -1,0 +1,314 @@
+{
+  "scope": "synthetic real CLI capacity; loopback provider, no paid calls or task-quality claim",
+  "memory_measurement": "GNU time maximum per-process RSS of the command and waited-for children; not simultaneous process-tree memory",
+  "driver_sha256": "3679909c88c0336b230bc0a12849c8f8f45312e4de5ce47fa5f07b79070868ca",
+  "streaming_fixture_sha256": "8412fd0c47be55cfd55125d5e7df8c9fb43fc2400e523031acca5a868f18eb99",
+  "binary_sha256": "25a816665c95f9011183091723fd6bc3f62db15f954fb5c199109d784aa025e4",
+  "config": {
+    "model": "capacity-fixture",
+    "workspace": "/tmp/lean-harness-session-capacity-schema7-20261111-v2/workspace",
+    "commands": "allow",
+    "executionProfile": "bubblewrap",
+    "compactionEnabled": false,
+    "maxModelAttempts": 80,
+    "maxToolCalls": 100,
+    "maxContextBytes": 1300000,
+    "maxRetries": 0,
+    "maxToolOutputBytes": 16384,
+    "maxElapsedMs": 1200000,
+    "operationTimeoutMs": 30000,
+    "maxArtifactBytes": 16777216,
+    "maxSessionArtifactBytes": 67108864,
+    "testEndpoint": "http://127.0.0.1:33221/messages"
+  },
+  "run": {
+    "exit_code": 2,
+    "seconds": 40.204212591052055,
+    "peak_worker_rss_kib": 310484
+  },
+  "inspect": {
+    "exit_code": 0,
+    "seconds": 4.32391879055649,
+    "peak_worker_rss_kib": 594332
+  },
+  "replay": {
+    "exit_code": 0,
+    "seconds": 4.2231210470199585,
+    "peak_worker_rss_kib": 576804
+  },
+  "requests": [
+    {
+      "bytes": 5737,
+      "seconds": 0.4179524965584278
+    },
+    {
+      "bytes": 1124073,
+      "seconds": 12.476928628981113
+    },
+    {
+      "bytes": 1124748,
+      "seconds": 12.984909758903086
+    },
+    {
+      "bytes": 1125239,
+      "seconds": 13.473054965958
+    },
+    {
+      "bytes": 1142613,
+      "seconds": 14.15799512155354
+    },
+    {
+      "bytes": 1143098,
+      "seconds": 14.639057798311114
+    },
+    {
+      "bytes": 1143583,
+      "seconds": 15.118366396054626
+    },
+    {
+      "bytes": 1144068,
+      "seconds": 15.598126682452857
+    },
+    {
+      "bytes": 1144553,
+      "seconds": 16.081920012831688
+    },
+    {
+      "bytes": 1145038,
+      "seconds": 16.563396198675036
+    },
+    {
+      "bytes": 1145523,
+      "seconds": 17.04805399570614
+    },
+    {
+      "bytes": 1146010,
+      "seconds": 17.534629501402378
+    },
+    {
+      "bytes": 1146497,
+      "seconds": 18.01522240228951
+    },
+    {
+      "bytes": 1146984,
+      "seconds": 18.498716458678246
+    },
+    {
+      "bytes": 1147471,
+      "seconds": 18.992119764909148
+    },
+    {
+      "bytes": 1147958,
+      "seconds": 19.47800576221198
+    },
+    {
+      "bytes": 1148445,
+      "seconds": 19.96231368649751
+    },
+    {
+      "bytes": 1148932,
+      "seconds": 20.445617052726448
+    },
+    {
+      "bytes": 1149419,
+      "seconds": 20.92658367101103
+    },
+    {
+      "bytes": 1149906,
+      "seconds": 21.410003664903343
+    },
+    {
+      "bytes": 1150393,
+      "seconds": 21.892535887658596
+    },
+    {
+      "bytes": 1150880,
+      "seconds": 22.382126461714506
+    },
+    {
+      "bytes": 1151367,
+      "seconds": 22.86850601900369
+    },
+    {
+      "bytes": 1151854,
+      "seconds": 23.35467671882361
+    },
+    {
+      "bytes": 1152341,
+      "seconds": 23.845611238852143
+    },
+    {
+      "bytes": 1152828,
+      "seconds": 24.32622987125069
+    },
+    {
+      "bytes": 1153315,
+      "seconds": 24.813165112398565
+    },
+    {
+      "bytes": 1153802,
+      "seconds": 25.299272884614766
+    },
+    {
+      "bytes": 1154289,
+      "seconds": 25.795062572695315
+    },
+    {
+      "bytes": 1154776,
+      "seconds": 26.280688140541315
+    },
+    {
+      "bytes": 1155263,
+      "seconds": 26.76965077687055
+    },
+    {
+      "bytes": 1155750,
+      "seconds": 27.25899661704898
+    },
+    {
+      "bytes": 1156237,
+      "seconds": 27.745396674610674
+    },
+    {
+      "bytes": 1156724,
+      "seconds": 28.22872327361256
+    },
+    {
+      "bytes": 1157211,
+      "seconds": 28.726612879894674
+    },
+    {
+      "bytes": 1157698,
+      "seconds": 29.22645233850926
+    },
+    {
+      "bytes": 1158185,
+      "seconds": 29.716351197101176
+    },
+    {
+      "bytes": 1158672,
+      "seconds": 30.228562215343118
+    },
+    {
+      "bytes": 1159159,
+      "seconds": 30.723653317429125
+    },
+    {
+      "bytes": 1159646,
+      "seconds": 31.211297464556992
+    },
+    {
+      "bytes": 1160133,
+      "seconds": 31.700293539091945
+    },
+    {
+      "bytes": 1160620,
+      "seconds": 32.19031459465623
+    },
+    {
+      "bytes": 1161107,
+      "seconds": 32.72755260299891
+    },
+    {
+      "bytes": 1161594,
+      "seconds": 33.21755848545581
+    },
+    {
+      "bytes": 1162081,
+      "seconds": 33.7091373000294
+    },
+    {
+      "bytes": 1162568,
+      "seconds": 34.204111753962934
+    },
+    {
+      "bytes": 1163055,
+      "seconds": 34.69750281795859
+    },
+    {
+      "bytes": 1163542,
+      "seconds": 35.197957773692906
+    },
+    {
+      "bytes": 1164029,
+      "seconds": 35.68450576253235
+    },
+    {
+      "bytes": 1164516,
+      "seconds": 36.17633456829935
+    },
+    {
+      "bytes": 1165003,
+      "seconds": 36.679365403950214
+    },
+    {
+      "bytes": 1165490,
+      "seconds": 37.17374326009303
+    },
+    {
+      "bytes": 1165977,
+      "seconds": 37.674391619861126
+    },
+    {
+      "bytes": 1166464,
+      "seconds": 38.166460872627795
+    },
+    {
+      "bytes": 1166951,
+      "seconds": 38.66148521192372
+    },
+    {
+      "bytes": 1167438,
+      "seconds": 39.15197703335434
+    },
+    {
+      "bytes": 1167925,
+      "seconds": 39.637197671458125
+    },
+    {
+      "bytes": 1168412,
+      "seconds": 40.12275726441294
+    }
+  ],
+  "model_requests": 58,
+  "tool_dispatches": 61,
+  "reserved_model_attempts": 58,
+  "pending": true,
+  "terminal": false,
+  "unresolved_intents": [
+    {
+      "action": {
+        "call": {
+          "id": "read-57",
+          "operation": {
+            "readFile": {
+              "args": {
+                "endLine": 200,
+                "path": "verified.txt",
+                "startLine": 1
+              }
+            }
+          }
+        },
+        "kind": "tool"
+      },
+      "editWitness": null,
+      "id": 294,
+      "kind": "intent"
+    }
+  ],
+  "storage_boundary": "completion",
+  "journal_frames": 590,
+  "journal_bytes": 67108529,
+  "artifact_bytes": 67108864,
+  "artifact_count": 5,
+  "beyond_display_retrieval": true,
+  "zero_retained_quota_marker": true,
+  "storage_refusal_preserved_replay": true,
+  "no_unjournaled_model_dispatch": true,
+  "previous_fixture_failure": {
+    "log": "/tmp/lean-harness-durable-validation-20261111/session-capacity.log",
+    "reason": "Old fixture assumed pending=false at quota; this candidate exhausted quota while saving a read completion. Corrected fixture validates exact remaining intent and reservation without assuming frame sizes.",
+    "product_changed": false
+  }
+}

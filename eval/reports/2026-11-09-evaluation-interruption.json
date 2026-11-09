@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "tests": 5,
+  "paid_calls": 0,
+  "image_id": "sha256:008173c23f95b170204355c12626cb5a965d779a7e1283b09e9cffbb1bf33ca3",
+  "scope": "Actual Docker containers plus public.run_one with one real localhost fake-Broker request and injected blocking agent invocation. Tests lifecycle cleanup and accounting, not real model behavior.",
+  "cases": [
+    "SIGINT unwinds actual run_one, removes owned candidate and saves one settled fake-provider attempt",
+    "SIGKILL leaves running candidate until explicit exact-token recovery; unrelated container survives",
+    "Lost Docker create acknowledgement reconciles exact durable label without returned ID",
+    "Corrupt header and failed ownership discovery report uncertainty without removing unrelated resources",
+    "Unacknowledged creation plus empty daemon scan remains uncertain; no automatic retry",
+    "Malformed non-object ownership headers fail closed; observed lost create acknowledgement stays reconciled on repeated cleanup"
+  ],
+  "file_sha256": {
+    "runner/resource_owner.py": "eccf7ca84cf21ea98a8d5780ece50b1847253d71687413845ea4417674377e09",
+    "runner/public_bench.py": "e36b0747ea6588d7b828317bd9b29e164d6a531957aad1b091685b0aeb42a775",
+    "runner/sustained.py": "7b3f8aaba7911702e6dd0dac6a06197154e907d64bf5f60adc086fb027f458f8",
+    "Tests/evaluation_interrupt.py": "97bf000c5434037ee094861f8c6b87becf8aa96c762a707f8dc706d8991b74bb",
+    "docker-interruption-tests-v3.log": "7a5741f0172b66265c8b969ec01331c247e627c544389e08104cfd129f043fe6"
+  },
+  "version": 3,
+  "coordinator_signal_test": {
+    "passed": true,
+    "cases": 4,
+    "scope": "SIGINT and SIGTERM, cooperative and stubborn runner; actual collect_results plus merge_results preserves started unknown attempt and remaining unrun slots. Checks runner leader termination/reaping; independent descendant behavior is not claimed.",
+    "source_sha256": "3c79c2e4e1ec2926787e876f9570978138312ac584d769e9fa3d52c39d5e3558",
+    "coordinator_sha256": "63d67e692b395ff52510996738e0168cff98e028abf4001f6e2a1f136fad799b"
+  },
+  "raw_evidence_sha256": "499f9345693ee6b244ab808f39f53ca6aa9a06c662273237b00a7acf945f1919",
+  "product_binary_unchanged": "eed8666165f9347037a0726d4779852cf27bb13aaa20f8a0e2a1e1975c0907e5",
+  "limitations": [
+    "Candidate/profile containers created through the runner are covered. Official SWE-bench SDK grader containers are outside this ownership hook.",
+    "Docker and private ownership-journal storage are trusted. Unknown create outcomes and failed cleanup prevent further paid work.",
+    "The coordinator is campaign-specific and retained with the frozen evaluation source archive; its signal cases do not prove arbitrary descendant cleanup.",
+    "These local tests are separate from the 129 production adapter checks and do not require or validate a real model response."
+  ]
+}

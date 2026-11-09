@@ -1,0 +1,75 @@
+{
+  "version": 4,
+  "date": "2026-11-09",
+  "result": "passed",
+  "session_schema": 5,
+  "scope": "Fresh product source and product/Rust outputs; existing pinned .lake/packages checkout and compiled dependency artifacts, installed Lean/Rust toolchains, cargo registry cache and native system libraries reused. No evaluation source, Docker or model calls. Not a clean OS or cache-free build.",
+  "binary_identities": {
+    "harness": "53a0665d8d5a60e53fece784943ca1c9defef3a6aeb7f3f16904e77b9a933d7c",
+    "harness_tests": "544dbd5fca2ff6aa4bc326402ace2aedba886ec4a19d2398fc9d951ff0130c98",
+    "runtime_contracts": "fca36a823fec33f9d30c316763f3703156b867fce0d0b0743479248f4dd39c18",
+    "runtime_properties": "886326ac69417dcd03b185fef91d0df42d87ca953ac9181858d1ee7770616f38"
+  },
+  "all_four_match_validated_main_binaries": true,
+  "source": {
+    "files": 103,
+    "inventory_sha256": "79a2deadfd03b02cc70c05fb2f85f6a720e424f599ac67d50cd82ff187e02471",
+    "unchanged_during_validation": true,
+    "evaluation_sources_present": false,
+    "local_plan_present": false,
+    "evidence_directory": "/tmp/lean-harness-clean-install-schema5-20261109-v2"
+  },
+  "build": {
+    "exit_code": 0,
+    "elapsed_seconds": 76.14983403589576,
+    "log_sha256": "de2d2aaf87e578d55aa7d4f3b5954b26466b4ff102fb16bb7d1634d41f3f58c8",
+    "fresh_product_and_rust_outputs": true,
+    "dependency_build_cache_reused": true,
+    "jobs": 1583
+  },
+  "tool_versions": {
+    "lean": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)"
+  },
+  "smoke": {
+    "runtime_profile": "bubblewrap",
+    "path": "/nonexistent",
+    "scripted_provider": true,
+    "paid_calls": 0,
+    "run_exit": 0,
+    "elapsed_seconds": 1.133,
+    "model_attempts": 4,
+    "tool_dispatches": 3,
+    "process_check_exit": 0,
+    "expected_file_bytes": true,
+    "inspect_equals_replay": true,
+    "terminal_resume_does_not_append": true,
+    "journal_sha256": "93e549b998531fcb0154ab4a0421a21baf936ff9cb432f5cd7562f1871c843da",
+    "execve_trace_sha256": "96a427b0c738730c182c7ec2864caee24e09926a286a2dae91cdf5c324938bce",
+    "python_exec_observed": false,
+    "evaluation_sources_present": false
+  },
+  "cleanup": {
+    "own_generated_product_build_removed": true,
+    "dependency_cache_preserved": true,
+    "main_binary_replays_smoke_after_removal": true,
+    "all_four_identical_main_binaries_retained": true
+  },
+  "evidence_sha256": {
+    "evidence.json": "c4ffacd08014ebe55c761696e53c683738e38433edd17de2fe7743b397bbe3f5",
+    "binary-identities.json": "c34709ec9801c72351eb220787b6f079cc767881d704a4505ab60d1ebea2fc11",
+    "smoke-evidence.json": "ed0095c74e1003aaf71beeaf51f8c787fa92180d87a153cd7c232e721ea98ef3",
+    "cleanup-evidence.json": "f436c05924be5d566977f5d112542eb635aaf48430af0c903ecba22e8ed37861",
+    "source-inventory.json": "79a2deadfd03b02cc70c05fb2f85f6a720e424f599ac67d50cd82ff187e02471",
+    "build_smoke.py": "44103b968d11cb481cae063a309ede4389c5189348e8f2d6fb3c43145709503a",
+    "smoke.py": "548ca17bfc52f99f7d9f764e639923c7d6525cfb8395cdbd42253bee63e79b4a",
+    "plan.json": "0b15cd682b749c53005d44c5081f208a4a1166d3bccfaac221ed095e9a2847b0"
+  },
+  "validation_scope": "Fresh product/Rust build reproduces the four binaries in adapter-checks-v6 and extended-io-v2. Hosted clean-machine CI is a separate gate.",
+  "limitations": [
+    "Pinned dependency checkouts and their compiled artifacts, installed toolchains, Cargo registry cache and native libraries were reused; not a clean OS or cache-free build.",
+    "Python ran the test driver; execve tracing observed no Python process launched by the harness.",
+    "Scripted provider only; no paid calls or task-quality measurement."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "scope": "One current exact weekly environment measurement on a shared development host; offline image/profile work may run concurrently. Not a hosted-CI timing guarantee.",
+  "binary_sha256": "886326ac69417dcd03b185fef91d0df42d87ca953ac9181858d1ee7770616f38",
+  "elapsed_seconds": 252.18464780878276,
+  "data_cases": 100,
+  "filesystem_sequences": 2000,
+  "operations_per_sequence": 100,
+  "recovery_sequences": 40,
+  "turns_per_recovery_sequence": 12,
+  "source_and_binary_unchanged": true,
+  "result": {
+    "path": "/tmp/lean-harness-extended-deadline-20261109/result.json",
+    "sha256": "d97b24010d67bf401c0860e315cd9e1df658e983dee17330c3b81a9bbfad2102"
+  },
+  "log_sha256": "33ab3ed7e3721f552f07341ebeaaa74ac2e98b8d17b6c58ec7e3021d009f33c2",
+  "limitations": [
+    "Shared development host, not hosted-CI timing or live task-quality evidence.",
+    "Earlier candidate measurement remains retained separately."
+  ]
+}

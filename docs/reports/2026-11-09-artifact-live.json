@@ -1,0 +1,71 @@
+{
+  "run_id": "artifact-tail-mechanism-lean-harness-artifact-live-20261109-v2",
+  "passed": true,
+  "development_mechanism_only": true,
+  "exit_code": 0,
+  "admission_refused": null,
+  "provider_attempts": 7,
+  "accounted_usd": 0.156556,
+  "session_integrity": {
+    "passed": true,
+    "journal_frames": 74,
+    "model_attempts": 7,
+    "tool_dispatches": 8,
+    "verified_artifacts": 2,
+    "verified_artifact_bytes": 2359359,
+    "usage": {
+      "known_input_tokens": 34099,
+      "known_output_tokens": 1008,
+      "core_unknown_attempts": 0,
+      "provider_unknown_attempts": 0,
+      "attempts_aligned": true,
+      "matched_known_attempts": 7,
+      "known_core_unknown_provider": 0,
+      "unknown_core_known_provider": 0
+    },
+    "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+  },
+  "artifact_mechanism": {
+    "passed": true,
+    "first_failed_check": {
+      "operation": 3,
+      "artifact": "a-36bef2d362fb44b0336554a8beab189b549316353fd7bee99033ee00255ee191"
+    },
+    "retained_tail_read": {
+      "operation": 17,
+      "id": "a-36bef2d362fb44b0336554a8beab189b549316353fd7bee99033ee00255ee191",
+      "offset": 1179337,
+      "length": 1000
+    },
+    "subsequent_edit": {
+      "operation": 22
+    },
+    "subsequent_passing_check": {
+      "operation": 27
+    },
+    "scope": "failed-check bytes, later artifact-tail read and later passing check observed; final filesystem checker independently judges repair, without claiming causal necessity of the read"
+  },
+  "independent_check": {
+    "check_exit_code": 0,
+    "check_sha256": "ffb2cc84dfa4fbe20eb362a459d63a2bc95e0ceaaae15ff24e17f5c1ebf55844",
+    "stdout_sha256": "4f857e5c34440510b6d48351580649080d8c9a015d5e12ee99b72ea563d9bc59",
+    "stdout_bytes": 1179662,
+    "pair_count": 1681,
+    "pair_exit_code": 0,
+    "completion_markers": true,
+    "passed": true
+  },
+  "unknown_usage_requests": 0,
+  "previous_accounted_usd": 0.009696,
+  "cumulative_mechanism_usd": 0.166252,
+  "elapsed_seconds": 14.042,
+  "binary_sha256": "bf2b090dda48d5352e5c2377c400f6937eae53bc8d805fe4fc56c1addba1a6cf",
+  "raw_report_sha256": "33d288cf2535e8a2bc5a5b4ed9c730b829ceca558a6ecf9341dada3a4864bd42",
+  "previous_attempt": {
+    "version": 1,
+    "classification": "fixture environment failure",
+    "detail": "Requested python executable was absent from the production sandbox; harness stopped with recoveryRequired. Version 2 specified the preflighted /usr/bin/python3 command. No automatic retry.",
+    "cost_usd": 0.009696
+  },
+  "scope": "Self-authored mechanism test, not held-out task-quality evidence."
+}

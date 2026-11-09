@@ -1,0 +1,6 @@
+[
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"totals","name":"warehouse_totals","input":{}}]},
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"page-0","name":"low_stock","input":{"warehouse":"north","offset":0,"limit":1}}]},
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"page-1","name":"low_stock","input":{"warehouse":"north","offset":1,"limit":1}},{"type":"tool_use","id":"item","name":"lookup","input":{"sku":"N-CABLE"}}]},
+  {"type":"message","role":"assistant","stop_reason":"end_turn","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"text","text":"After the stock update, warehouse north has the largest shortfall: 15 units. Replenish N-CABLE (USB cables) by 8 units and N-TAPE (Packing tape) by 7 units. South now needs only 3 units. Both north pages were retrieved, and the lookup confirms N-CABLE has 12 on hand and a reorder point of 20."}]}
+]

@@ -1,0 +1,337 @@
+{
+  "schema_version": 1,
+  "label": "public benchmark setup and verifier attempt history; candidate results reported separately",
+  "original_preselection": [
+    "openssl-selfsigned-cert",
+    "prove-plus-comm",
+    "psf__requests-2317",
+    "pallets__flask-4045"
+  ],
+  "additional_before_model_task": "django__django-11099",
+  "requests_status": "Preflight-ineligible. No candidate model calls. Original two planned slots retained.",
+  "coq_repair": "HTTPS and main-only signed Ubuntu package indexes for curl setup. Task files and official verifier scripts unchanged. Baseline/reference gate passed before separately labeled candidate retries.",
+  "attempts": [
+    {
+      "stage": "initial-swe-gold-preflight",
+      "source_directory": "lean-harness-public-preflight",
+      "timeout_seconds": 240,
+      "source_sha256": "80b0388b02d5285765695e81d790abce178c147397b0766ad4661488c2e11292",
+      "official_report": {
+        "total_instances": 2,
+        "submitted_instances": 2,
+        "completed_instances": 1,
+        "resolved_instances": 1,
+        "unresolved_instances": 0,
+        "infra_failure_instances": 0,
+        "ambiguous_failure_instances": 1,
+        "empty_patch_instances": 0,
+        "error_instances": 1,
+        "completed_ids": [
+          "pallets__flask-4045"
+        ],
+        "incomplete_ids": [],
+        "empty_patch_ids": [],
+        "submitted_ids": [
+          "pallets__flask-4045",
+          "psf__requests-2317"
+        ],
+        "resolved_ids": [
+          "pallets__flask-4045"
+        ],
+        "unresolved_ids": [],
+        "infra_failure_ids": [],
+        "ambiguous_failure_ids": [
+          "psf__requests-2317"
+        ],
+        "failure_reasons": {
+          "psf__requests-2317": "tests_timed_out"
+        },
+        "error_ids": [
+          "psf__requests-2317"
+        ],
+        "schema_version": 2,
+        "unstopped_instances": 0,
+        "unstopped_containers": [],
+        "unremoved_images": []
+      }
+    },
+    {
+      "stage": "initial-terminal-bench-baseline-reference",
+      "source_directory": "lean-harness-tb-preflight",
+      "source_sha256": "b549f6c341881ca553085c5331e72a50ea3a9213b2fcd6441b7b9ccb94f96af5",
+      "results": [
+        {
+          "task_id": "openssl-selfsigned-cert",
+          "baseline": {
+            "official_verifier_exit": 0,
+            "resolved": false,
+            "official_reward": "0",
+            "ctrf_sha256": "fd7e73a3cec51e985a8fe07cc44f4154cc81dbdd2d6641ad011f6aeb36565312"
+          },
+          "reference": {
+            "official_verifier_exit": 0,
+            "resolved": true,
+            "official_reward": "1",
+            "ctrf_sha256": "7ba6e9a54c56574c2e02128fd6510fa0ccbd9d31512c79cba4d2386f0c503950"
+          },
+          "ready": true
+        },
+        {
+          "task_id": "prove-plus-comm",
+          "baseline": {
+            "official_verifier_exit": 0,
+            "resolved": false,
+            "official_reward": "0",
+            "ctrf_sha256": "e56806cff495ac1b0f2f231312868f308f1e0720b28b91c9e9f4c8aeb8b5c806"
+          },
+          "reference": {
+            "official_verifier_exit": 0,
+            "resolved": true,
+            "official_reward": "1",
+            "ctrf_sha256": "1125ce002514dedca4df509cb4fd0f4b6ced38d5ae56c966b3f99ecf6599f10b"
+          },
+          "ready": true
+        }
+      ]
+    },
+    {
+      "stage": "flask-baseline-reference",
+      "source_directory": "lean-harness-flask-preflight",
+      "source_sha256": "d48e98c629ea41624a9fa5e4459e54d3afe1c27a3eda52d6fc7bc30a9a46c240",
+      "results": [
+        {
+          "task_id": "pallets__flask-4045",
+          "baseline": {
+            "resolved": false,
+            "official_report": {
+              "total_instances": 1,
+              "submitted_instances": 1,
+              "completed_instances": 1,
+              "resolved_instances": 0,
+              "unresolved_instances": 1,
+              "infra_failure_instances": 0,
+              "ambiguous_failure_instances": 0,
+              "empty_patch_instances": 0,
+              "error_instances": 0,
+              "completed_ids": [
+                "pallets__flask-4045"
+              ],
+              "incomplete_ids": [],
+              "empty_patch_ids": [],
+              "submitted_ids": [
+                "pallets__flask-4045"
+              ],
+              "resolved_ids": [],
+              "unresolved_ids": [
+                "pallets__flask-4045"
+              ],
+              "infra_failure_ids": [],
+              "ambiguous_failure_ids": [],
+              "failure_reasons": {},
+              "error_ids": [],
+              "schema_version": 2,
+              "unstopped_instances": 0,
+              "unstopped_containers": [],
+              "unremoved_images": []
+            },
+            "official_verifier_exit": 0,
+            "run_id": "public-cf34a8802309",
+            "report_sha256": "8253762e4217290c63402ae60e828b2a7693d30d7ad1f35798a9071d1077e71e"
+          },
+          "reference": {
+            "resolved": true,
+            "official_report": {
+              "total_instances": 1,
+              "submitted_instances": 1,
+              "completed_instances": 1,
+              "resolved_instances": 1,
+              "unresolved_instances": 0,
+              "infra_failure_instances": 0,
+              "ambiguous_failure_instances": 0,
+              "empty_patch_instances": 0,
+              "error_instances": 0,
+              "completed_ids": [
+                "pallets__flask-4045"
+              ],
+              "incomplete_ids": [],
+              "empty_patch_ids": [],
+              "submitted_ids": [
+                "pallets__flask-4045"
+              ],
+              "resolved_ids": [
+                "pallets__flask-4045"
+              ],
+              "unresolved_ids": [],
+              "infra_failure_ids": [],
+              "ambiguous_failure_ids": [],
+              "failure_reasons": {},
+              "error_ids": [],
+              "schema_version": 2,
+              "unstopped_instances": 0,
+              "unstopped_containers": [],
+              "unremoved_images": []
+            },
+            "official_verifier_exit": 0,
+            "run_id": "public-3d2fe62c6d01",
+            "report_sha256": "07ba2896f5b9ecc41b71b4c2480212e721d67a488d12626e00c2ca280befa1fc"
+          },
+          "ready": true
+        }
+      ]
+    },
+    {
+      "stage": "additional-django-baseline-reference",
+      "source_directory": "lean-harness-django-preflight",
+      "source_sha256": "c69b8816f8a0942322718f304da1f88f8b5a518a8559e25892c347778b3fc2e1",
+      "results": [
+        {
+          "task_id": "django__django-11099",
+          "baseline": {
+            "resolved": false,
+            "official_report": {
+              "total_instances": 1,
+              "submitted_instances": 1,
+              "completed_instances": 1,
+              "resolved_instances": 0,
+              "unresolved_instances": 1,
+              "infra_failure_instances": 0,
+              "ambiguous_failure_instances": 0,
+              "empty_patch_instances": 0,
+              "error_instances": 0,
+              "completed_ids": [
+                "django__django-11099"
+              ],
+              "incomplete_ids": [],
+              "empty_patch_ids": [],
+              "submitted_ids": [
+                "django__django-11099"
+              ],
+              "resolved_ids": [],
+              "unresolved_ids": [
+                "django__django-11099"
+              ],
+              "infra_failure_ids": [],
+              "ambiguous_failure_ids": [],
+              "failure_reasons": {},
+              "error_ids": [],
+              "schema_version": 2,
+              "unstopped_instances": 0,
+              "unstopped_containers": [],
+              "unremoved_images": []
+            },
+            "official_verifier_exit": 0,
+            "run_id": "public-af0483f5daca",
+            "report_sha256": "45109ae2baba46d4afafa6b61c22eed2368cbe45d75a722696f7bab68f338988"
+          },
+          "reference": {
+            "resolved": true,
+            "official_report": {
+              "total_instances": 1,
+              "submitted_instances": 1,
+              "completed_instances": 1,
+              "resolved_instances": 1,
+              "unresolved_instances": 0,
+              "infra_failure_instances": 0,
+              "ambiguous_failure_instances": 0,
+              "empty_patch_instances": 0,
+              "error_instances": 0,
+              "completed_ids": [
+                "django__django-11099"
+              ],
+              "incomplete_ids": [],
+              "empty_patch_ids": [],
+              "submitted_ids": [
+                "django__django-11099"
+              ],
+              "resolved_ids": [
+                "django__django-11099"
+              ],
+              "unresolved_ids": [],
+              "infra_failure_ids": [],
+              "ambiguous_failure_ids": [],
+              "failure_reasons": {},
+              "error_ids": [],
+              "schema_version": 2,
+              "unstopped_instances": 0,
+              "unstopped_containers": [],
+              "unremoved_images": []
+            },
+            "official_verifier_exit": 0,
+            "run_id": "public-5bfc0ea6aac1",
+            "report_sha256": "9a632bc8c55853cce1322218bbb4ff29416621f41fb34dc0397c73d87ed84734"
+          },
+          "ready": true
+        }
+      ]
+    },
+    {
+      "stage": "coq-https-main-only-baseline-reference",
+      "source_directory": "lean-harness-coq-main-preflight",
+      "source_sha256": "8dfe17602bf881100974353179587f5e94f78225e920f26033d35233654054b6",
+      "results": [
+        {
+          "task_id": "prove-plus-comm",
+          "baseline": {
+            "official_verifier_exit": 0,
+            "resolved": false,
+            "apt_https": true,
+            "apt_main_only": true,
+            "official_reward": "0",
+            "ctrf_sha256": "aac0eee47ab2aa3e24d740a405327d775f552c800d7008e5a803f35023d66a26"
+          },
+          "reference": {
+            "official_verifier_exit": 0,
+            "resolved": true,
+            "apt_https": true,
+            "apt_main_only": true,
+            "official_reward": "1",
+            "ctrf_sha256": "141f3f2d05acbbbd73db1825309664593ed029a41edd6c85a36c5a8a717d4e9e",
+            "additional_proof_integrity": true
+          },
+          "ready": true
+        }
+      ]
+    },
+    {
+      "stage": "requests-900-second-diagnostic",
+      "source_directory": "lean-harness-requests-preflight-900",
+      "source_sha256": "d70adf11bbae9504815d83e4eb087c5b95f7c4a7916f0209378dce8076d7fd54",
+      "status": {
+        "status": "interrupted_after_external_dependency_failure_confirmed",
+        "at": 1794193039.6708264,
+        "model_calls": 0,
+        "reason": "Unchanged pass-to-pass redirect test receives HTTPBIN 403 because google.co.uk no longer permitted; first gold run timed out at240s. No candidate grading attempted.",
+        "planned_candidate_runs": 2,
+        "disposition": "preflight-ineligible; retain in denominator"
+      }
+    },
+    {
+      "stage": "coq-https-only-diagnostic",
+      "source_directory": "lean-harness-coq-https-preflight",
+      "source_sha256": "9555a46f5cd373f61dd989f63d33d5db77708554522f44245e6f40dfc383e9fa",
+      "status": {
+        "status": "interrupted",
+        "reason": "HTTPS-only setup stalled on unrelated 19 MB universe package index; replaced by separately recorded HTTPS/main-only baseline/reference preflight. No candidate execution occurred.",
+        "provider_attempts": 0,
+        "log_sha256": "27f11d247a73c06588e0c9ec1d503a91a5d2612c0e717292d684b3b62038758b",
+        "apt_https": true,
+        "apt_main_only": false,
+        "log_last_write_age_seconds": 243.87780833244324
+      }
+    },
+    {
+      "stage": "coq-original-repeat-pre-agent-setup",
+      "run_id": "prove-plus-comm-lean-1-c46d75f2",
+      "source_sha256": "3e1a0be94312e3d45e51150e305cdc61d58d90faebc582a9c13bb7bee0e93ea1",
+      "provider_attempts": 0,
+      "error": "RuntimeError: docker exited 100; see saved output"
+    },
+    {
+      "stage": "coq-original-repeat-pre-agent-setup",
+      "run_id": "prove-plus-comm-pi-1-3e209692",
+      "source_sha256": "f3ebe3f86c9b83fd460b2362bec6c0aef06b6e61e2aff23ed014900dab331f8d",
+      "provider_attempts": 0,
+      "error": "TimeoutExpired: Command '['docker', 'exec', 'lean-harness-public-4fcaad7ce69b', '/bin/bash', '-lc', 'command -v /usr/bin/curl >/dev/null || (apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl)']' timed out after 179.99998882319778 seconds"
+    }
+  ]
+}

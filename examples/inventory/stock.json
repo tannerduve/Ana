@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "items": [
+    {"sku": "N-CABLE", "name": "USB cables", "warehouse": "north", "onHand": 12, "reorderPoint": 20},
+    {"sku": "N-TAPE", "name": "Packing tape", "warehouse": "north", "onHand": 3, "reorderPoint": 10},
+    {"sku": "S-GLOVE", "name": "Work gloves", "warehouse": "south", "onHand": 0, "reorderPoint": 30},
+    {"sku": "S-LABEL", "name": "Shipping labels", "warehouse": "south", "onHand": 8, "reorderPoint": 10},
+    {"sku": "S-PEN", "name": "Marker pens", "warehouse": "south", "onHand": 15, "reorderPoint": 12},
+    {"sku": "W-BOX", "name": "Small boxes", "warehouse": "west", "onHand": 8, "reorderPoint": 8}
+  ]
+}

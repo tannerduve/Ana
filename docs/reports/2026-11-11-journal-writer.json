@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-11-11T17:49:07.430631+00:00",
+  "base_commit": "cb460b75ff7bec2e48b66ae7f374830da6e534d2",
+  "scope": "Journal writer independent target; concurrent engine changes are outside this evidence. Real native syscalls and Rust test-only fault interposition; no provider calls.",
+  "source_sha256": {
+    "Harness/Adapter/JournalIO.lean": "152d7a2e7f0449aeadf57279378224ee969f8dca4e6d352676e0e58c2de7f645",
+    "Harness/Core/Journal.lean": "1175ce04c99fcf17e12a3de72310c3e2184a62a39c944b7ff871b5f0a907e00c",
+    "Harness/Proofs/Journal.lean": "eaa34a0fb2121b76d59c795824a57f8bef216b8aeb74facc237a41cec2f0bb8f",
+    "Harness/Adapter/JsonBounds.lean": "f4b34079e68b29951cb812412a3903acc8b881f883b5c6433e2468f82a9d52be",
+    "Harness/Adapter/Native.lean": "896db0a2a90a5c8f3932ddaafc57de6506e53c18cce570ce4a0a0e81c392423c",
+    "Tests/JournalWriter.lean": "aa569dde8633b758afdc27652de567a4c926642593bb1463e6f30d05475abb08",
+    "Tests/journal_writer_faults.rs": "f6517691dd356f6440d342b4e4679647ebe01cc19c705edf026f1540d3e77be5",
+    "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "rust-toolchain.toml": "559f488c181e0e9e77cf17c29de663977f036ec7ff2e2060585714bf53c52d62"
+  },
+  "binary": {
+    "path": "/home/tannerduve/lean-harness/.lake/build/bin/journal_writer_contracts",
+    "sha256": "93bbf7f8c4afe50a8366b4f566f57260250a0cd30bb15fa0fbdac98093e59fa6"
+  },
+  "contracts": {
+    "exit_code": 0,
+    "groups": [
+      "ordinary reopen/cursor/closed/codec/torn/corrupt/identity/FD lifetime",
+      "before_write",
+      "partial",
+      "file_sync",
+      "directory_sync",
+      "crash_partial",
+      "crash_after_sync",
+      "crash_before_write",
+      "no_reads"
+    ],
+    "log": "contracts-v3.log",
+    "initial_fixture_failure": "contracts-v1.log: ordinary cases passed, Rust compilation unavailable because caller PATH lacked ~/.cargo/bin. v2/v3 use explicit pinned Rust PATH; original log retained."
+  },
+  "proofs": {
+    "names": [
+      "Harness.Journal.accept_generated",
+      "Harness.Journal.accept_fields",
+      "Harness.Journal.accept_bookkeeping",
+      "Harness.Journal.validatePrefix_bookkeeping",
+      "Harness.Journal.validatePrefix_last_checksum"
+    ],
+    "audit_exit_code": 0,
+    "scope": "Shared executable frame validator and cursor sequence/byte/hash-link accounting; hashing and physical durability remain native/OS contracts."
+  },
+  "benchmark": {
+    "exit_code": 0,
+    "records": [
+      {
+        "appendNanoseconds": [
+          702330,
+          602458,
+          599593,
+          972180,
+          570799,
+          541024,
+          587525,
+          563708,
+          594916,
+          601476,
+          595096,
+          582698,
+          549757,
+          598090,
+          581967,
+          552962
+        ],
+        "journalBytes": "1048708",
+        "medianNanoseconds": 594916,
+        "memory": {
+          "VmHWM": "VmHWM:\t  115864 kB",
+          "VmRSS": "VmRSS:\t  110740 kB"
+        },
+        "mode": "retained"
+      },
+      {
+        "appendNanoseconds": [
+          548575,
+          601316,
+          619173,
+          531088,
+          587083,
+          554674,
+          554585,
+          523367,
+          597429,
+          534243,
+          513913,
+          609628,
+          537508,
+          525921,
+          547554,
+          626144
+        ],
+        "journalBytes": "16799830",
+        "medianNanoseconds": 554585,
+        "memory": {
+          "VmHWM": "VmHWM:\t  115864 kB",
+          "VmRSS": "VmRSS:\t  113556 kB"
+        },
+        "mode": "retained"
+      },
+      {
+        "appendNanoseconds": [
+          634386,
+          2596073,
+          677632,
+          586423,
+          578981,
+          702399,
+          628958,
+          568265,
+          2938495,
+          755780,
+          613815,
+          683250,
+          816593,
+          2227832,
+          728078,
+          818246
+        ],
+        "journalBytes": "62965378",
+        "medianNanoseconds": 702399,
+        "memory": {
+          "VmHWM": "VmHWM:\t  115864 kB",
+          "VmRSS": "VmRSS:\t  113556 kB"
+        },
+        "mode": "retained"
+      },
+      {
+        "fillAndRetainedNanoseconds": 1721120562,
+        "memory": {
+          "VmHWM": "VmHWM:\t  918420 kB",
+          "VmRSS": "VmRSS:\t  918420 kB"
+        },
+        "mode": "reopen-and-one-shot",
+        "oneShotAppendNanoseconds": [
+          1731861814,
+          1483672576,
+          1612062591
+        ],
+        "prefixBytes": 62984922,
+        "prefixFrames": 108,
+        "quotaRefusedUnchanged": true,
+        "readValidateNanoseconds": 1759918283
+      }
+    ],
+    "measurement": "Per-append monotonic duration includes write/file sync/parent sync/stat checks. Worker VmRSS/VmHWM sampled after each retained group; /usr/bin/time reports whole-worker maximum.",
+    "limitations": [
+      "One local synthetic run, 16 retained samples per size; no isolated filesystem or hosted latency guarantee.",
+      "918420KiB whole-run peak includes full-prefix revalidation and quota-fixture construction, not just retained appends.",
+      "One-shot append remains safe/revalidating for inventory and other compatibility callers.",
+      "No new snapshot/restart acceleration; full reopen still validates the whole bounded prefix."
+    ]
+  },
+  "files_sha256": {
+    "contracts-v1.log": "bd8d36c071ae940281c67f07c1309c7fe6c42ae74dd80ec0bd5d519a9580f5f0",
+    "contracts-v3.log": "1d4f1d21bd66619fbdce512f776553a608dfebfb40b6ce35cb51e5376755720c",
+    "benchmark-time.txt": "36b829a87fbe50d47d02d22327096e673876712a4d22fad57d17833cd6591e90",
+    "build-v3.log": "6c40e255e6785aa20a7b783c7c5af16df83b429a6a99f324d705338df0ca6bb5",
+    "benchmark.jsonl": "1f3f6807b2ddf4599a168851108006834a16e35fa5bd9ca0b4bb21734464c5ae",
+    "proof-audit.lean": "32621bf5eb3906392902e6392e026d6d4e6f71d29ee4e600c2574393acdf3ad8",
+    "contracts-v2.log": "a8896ff5ca72a5a4833935197d13800ffb1c16e49050caeb2209f4083976106d",
+    "proof-audit.log": "6d38e4006e01916b37b35887829879d0573574da98a4373f515cbcf2f1394bdf",
+    "benchmark-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

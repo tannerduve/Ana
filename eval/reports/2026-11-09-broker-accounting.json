@@ -1,0 +1,156 @@
+{
+  "date": "2026-11-09",
+  "scope": "Evaluation broker and runner accounting; no product runtime change or live model call.",
+  "discovery": {
+    "workflow": "https://github.com/tannerduve/lean-harness/actions/runs/42580130618",
+    "revision": "b928371400ed142618e2eef01d74614b9a2b945f",
+    "attempt": 1,
+    "failure": "A follow-up request was admitted while the previous complete response still awaited usage settlement."
+  },
+  "before": [
+    {
+      "target": "same_run",
+      "first_state": {
+        "active": true,
+        "accounting_settled": false
+      },
+      "second_status": 200,
+      "upstream_requests_while_first_usage_blocked": 2
+    },
+    {
+      "target": "new_run",
+      "first_state": {
+        "active": true,
+        "accounting_settled": false
+      },
+      "second_status": 200,
+      "upstream_requests_while_first_usage_blocked": 2
+    }
+  ],
+  "changes": [
+    "Per-broker admission waits for earlier handlers to settle; the wait has a 120-second limit and rechecks whether the run is closed.",
+    "Unknown accounting refuses further requests without reserving another attempt or contacting the provider.",
+    "Broker record-write failure is sticky, wakes waiters and stops subsequent admission; previously settled campaign charges remain known.",
+    "Optional raw-response diagnostic capture failures remain separate from charge settlement.",
+    "Public and sustained schedules distinguish known charges from evidence-storage failures, preserve stopped session/patch capture, and retain remaining slots as unrun after a failed close."
+  ],
+  "tests": [
+    {
+      "command": [
+        "python3",
+        "eval/Tests/campaign.py"
+      ],
+      "exit_code": 0,
+      "seconds": 11.509119381196797,
+      "log": "/tmp/lean-harness-broker-admission-race-20261109/campaign-final.log",
+      "sha256": "cbba504dadeb6e11af2bba044b5e36e46f8ff2d3b17f70bdf9facc009ca4f321"
+    },
+    {
+      "command": [
+        "python3",
+        "eval/Tests/broker_responses.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.256526354700327,
+      "log": "/tmp/lean-harness-broker-admission-race-20261109/responses-final.log",
+      "sha256": "0176fc34c0f25127ebc064a27f51cb5a2884fdf494ec89eb5129a80f13674902"
+    }
+  ],
+  "test_counts": {
+    "campaign": 22,
+    "response_retention": 5,
+    "sustained": 13,
+    "interruption_capture": 8,
+    "public_preparation": 5,
+    "patch_review": 12
+  },
+  "source_sha256": {
+    "eval/runner/broker.py": "52b793507ba696495f4db2539c9c3f6999aceec97fe9615b1a9969a75e6a1848",
+    "eval/Tests/campaign.py": "3f698a16d1af4490c1ff429dd4bec2327612d90c9324a5e7159bcf587ebb7c5b",
+    "eval/runner/public_bench.py": "3c90d57e8a372ef7fc75e72b35a698fab9469ec5a4f536c0eecd3704d960dd4a",
+    "eval/runner/sustained.py": "457e9ba23ff98838bc6328950806a0ee53eab77fedcb23de0e90ff8719ded3da",
+    "eval/Tests/sustained.py": "ab08e5f3c53c4d43f11f11aea6d75bd97c07d3d91b25aaa3dcfa15726b0360f3"
+  },
+  "evidence_sha256": {
+    "before-fix-evidence.json": "ae278763d5a52d301c61353d98b858eb2d2205b611b2f6128b3f35ebbe049566",
+    "save-failure-before-fix.json": "d8d43f694f934c299f69e6292ca165030d17dda87ce31f555bf4e525d7d01586",
+    "final-fix-evidence.json": "7be8f0dac50d3515d835b51e4edbfa756d1d8444666baa7f64c6f14d1080683f",
+    "hosted-ci-original-failure.log": "0e58a7c05597bc54b785a7fba2b38f80e2ecfca57b2a336467d268934eefdaa9",
+    "coordinator-storage-evidence.json": "cd7cb88e1df1c98f07115e901f98a39f1495c004fba158a0c33097d5852e19d0",
+    "coordinator-close-evidence.json": "e93af753dc00b75b23a0c6aaaeb917f786d4a7b284e3639a827bcd41569092e4",
+    "reporting-fix/evidence.json": "e0c949df27b9ca889e248e86263be0b0570ded123289b72f3e856e4a4fd09115"
+  },
+  "local_evidence_directory": "/tmp/lean-harness-broker-admission-race-20261109",
+  "limitations": [
+    "These tests use localhost fake providers and injected faults; they do not establish provider billing accuracy.",
+    "Admission serialization is within one live broker; separate brokers rely on the shared durable campaign ledger.",
+    "Persistent storage failure cannot guarantee durable diagnostics. The live broker refuses further admission, and any known campaign charge remains accounted.",
+    "The private coordinator fixtures exercise its actual main routine with mocked runner, image and ledger operations; no benchmark cohort was launched."
+  ],
+  "paid_calls": 0,
+  "runner_checks": [
+    {
+      "test": "eval/Tests/sustained.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.156,
+      "log": "/tmp/lean-harness-broker-admission-race-20261109/reporting-fix/sustained.log",
+      "log_sha256": "2342cdfe640e1a8ebe065db136e30a7aa2d2a64a9f27c4ae9044fcfe0aee668b",
+      "source_sha256": "ab08e5f3c53c4d43f11f11aea6d75bd97c07d3d91b25aaa3dcfa15726b0360f3"
+    },
+    {
+      "test": "eval/Tests/interruption_capture.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.122,
+      "log": "/tmp/lean-harness-broker-admission-race-20261109/reporting-fix/interruption_capture.log",
+      "log_sha256": "1327f170732ee47f216ae8aa32ed702ca689d7d7ecc0a8c9e1ed4592ceb31670",
+      "source_sha256": "fd5c74cbba2b6e30ceddcffdc53cd634a56919cb0f6a862916b60dd7a105dcc7"
+    },
+    {
+      "test": "eval/Tests/public_preparation.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.097,
+      "log": "/tmp/lean-harness-broker-admission-race-20261109/reporting-fix/public_preparation.log",
+      "log_sha256": "2d014bb427120fb1a5014d7499096989061fd0fdf40acb471c2e2667de60e71e",
+      "source_sha256": "d4948740131d134e88cd99316398521cb009b30886d2c2faac38b46a1d791d26"
+    },
+    {
+      "test": "eval/Tests/patch_review.py",
+      "exit_code": 0,
+      "elapsed_seconds": 0.173,
+      "log": "/tmp/lean-harness-broker-admission-race-20261109/reporting-fix/patch_review.log",
+      "log_sha256": "ff0a6e40ea043f66ec8fe641152b48b5f5ee0eaabecfcc56017ec7e82ae7a362",
+      "source_sha256": "f9a877e0f9c016681e39ea9d96e24637262cfb40425e2f7f6a128ad107061de0"
+    }
+  ],
+  "runner_assertions": [
+    "Known settled charges and retained usage remain known after sticky Broker storage failure.",
+    "Matching missing or false accounting settlement is unknown; unrelated or absent requests do not create unknown charges.",
+    "Both public and sustained main schedules retain the stopped session and candidate patch, delete exact mocked owned container, and record remaining three slots unrun.",
+    "Generic close failure stops later work even if final accounting settles during capture."
+  ],
+  "tracked_suite_test_count": 65,
+  "private_coordinator_regressions": {
+    "sources": {
+      "coordinator.py": {
+        "path": "/tmp/lean-harness-pilot-preparation-20261109/v4-tools-draft-02/coordinator.py",
+        "sha256": "6c3b7437e55029965829751001b82b0b86782895b5f15dd7248c4644a3029cef"
+      },
+      "build_draft.py": {
+        "path": "/tmp/lean-harness-pilot-preparation-20261109/v4-tools-draft-02/build_draft.py",
+        "sha256": "167f9c988a0f96b39f9f5926b75224a16b886cebac0e2328efece7d07c8b6dba"
+      },
+      "test_storage_stop.py": {
+        "path": "/tmp/lean-harness-pilot-preparation-20261109/v4-tools-draft-02/test_storage_stop.py",
+        "sha256": "85723ada535f8e5ae9bfbbe849fb3541f19094114cae3547d4d60ba419791870"
+      }
+    },
+    "before_exit": 1,
+    "after_exit": 0,
+    "tests": 2,
+    "scope": "actual coordinator main with mocked runner/image/ledger; known-cost storage and generic close failure each stop before next batch and retain all four slots",
+    "no_model_or_docker_calls": true,
+    "new_bundle_created": false
+  },
+  "product_binary_sha256": "77f760248d53d59b1b4e0ac6c10e020bc5f65bbdf2eaaff31954400c8c4cfab8",
+  "local_checks_passed": true
+}

@@ -1,0 +1,441 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "scope": "Four targeted development calibration runs on three previously observed self-authored repository features. No held-out task-quality or parity claim.",
+  "candidate": {
+    "repository_commit": "d8ba725df489e7a5dce5d86a67254547bc71b173",
+    "candidate_binary_sha256": "68a794ce771682b6089a9605eb22ecd20f681043b4c00d8c37a17838d21ed51e",
+    "proxy_binary_sha256": "d8d80c4f9f01f79f905172652adf7b7a939766dcab9ebb22d49c8963904baf66",
+    "session_schema": 4,
+    "task_context_version": 2,
+    "model": "claude-opus-5-5",
+    "pi_version": "1.5.0"
+  },
+  "settings": {
+    "provider_attempts": 40,
+    "tool_dispatches": 120,
+    "output_tokens": 4096,
+    "overall_seconds": 900,
+    "retries": 0,
+    "lean_operation_ms": 90000,
+    "max_response_repairs": 2
+  },
+  "comparison_limits": [
+    "These are three self-authored real-repository development tasks already observed by the team, not new held-out evidence.",
+    "Lean constrained modes retain60000-byte estimation and84000-byte broker request cap; adequate/Pi retain120000 context allowance and144000 wire cap. Pi32768 is tokens, not the Lean byte estimator.",
+    "Lean retains provider-default effort; Pi thinking off maps to low. This product-profile difference remains declared.",
+    "Lean operation timeout90s versus Pi native/model-supplied timeouts; common overall900s does not make per-tool deadlines matched.",
+    "Lean uses nested production bubblewrap; Pi uses native tools in ordinary outer Docker. No matched sandbox claim.",
+    "Pi explicit context override is a diagnostic configuration, not historical Pi defaults. Output4096 remains unchanged and can still truncate useful output.",
+    "Current schema4 candidate fixes and task-context-version2 are a new revision; old v4 task/protocol failures and4unrun slots remain immutable."
+  ],
+  "cohort": {
+    "planned": 4,
+    "started": 4,
+    "recorded": 4,
+    "not_run": 0,
+    "provider_attempts": 101,
+    "known_accounted_usd": 7.133056,
+    "unknown_cost_slots": 0,
+    "automated_artifact_passes": 2,
+    "normal_finishes": 0,
+    "independently_approved_patches": 1,
+    "qualified_successes": 0,
+    "heldout_opened": false,
+    "sustained_acceptance_met": false
+  },
+  "reviewers": {
+    "kind": "model",
+    "identities": [
+      "Codex /root/core",
+      "Codex /root/runtime"
+    ],
+    "scope": "Independent patch/context review and separate resource diagnosis; these are model judgments, not proofs or human reviews."
+  },
+  "context_evidence": {
+    "lean_summaries_reviewed": 7,
+    "pi_sdk_compactions_reviewed": 3,
+    "sphinx_checkpoint_replay_pairs": 10,
+    "critical_requirements": "Retained in the reviewed next contexts; implementation-fact inaccuracies and omissions are detailed in the separate findings.",
+    "causality": "No attribution of later failures to compaction is established.",
+    "pi_scope": "Retained SDK summary/context evidence; no Lean-style exact source/request replay guarantee.",
+    "lean_response_repair": "Unexercised in this live cohort; deterministic regression evidence remains separate."
+  },
+  "failure_interpretation": {
+    "pytest": "Interrupted compound broad-test/stash/baseline-test/pop command; final tracked files equal baseline. Exact stash state is not available because .git metadata is excluded.",
+    "pylint_lean": "Abrupt invocation exit137 while a broad parallel test command was pending. Sampled memory reached2GiB, but OOM counters/victim evidence were not retained. Prior patch and journal prefix preserved.",
+    "sphinx": "Authored test defects found by static review; agent tool deadline and independent selected-test timeout. Exact blocked stack not retained.",
+    "pylint_pi": "Missing required docs/tests. Five later summary calls reached the shared4096 output cap and were not accepted; the pinned SDK kept the earlier context and clamped final task output limits to201 then1. Offline projection/estimate/clamp reproduction matches captured requests; no SDK-bug or native-default-quality claim."
+  },
+  "accounting_at_closure": {
+    "authorized_usd": 150,
+    "accounted_usd": 61.106444,
+    "remaining_usd": 88.893556,
+    "unsettled_requests": 0,
+    "ledger_sequence": 1255,
+    "ledger_sha256": "19215dc437f1ffbde59f927c3696cab853af33061e963f6477167c343a6a7eb8",
+    "remaining_allocations_usd": {
+      "development": 4.866944,
+      "heldout": 80,
+      "long": 0.923644,
+      "reserve": 3.102968
+    },
+    "price_scope": "Configured frozen prices applied to provider-reported usage; not an invoice."
+  },
+  "closure": {
+    "coordinator_exit_code": 0,
+    "owned_cleanup_settled": true,
+    "source_unchanged_during_cohort": true,
+    "historical_outcomes_preserved": true
+  },
+  "inputs": {
+    "protocol": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-frozen-01/protocol.json",
+      "sha256": "50627f76bdc988a5f906657b37e904eb504a365ab80fd1482e2d3166e94bcc6b",
+      "bytes": 35669
+    },
+    "release": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-live-01/release.json",
+      "sha256": "bf3f4fbb1bc1d62df709465f281ead13d389779e3075e92b4fe6b5dff5be1a24",
+      "bytes": 1029
+    },
+    "raw_results": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-live-01/results.json",
+      "sha256": "7e5fc77af176675e33ea2602eeee9f7bb4a37a2bd584a96720097fbbd813ffb5",
+      "bytes": 89844
+    },
+    "completion": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-live-01/completion.json",
+      "sha256": "bff5f282765a0eba5ee250155cec6ab9fe8cc0db7a5c0b383a9b71d0ec73e6d3",
+      "bytes": 256
+    },
+    "batches": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batches.json",
+      "sha256": "475577c34b48b3c7222fb1e3c295a17d3046dfc03a92b08e3938fa24d33b6f2b",
+      "bytes": 2986
+    },
+    "closure_evidence": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-closure-01/evidence.json",
+      "sha256": "4cfabf77f0bbd8cad2de646296a7c312b6a71721bdde5f58f3b05d133e8dab0f",
+      "bytes": 17908
+    },
+    "summary_review_template": {
+      "path": "/tmp/lean-harness-calibration-d8ba725-frozen-01/summary-review-basis.json",
+      "sha256": "af7ac38471bd03cf33f15eb3a57d84a4eb9a42cd6e5609c8f85984948e91f004",
+      "bytes": 6790
+    }
+  },
+  "runs": [
+    {
+      "slot": 1,
+      "task_id": "long-pytest-collection-report",
+      "run_id": "long-pytest-collection-report-lean-0-c783b21d",
+      "engine": "lean",
+      "mode": "lean-adequate",
+      "provider_attempts": 16,
+      "tool_dispatches": 22,
+      "accepted_summaries": 0,
+      "native_sdk_compactions": null,
+      "durable_restarts": 0,
+      "feature_checks": {
+        "passed": false,
+        "case_count": null
+      },
+      "selected_tests": {
+        "status": "not_run"
+      },
+      "automated_artifact_pass": false,
+      "normal_finish": false,
+      "exit_code": 4,
+      "independent_patch_decision": "reject",
+      "qualified_success": false,
+      "accounted_usd": 1.077684,
+      "agent_elapsed_seconds": 208.88,
+      "session_integrity": {
+        "passed": true,
+        "journal_frames": 184,
+        "model_attempts": 16,
+        "response_repairs": 0,
+        "tool_dispatches": 22,
+        "verified_artifacts": 1,
+        "verified_artifact_bytes": 1282,
+        "usage": {
+          "known_input_tokens": 212976,
+          "known_output_tokens": 11289,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 16,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "replay_matches": true,
+      "evidence": {
+        "result": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-01/long-pytest-collection-report-lean-0-c783b21d/result.json",
+          "sha256": "aac7f6061ca7eab334791351f0f7431e85fa9cd88431a32400ee16401ac04f0a",
+          "bytes": 18989
+        },
+        "candidate_patch": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-01/long-pytest-collection-report-lean-0-c783b21d/candidate.patch",
+          "sha256": "af0eabac3de87b4d6d894c075b77d40222aa6b064e7c375d5d03511726c7a48d",
+          "bytes": 13745
+        },
+        "independent_review": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-01/patch-review.json",
+          "sha256": "1991f0921caaf667e1b5eb1f8c4ccb9d4580cbefebb963f4079b7b11484860de",
+          "bytes": 3558
+        },
+        "qualification": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-01/qualification.json",
+          "sha256": "2ca03a90a1f7695a26e06e54c388183096c185a485c3fb72079836e25783410d",
+          "bytes": 4588
+        },
+        "findings": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-01/findings.json",
+          "sha256": "38a279a3bc2347c8dc625a67218875b088288ceaa4d77e0e79ec25a04c15688d",
+          "bytes": 6390
+        }
+      }
+    },
+    {
+      "slot": 2,
+      "task_id": "long-pylint-jsonl-report",
+      "run_id": "long-pylint-jsonl-report-lean-0-1a7db377",
+      "engine": "lean",
+      "mode": "lean-constrained",
+      "provider_attempts": 26,
+      "tool_dispatches": 32,
+      "accepted_summaries": 4,
+      "native_sdk_compactions": null,
+      "durable_restarts": 0,
+      "feature_checks": {
+        "passed": true,
+        "case_count": 12
+      },
+      "selected_tests": {
+        "status": "passed",
+        "count": 53,
+        "new_tests_included": 7,
+        "preexisting_tests": 46
+      },
+      "automated_artifact_pass": true,
+      "normal_finish": false,
+      "exit_code": 137,
+      "independent_patch_decision": "approve",
+      "qualified_success": false,
+      "accounted_usd": 1.474408,
+      "agent_elapsed_seconds": 251.734,
+      "session_integrity": {
+        "passed": false,
+        "reason": "completed session is incompatible or unsettled"
+      },
+      "replay_matches": true,
+      "evidence": {
+        "result": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-02/long-pylint-jsonl-report-lean-0-1a7db377/result.json",
+          "sha256": "58db9a597cb4227db21a669424932ee71ddd05120ab10e36836c6d36895423b8",
+          "bytes": 20025
+        },
+        "candidate_patch": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-02/long-pylint-jsonl-report-lean-0-1a7db377/candidate.patch",
+          "sha256": "58ed0fdb230ff6b68c9c0164a06fe47b179b16fafc6ae98f24a65283dc33a6e9",
+          "bytes": 15248
+        },
+        "independent_review": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-02/patch-review.json",
+          "sha256": "f5ae52eb1d5de1c20f79ce0231250356cf8e37aa73b1a9ca1084cbebffa0a90c",
+          "bytes": 2452
+        },
+        "qualification": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-02/qualification.json",
+          "sha256": "86f4d7d7aae97d471b8b666df02a7308ececb2a0030e4c2bb826f950ec81d27a",
+          "bytes": 3441
+        },
+        "findings": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-02/findings.json",
+          "sha256": "fb23bcac2978c73c03e8a3cfe9aed408d8e0edb8495aa1fe25d63b395cc57e3e",
+          "bytes": 14577
+        }
+      }
+    },
+    {
+      "slot": 3,
+      "task_id": "long-sphinx-linkcheck-report",
+      "run_id": "long-sphinx-linkcheck-report-lean-0-f099b334",
+      "engine": "lean",
+      "mode": "lean-constrained-restart",
+      "provider_attempts": 24,
+      "tool_dispatches": 27,
+      "accepted_summaries": 3,
+      "native_sdk_compactions": null,
+      "durable_restarts": 10,
+      "feature_checks": {
+        "passed": true,
+        "case_count": 8
+      },
+      "selected_tests": {
+        "status": "timed_out"
+      },
+      "automated_artifact_pass": false,
+      "normal_finish": false,
+      "exit_code": 4,
+      "independent_patch_decision": "reject",
+      "qualified_success": false,
+      "accounted_usd": 1.34904,
+      "agent_elapsed_seconds": 277.283,
+      "session_integrity": {
+        "passed": true,
+        "journal_frames": 246,
+        "model_attempts": 24,
+        "response_repairs": 0,
+        "tool_dispatches": 27,
+        "verified_artifacts": 3,
+        "verified_artifact_bytes": 29810,
+        "usage": {
+          "known_input_tokens": 247090,
+          "known_output_tokens": 18034,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 24,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "replay_matches": true,
+      "evidence": {
+        "result": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-03/long-sphinx-linkcheck-report-lean-0-f099b334/result.json",
+          "sha256": "2aa6e9b671f9f827ba664dc2fba135e6db4ecd05558163fc37007f294f0a8370",
+          "bytes": 30330
+        },
+        "candidate_patch": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-03/long-sphinx-linkcheck-report-lean-0-f099b334/candidate.patch",
+          "sha256": "5c8525b237edf7ac9e2bcb1a14f3aeb6950fdcab9dde168179f6ad95f06c093e",
+          "bytes": 15462
+        },
+        "independent_review": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-03/patch-review.json",
+          "sha256": "7c7cdade3c722274e51ce6ed2ad77e7e40e1ca09d613cc4ca05b84177c7130ab",
+          "bytes": 2525
+        },
+        "qualification": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-03/qualification.json",
+          "sha256": "3371b3149e3cdccdd6a1ef149a1317e8da1c434a3b690e243603312d8e1af4c2",
+          "bytes": 3519
+        },
+        "findings": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-03/findings.json",
+          "sha256": "1753269efb2228df80db21ec45ec7e6492b2d83f4f5d977cb21dd24ac7773849",
+          "bytes": 30469
+        }
+      }
+    },
+    {
+      "slot": 4,
+      "task_id": "long-pylint-jsonl-report",
+      "run_id": "long-pylint-jsonl-report-pi-0-24724738",
+      "engine": "pi",
+      "mode": "pi-product",
+      "provider_attempts": 35,
+      "tool_dispatches": 27,
+      "accepted_summaries": null,
+      "native_sdk_compactions": 3,
+      "durable_restarts": 0,
+      "feature_checks": {
+        "passed": true,
+        "case_count": 12
+      },
+      "selected_tests": {
+        "status": "passed",
+        "count": 46,
+        "new_tests_included": 0,
+        "preexisting_tests": 46
+      },
+      "automated_artifact_pass": true,
+      "normal_finish": false,
+      "exit_code": 1,
+      "independent_patch_decision": "reject",
+      "qualified_success": false,
+      "accounted_usd": 3.231924,
+      "agent_elapsed_seconds": 442.721,
+      "session_integrity": null,
+      "replay_matches": null,
+      "evidence": {
+        "result": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-04/long-pylint-jsonl-report-pi-0-24724738/result.json",
+          "sha256": "225469706ce995ef3fbbbc2fb994575f019b3fa533293ca793af3146e4f0533f",
+          "bytes": 16835
+        },
+        "candidate_patch": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-live-01/batch-04/long-pylint-jsonl-report-pi-0-24724738/candidate.patch",
+          "sha256": "9dbf5cb2e5c8a7fcb250d5b46997689688cb06b579ab8e5b4e0ab9dd2653f73c",
+          "bytes": 6936
+        },
+        "independent_review": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-04/patch-review.json",
+          "sha256": "d3dc7637a29e933b086b9d7919bdc0aa87828de98a49d08d58fd23a2f5cb3a11",
+          "bytes": 2491
+        },
+        "qualification": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-04/qualification.json",
+          "sha256": "f9e6b5b2fa88c338ea94a9704c369ecaa90725f82cf2863c215ecf8664e6880f",
+          "bytes": 3477
+        },
+        "findings": {
+          "path": "/tmp/lean-harness-calibration-d8ba725-reviews/slot-04/findings.json",
+          "sha256": "2b417d15429f17632645e8091f1511566a97b473a6e2fcfbb9cb40bda5b37daa",
+          "bytes": 17675
+        }
+      }
+    }
+  ],
+  "pi_limit_diagnosis": {
+    "evidence": {
+      "path": "/tmp/lean-harness-pi-clamp-diagnostic-d8ba725-20261109/evidence.json",
+      "sha256": "c14f120be7d93bd2500fe854134595123aad8a47de1133b756fb8a3e4d189f38",
+      "bytes": 27350
+    },
+    "accepted_summary_attempts": [
+      8,
+      15,
+      21
+    ],
+    "unaccepted_truncated_summary_attempts": [
+      27,
+      29,
+      31,
+      33,
+      35
+    ],
+    "reproduced_task_limits": [
+      3498,
+      1673,
+      201,
+      1
+    ],
+    "estimated_input_tokens": [
+      25174,
+      26999,
+      28471,
+      29153
+    ],
+    "sdk_context_window": 32768,
+    "sdk_safety_tokens": 4096,
+    "wire_cap_bytes": 144000,
+    "maximum_observed_request_bytes": 126725,
+    "findings": [
+      "Pinned SDK clamp exactly reproduces3498,1673,201,1 from retained pre-response session prefixes; estimated inputs25174,26999,28471,29153 with32768 window and4096 safety.",
+      "The wrapper imposes4096 max output on both task responses and native summarization; pinned catalog max output is128000.",
+      "Accepted summaries are attempts8,15,21. Later summary attempts27,29,31,33,35 end at4096 with max_tokens and are not accepted; pinned SDK rejects incomplete summaries and retains the earlier projection.",
+      "reserveTokens8192 triggers compaction above24576 estimated/usage tokens; it is not a reserved answer or summary output budget. The summarizer reserve parameter is explicitly unused in this pinned SDK.",
+      "The144000 wire ceiling did not reject this run. It is a distinct external byte bound, not equivalent to the32768 virtual token window or native1M catalog window."
+    ],
+    "paid_calls_for_diagnosis": 0,
+    "scope": "Read-only reconstruction with pinned SDK functions; existing outcomes unchanged. Future settings need a new protocol and budget review."
+  }
+}

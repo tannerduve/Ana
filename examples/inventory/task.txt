@@ -1,0 +1,1 @@
+Which warehouse has the greatest replenishment shortfall? List every affected SKU in that warehouse and the units needed to reach its reorder point. Use a page size of one to demonstrate continuation, and look up one affected SKU to confirm its item details. Report missing or truncated data explicitly.

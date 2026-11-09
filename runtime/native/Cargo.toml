@@ -1,0 +1,20 @@
+[package]
+name = "harness-native"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+publish = false
+
+[lib]
+name = "harness_native"
+crate-type = ["staticlib"]
+
+[dependencies]
+libc = "=0.2.189"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"

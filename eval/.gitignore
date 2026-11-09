@@ -1,0 +1,8 @@
+.lake/
+__pycache__/
+*.pyc
+/baseline/node_modules/
+/.venv/
+/runs/
+/vendor/
+/local-packages.json

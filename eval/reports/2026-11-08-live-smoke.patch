@@ -1,0 +1,37 @@
+diff --git a/ranges.py b/ranges.py
+index ee8160e..98c3142 100644
+--- a/ranges.py
++++ b/ranges.py
+@@ -3,0 +4,14 @@
++_ASCII_DIGITS = frozenset("0123456789")
++
++
++def _parse_positive(token: str) -> int:
++    """Parse a strictly ASCII-decimal, positive integer (surrounding whitespace ignored)."""
++    token = token.strip()
++    if not token or not set(token) <= _ASCII_DIGITS:
++        raise ValueError(f"invalid integer: {token!r}")
++    value = int(token)
++    if value <= 0:
++        raise ValueError(f"integer must be positive: {token!r}")
++    return value
++
++
+@@ -8 +22 @@ def parse_ranges(text: str) -> list[int]:
+-    values = []
++    values = set()
+@@ -11,2 +25,7 @@ def parse_ranges(text: str) -> list[int]:
+-            start, stop = item.split("-")
+-            values.extend(range(int(start), int(stop)))
++            parts = item.split("-")
++            if len(parts) != 2:
++                raise ValueError(f"malformed range: {item!r}")
++            start, stop = _parse_positive(parts[0]), _parse_positive(parts[1])
++            if start > stop:
++                raise ValueError(f"reversed range: {item!r}")
++            values.update(range(start, stop + 1))
+@@ -14,2 +33,2 @@ def parse_ranges(text: str) -> list[int]:
+-            values.append(int(item))
+-    return values
++            values.add(_parse_positive(item))
++    return sorted(values)

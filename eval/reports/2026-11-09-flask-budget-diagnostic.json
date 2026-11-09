@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "label": "small public development sample; not leaderboard or parity evidence",
+  "primary_score": "upstream resolved/reward; normal exit reported separately",
+  "qualification_caveat": "Stored strict success additionally forbids test edits; only Lean received that extra instruction, so that qualifier is not directly comparable. Pi product uses native instructions. Review edits for actual weakening.",
+  "executed_runs": 4,
+  "execution_attempt_records": 4,
+  "additional_retry_attempts": 0,
+  "setup_failures": 0,
+  "planned_unexecuted": [],
+  "total_planned_run_slots": 4,
+  "total_accounted_usd": 2.652148,
+  "total_accounted_usd_exact": "2.652148",
+  "cost_basis": "configured broker token prices and provider usage; not an independently verified invoice",
+  "provenance_limitations": [],
+  "context_policy": {
+    "lean_estimated_context_bytes": [
+      120000
+    ],
+    "pi": "native product context policy",
+    "common_broker_request_bytes": [
+      144000
+    ]
+  },
+  "peak_memory": "not measured for public runs",
+  "unknown_usage_requests": 0,
+  "upstream_resolved_runs": 1,
+  "normal_exits": 4,
+  "groups": [
+    {
+      "benchmark": "SWE-bench_Lite",
+      "cohort": "flask-budget-diagnostic",
+      "attempt": 1,
+      "engine": "lean",
+      "attempt_records": 2,
+      "executed": 2,
+      "setup_failures": 0,
+      "official_resolved": 0,
+      "normal_exits": 2,
+      "infrastructure_failures": 0,
+      "charged_usd": 1.787992
+    },
+    {
+      "benchmark": "SWE-bench_Lite",
+      "cohort": "flask-budget-diagnostic",
+      "attempt": 1,
+      "engine": "pi",
+      "attempt_records": 2,
+      "executed": 2,
+      "setup_failures": 0,
+      "official_resolved": 1,
+      "normal_exits": 2,
+      "infrastructure_failures": 0,
+      "charged_usd": 0.864156
+    }
+  ],
+  "initial_attempts": {
+    "records": 4,
+    "executed": 4,
+    "official_resolved": 1,
+    "normal_exits": 4
+  },
+  "retry_attempts": {
+    "records": 0,
+    "executed": 0,
+    "official_resolved": 0,
+    "normal_exits": 0
+  },
+  "plans": [
+    {
+      "directory": "lean-harness-public-flask-diagnostic-20261109",
+      "plan_sha256": "0c8c5855fd6e34cdef3b4320150214bb40868d65cc32ef9d9ecaa03b82e2385b",
+      "ledger_sha256": "fe9e4b456555740179604323edf04d30b82983dc82cddb99243f792cc7792d69",
+      "public_lock_sha256": "0614b2ee83b6bd75eb446ce7f33c98b29e4007745acac681d3da0a293d72d61b",
+      "binary_sha256": "69b48cdce05cd3a9bc8fd64e6e1d5dd1bace6b50cf4f5f65e8c290fc384f3fcb",
+      "tool_binary_sha256": "f30a912851cfc0036f8ca0b1fdcd21cabbc7e1d87d5e2f35990d95995e74e0d8",
+      "pi_lock_sha256": "f6c883c6a39b3aa93ac1950cabca5b3db9e81499dfc0791f501a2a2bb6a6789b",
+      "model": "claude-opus-5-5",
+      "runner_sha256": "d50755492267beb01aac8c6159ae8143e9389673aa840eeaaeef28a4279fdda5",
+      "max_attempts": 24,
+      "max_tools": 48,
+      "context_bytes": 120000,
+      "timeout_seconds": 300,
+      "prices_per_million": {
+        "input": 4.0,
+        "output": 20.0,
+        "cache_read": 0.2,
+        "cache_write": 5.0
+      }
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "pallets__flask-4045-lean-0-9348bc55",
+      "task_id": "pallets__flask-4045",
+      "benchmark": "SWE-bench_Lite",
+      "engine": "lean",
+      "track": "product",
+      "repetition": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 75.818,
+      "provider_attempts": 17,
+      "accounted_usd": 0.974812,
+      "unknown_usage_requests": 0,
+      "model_attempts": 17,
+      "tool_dispatches": 19,
+      "summaries": 0,
+      "image_digest": "swebench/sweb.eval.x86_64.pallets_1776_flask-4045@sha256:1425b0801ddf4b2607e552e56516cce3d389bab0a3ce06f58e6fa6a7835c703c",
+      "cohort": "flask-budget-diagnostic",
+      "attempt": 1,
+      "apt_https": false,
+      "apt_main_only": false,
+      "agent_launch_observed": true,
+      "official_resolved": false,
+      "normal_exit": true,
+      "strict_qualification_noncomparable": false,
+      "test_files_modified": [
+        "tests/test_basic.py",
+        "tests/test_blueprints.py"
+      ],
+      "proof_integrity": null,
+      "typed_proof_audit": null,
+      "infrastructure_error": null,
+      "timed_out": false,
+      "result_sha256": "94d4ad549391bca3237654aad009181a0603c7260968de4767977706afc5647c",
+      "accounted_usd_exact": "0.974812",
+      "known_usage": {
+        "input_tokens": 216793,
+        "output_tokens": 5382,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "official_empty_patch": false,
+      "official_failed_tests": [
+        "tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots"
+      ]
+    },
+    {
+      "run_id": "pallets__flask-4045-lean-1-cf8fb916",
+      "task_id": "pallets__flask-4045",
+      "benchmark": "SWE-bench_Lite",
+      "engine": "lean",
+      "track": "product",
+      "repetition": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 93.954,
+      "provider_attempts": 15,
+      "accounted_usd": 0.81318,
+      "unknown_usage_requests": 0,
+      "model_attempts": 15,
+      "tool_dispatches": 22,
+      "summaries": 1,
+      "image_digest": "swebench/sweb.eval.x86_64.pallets_1776_flask-4045@sha256:1425b0801ddf4b2607e552e56516cce3d389bab0a3ce06f58e6fa6a7835c703c",
+      "cohort": "flask-budget-diagnostic",
+      "attempt": 1,
+      "apt_https": false,
+      "apt_main_only": false,
+      "agent_launch_observed": true,
+      "official_resolved": false,
+      "normal_exit": true,
+      "strict_qualification_noncomparable": false,
+      "test_files_modified": [
+        "tests/test_basic.py",
+        "tests/test_blueprints.py"
+      ],
+      "proof_integrity": null,
+      "typed_proof_audit": null,
+      "infrastructure_error": null,
+      "timed_out": false,
+      "result_sha256": "23bb38e7c9c03b575281b3923ee16466553437106d4d9784914e7a43c71066a8",
+      "accounted_usd_exact": "0.813180",
+      "known_usage": {
+        "input_tokens": 172435,
+        "output_tokens": 6172,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "official_empty_patch": false,
+      "official_failed_tests": [
+        "tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots"
+      ]
+    },
+    {
+      "run_id": "pallets__flask-4045-pi-0-c8d94f0e",
+      "task_id": "pallets__flask-4045",
+      "benchmark": "SWE-bench_Lite",
+      "engine": "pi",
+      "track": "product",
+      "repetition": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 72.018,
+      "provider_attempts": 10,
+      "accounted_usd": 0.288392,
+      "unknown_usage_requests": 0,
+      "model_attempts": null,
+      "tool_dispatches": 10,
+      "summaries": null,
+      "image_digest": "swebench/sweb.eval.x86_64.pallets_1776_flask-4045@sha256:1425b0801ddf4b2607e552e56516cce3d389bab0a3ce06f58e6fa6a7835c703c",
+      "cohort": "flask-budget-diagnostic",
+      "attempt": 1,
+      "apt_https": false,
+      "apt_main_only": false,
+      "agent_launch_observed": true,
+      "official_resolved": false,
+      "normal_exit": true,
+      "strict_qualification_noncomparable": false,
+      "test_files_modified": [
+        "tests/test_basic.py",
+        "tests/test_blueprints.py"
+      ],
+      "proof_integrity": null,
+      "typed_proof_audit": null,
+      "infrastructure_error": null,
+      "timed_out": false,
+      "result_sha256": "03187a97f7c6e8687b736c81d201be1f7973aa7c2714a25ca74904a2f34aee7d",
+      "accounted_usd_exact": "0.288392",
+      "known_usage": {
+        "input_tokens": 56933,
+        "output_tokens": 3033,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "official_empty_patch": false,
+      "official_failed_tests": [
+        "tests/test_blueprints.py::test_route_decorator_custom_endpoint_with_dots"
+      ]
+    },
+    {
+      "run_id": "pallets__flask-4045-pi-1-bbd3dc09",
+      "task_id": "pallets__flask-4045",
+      "benchmark": "SWE-bench_Lite",
+      "engine": "pi",
+      "track": "product",
+      "repetition": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 106.319,
+      "provider_attempts": 15,
+      "accounted_usd": 0.5757639999999999,
+      "unknown_usage_requests": 0,
+      "model_attempts": null,
+      "tool_dispatches": 14,
+      "summaries": null,
+      "image_digest": "swebench/sweb.eval.x86_64.pallets_1776_flask-4045@sha256:1425b0801ddf4b2607e552e56516cce3d389bab0a3ce06f58e6fa6a7835c703c",
+      "cohort": "flask-budget-diagnostic",
+      "attempt": 1,
+      "apt_https": false,
+      "apt_main_only": false,
+      "agent_launch_observed": true,
+      "official_resolved": true,
+      "normal_exit": true,
+      "strict_qualification_noncomparable": false,
+      "test_files_modified": [
+        "tests/test_basic.py",
+        "tests/test_blueprints.py"
+      ],
+      "proof_integrity": null,
+      "typed_proof_audit": null,
+      "infrastructure_error": null,
+      "timed_out": false,
+      "result_sha256": "09396e74d48c80bb73edbf765d61bd1ac103eda168647df47d4c2ba9c691c334",
+      "accounted_usd_exact": "0.575764",
+      "known_usage": {
+        "input_tokens": 121086,
+        "output_tokens": 4571,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "official_empty_patch": false,
+      "official_failed_tests": []
+    }
+  ]
+}

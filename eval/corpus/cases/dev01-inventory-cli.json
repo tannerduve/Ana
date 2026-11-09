@@ -1,0 +1,100 @@
+[
+  {
+    "args": [
+      []
+    ],
+    "value": []
+  },
+  {
+    "args": [
+      [
+        {
+          "sku": "b",
+          "quantity": 2,
+          "unit_cents": 4
+        },
+        {
+          "sku": "a",
+          "quantity": -1,
+          "unit_cents": 3
+        },
+        {
+          "sku": "b",
+          "quantity": 3,
+          "unit_cents": 5
+        }
+      ]
+    ],
+    "value": [
+      {
+        "sku": "a",
+        "quantity": -1,
+        "value_cents": -3
+      },
+      {
+        "sku": "b",
+        "quantity": 5,
+        "value_cents": 23
+      }
+    ]
+  },
+  {
+    "args": [
+      [
+        {
+          "sku": "x",
+          "quantity": true,
+          "unit_cents": 2
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      [
+        {
+          "sku": "",
+          "quantity": 1,
+          "unit_cents": 2
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      [
+        {
+          "sku": "x",
+          "quantity": 1,
+          "unit_cents": -1
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      {}
+    ],
+    "error": "ValueError"
+  },
+  {
+    "cli_input": "[{\"sku\":\"x\",\"quantity\":3,\"unit_cents\":2}]",
+    "cli_json": [
+      {
+        "sku": "x",
+        "quantity": 3,
+        "value_cents": 6
+      }
+    ],
+    "exit": 0
+  },
+  {
+    "cli_input": "{",
+    "exit": 2,
+    "empty_stdout": true,
+    "stderr": true
+  }
+]

@@ -1,0 +1,231 @@
+{
+  "version": 4,
+  "recorded_utc": "2026-11-09T11:29:28.677446+00:00",
+  "status": "passed_capacity_assertions",
+  "scope": "synthetic real CLI capacity; loopback provider, no paid calls or task-quality claim",
+  "outcome": {
+    "driver_assertions": "passed; the driver writes report.json only after all assertions",
+    "expected_cli_exit_code": 2,
+    "actual_cli_exit_code": 2,
+    "cli_reason": "journal exceeds 64 MiB limit",
+    "inspect_exit_code": 0,
+    "replay_exit_code": 0,
+    "terminal_outcome_saved": false
+  },
+  "binary_sha256": "53a0665d8d5a60e53fece784943ca1c9defef3a6aeb7f3f16904e77b9a933d7c",
+  "driver_sha256": "62504921bda84a10a5c0000dba4d1e6c5b23dcc7da39354e3e0306cbea34a343",
+  "streaming_fixture_sha256": "8412fd0c47be55cfd55125d5e7df8c9fb43fc2400e523031acca5a868f18eb99",
+  "source_inventory": {
+    "path": "/tmp/lean-harness-deadline-gate-20261109/identity.json",
+    "sha256": "11728fd2c6cb6669f111fcc9c9a8d3d62fd87cedf52eafa9d5f082b92d40da0d",
+    "entries": 105,
+    "current_hashes_independently_rechecked": true
+  },
+  "schema_version": 5,
+  "config": {
+    "model": "capacity-fixture",
+    "commands": "allow",
+    "executionProfile": "bubblewrap",
+    "compactionEnabled": false,
+    "maxModelAttempts": 80,
+    "maxToolCalls": 100,
+    "maxContextBytes": 1300000,
+    "maxRetries": 0,
+    "maxToolOutputBytes": 16384,
+    "maxElapsedMs": 1200000,
+    "operationTimeoutMs": 30000,
+    "maxArtifactBytes": 16777216,
+    "maxSessionArtifactBytes": 67108864
+  },
+  "provider": "credential-free loopback fixture; no paid calls",
+  "memory_measurement": "GNU time maximum per-process RSS of the command and waited-for children; not simultaneous process-tree memory",
+  "run": {
+    "exit_code": 2,
+    "seconds": 524.552815856412,
+    "peak_worker_rss_kib": 677368
+  },
+  "inspect": {
+    "exit_code": 0,
+    "seconds": 2.0691962307319045,
+    "peak_worker_rss_kib": 425756
+  },
+  "replay": {
+    "exit_code": 0,
+    "seconds": 2.069101438857615,
+    "peak_worker_rss_kib": 426556
+  },
+  "model_requests": 58,
+  "reserved_model_attempts": 59,
+  "tool_dispatches": 61,
+  "journal_frames": 595,
+  "journal_record_counts": {
+    "initial": 1,
+    "intent": 297,
+    "completion": 297
+  },
+  "intent_action_counts": {
+    "control": 178,
+    "model": 58,
+    "tool": 61
+  },
+  "journal_bytes": 66832808,
+  "retained_cursor": {
+    "pending": false,
+    "terminal": false,
+    "phase": "model",
+    "next_id": 297,
+    "unknown_usage": 0,
+    "response_repairs": 0,
+    "accepted_summaries": 0
+  },
+  "artifact_bytes": 67108864,
+  "artifact_count": 5,
+  "artifact_metadata_verified_against_files": [
+    {
+      "truncated": false,
+      "totalBytes": 16777216,
+      "storedBytes": 16777216,
+      "sha256": "c81c15a42aaf2ddc79ce2136411284d817ffbc2be3ae8fb43e2131897878c3df",
+      "label": "stdout",
+      "id": "a-58af87a52e20e1f5acc52cae0f0b29c5b0027e3c2bae7dd4d33a41e3542175bd"
+    },
+    {
+      "truncated": false,
+      "totalBytes": 16777216,
+      "storedBytes": 16777216,
+      "sha256": "c81c15a42aaf2ddc79ce2136411284d817ffbc2be3ae8fb43e2131897878c3df",
+      "label": "stdout",
+      "id": "a-5ebfe0c38c227287eb7654cbb97abf58f008dc5bd4e8e68d681d4ff2aae76489"
+    },
+    {
+      "truncated": false,
+      "totalBytes": 16777216,
+      "storedBytes": 16777216,
+      "sha256": "c81c15a42aaf2ddc79ce2136411284d817ffbc2be3ae8fb43e2131897878c3df",
+      "label": "stdout",
+      "id": "a-b785c7f74065bcd4f24a10bfdf776e0ec20c797d1eb326f74e41a4ac1339b086"
+    },
+    {
+      "truncated": false,
+      "totalBytes": 16777216,
+      "storedBytes": 16777216,
+      "sha256": "c81c15a42aaf2ddc79ce2136411284d817ffbc2be3ae8fb43e2131897878c3df",
+      "label": "stdout",
+      "id": "a-69a2a193204bdb8606f50c02c7a47802de2774580149522ca3c04195cc649f25"
+    },
+    {
+      "truncated": true,
+      "totalBytes": 1048576,
+      "storedBytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "label": "stdout",
+      "id": "a-45aa4fff73846901f08e4b3253753ea34c4487340ef1a90f78e48e8967016cb8"
+    }
+  ],
+  "beyond_display_retrieval": {
+    "passed": true,
+    "offset": 16777182,
+    "requested_length": 128,
+    "display_limit": 16384,
+    "subsequent_workspace_file": "verified.txt",
+    "verified_file_sha256": "2f5d594340115ec90950d39ed64ce4e87ab91bb07ffdbb7d879bede8a8de072d"
+  },
+  "zero_retained_quota_marker": true,
+  "storage_refusal_preserved_replay": true,
+  "no_unjournaled_model_dispatch": true,
+  "request_wire_bytes": {
+    "minimum": 5733,
+    "maximum": 1168408
+  },
+  "timing_diagnostic": {
+    "last_request_interval_seconds": 16.605069899000227,
+    "last_three_intervals_seconds": [
+      15.995484175160527,
+      16.29140251595527,
+      16.605069899000227
+    ],
+    "scope": "Intervals between loopback request arrival times include journal work and intervening tools/control; individual append latency was not instrumented."
+  },
+  "evidence_root": "/tmp/lean-harness-session-capacity-schema5-20261109",
+  "retained_files": {
+    "report.json": {
+      "bytes": 6002,
+      "sha256": "924bba9ac8e413c205bf21f43c09febf848d7448c2c02f055f8bfa2c329ccb15"
+    },
+    "harness": {
+      "bytes": 146248288,
+      "sha256": "53a0665d8d5a60e53fece784943ca1c9defef3a6aeb7f3f16904e77b9a933d7c"
+    },
+    "session_capacity.py": {
+      "bytes": 9554,
+      "sha256": "62504921bda84a10a5c0000dba4d1e6c5b23dcc7da39354e3e0306cbea34a343"
+    },
+    "provider_streaming.py": {
+      "bytes": 14484,
+      "sha256": "8412fd0c47be55cfd55125d5e7df8c9fb43fc2400e523031acca5a868f18eb99"
+    },
+    "config.json": {
+      "bytes": 481,
+      "sha256": "ce4fa0f449fc88a648c06bb9167bfc89dc8930f3e97f4bf348967638d4e6255c"
+    },
+    "session/journal.jsonl": {
+      "bytes": 66832808,
+      "sha256": "c597492963ff6bd2e2245710aaf3a968df8b12916578444617d0403fd52ca245"
+    },
+    "run.stdout": {
+      "bytes": 247621,
+      "sha256": "f6845cee292e0ee01b076211d46eb47ea66ca69dde2393f2e8a56da488c8e2b7"
+    },
+    "run.stderr": {
+      "bytes": 38,
+      "sha256": "e7095d97647cc10e4d55f8aea55ad38db58d898d787f1e1f0344f1344aaea6a1"
+    },
+    "run.rss": {
+      "bytes": 45,
+      "sha256": "88a0db3248b19eeb5d5df3259fecdd33f92eb715e7e633d4d61035cdd01a07b0"
+    },
+    "inspect.stdout": {
+      "bytes": 1171131,
+      "sha256": "a738215cab07c2a309bd5593ba2ade267dd3e9097c5331cad2838919f8999b09"
+    },
+    "inspect.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "inspect.rss": {
+      "bytes": 7,
+      "sha256": "1536231c0d0f11da413730e25fcd47794a136702b8ab60d6a1d298ed4df9550d"
+    },
+    "replay.stdout": {
+      "bytes": 1171131,
+      "sha256": "a738215cab07c2a309bd5593ba2ade267dd3e9097c5331cad2838919f8999b09"
+    },
+    "replay.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "replay.rss": {
+      "bytes": 7,
+      "sha256": "70a14b90a46fa430b0b7fd625175296f871b92111416b2760764f5f0781ac233"
+    },
+    "workspace/verified.txt": {
+      "bytes": 34,
+      "sha256": "2f5d594340115ec90950d39ed64ce4e87ab91bb07ffdbb7d879bede8a8de072d"
+    }
+  },
+  "raw_report_sha256": "924bba9ac8e413c205bf21f43c09febf848d7448c2c02f055f8bfa2c329ccb15",
+  "previous_report": "2026-11-09-session-capacity-v3.json",
+  "independent_review": {
+    "reviewer_kind": "model",
+    "reviewer": "Codex /root/core",
+    "method": "Read the exact copied driver and current JournalIO append path; verify copied/current source and executable hashes, durable record pairing/counts, identical retained inspect/replay output, all artifact bytes/hashes, and retrieved-tail workspace output. No rerun or source mutation."
+  },
+  "scope_notes": [
+    "The expected storage-refusal exit 2 is the exercised behavior, not a successful task outcome. Offline inspect/replay succeeded and the durable prefix is preserved; the full journal has no terminal record.",
+    "The 59th model attempt was reserved by the final completed control observation. Its intent could not be saved, so only 58 model calls reached the loopback provider. The cursor has no unresolved external operation.",
+    "Four 16 MiB artifacts fill the 64 MiB quota; the next 1 MiB stdout is represented by a zero-retained, truncated artifact. All five retained files match their recorded SHA-256 and length.",
+    "Appending rereads and validates the entire journal. 524.55 s end-to-end and late 16.61 s request intervals expose a sustained-session performance limit. The test does not isolate individual append latency, and these shared-host timings are not a controlled performance comparison.",
+    "The synthetic context approaches its configured byte allowance but does not exhaust it. Compaction is disabled; this run does not establish compaction/restart usefulness, paid-model task quality, total process-tree memory, or general long-session reliability.",
+    "No product code, old report, raw evidence, or local milestone plan was changed for this review."
+  ]
+}

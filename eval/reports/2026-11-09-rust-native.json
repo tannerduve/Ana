@@ -1,0 +1,45 @@
+{
+  "model": "claude-opus-5-5",
+  "harness_commit": "4f25a7767ae9f6281027c72b91e34d3c6d04a76d",
+  "binary_sha256": "c0375ab63b39279c7198c46628b9d2a51da225dd5afa8a9c990a9d5e951e39dd",
+  "native_sources_sha256": {
+    "rust-toolchain.toml": "559f488c181e0e9e77cf17c29de663977f036ec7ff2e2060585714bf53c52d62",
+    "lakefile.lean": "bed20c92c16e76df18b47fac4b8b03f184737d85cefa3b1701cf9039a46df27c",
+    "runtime/native/Cargo.toml": "babbe0cc1a2185ce5608bc7de93542c0092ac19705846f0bcc8e5e6b25326030",
+    "runtime/native/Cargo.lock": "18a5640768a81c7dbab922af7ca2aa1973ae779c658773434acb68e7a4142b60",
+    "runtime/native/build.rs": "b50c49ce74e2d439850fb0e3a401bc852e9ec01ae8f897d1e43d123abb755038",
+    "runtime/native/src/filesystem.rs": "4e0a281b8df788f811cc1c9932e0e6561a46f1013204829939e98574c4a7d647",
+    "runtime/native/src/lean.rs": "fcd42252fe95cb0af9251dbf1659cca838324f2037bda4ebf908c1b4234054b1",
+    "runtime/native/src/lib.rs": "3403ad0a3ccb484839ae9a79d0d00bd80d39fd853f01cddc79115e4721732a12",
+    "runtime/native/src/process.rs": "03f7c1c9c83faa3b3b718ebaf21fcd0d2e70adf2fd2c34acf293e0a56e0acef8"
+  },
+  "checker_sha256": "a687cd4fd9ddb2220cb2003f1978b9d9a7390de5cff9714f9055c81a4584af95",
+  "fixture_sha256": {
+    "README.md": "9c520301eed78c170f3ef4ac77ed73fbba009f003defbb8c265b6b510dee08f1",
+    "test_ranges.py": "f306a6d924c347bb7bcafa88b6f6ad53614ea72d04d1afc91fe5ff1a414e7779",
+    "ranges.py": "147ea713c90ae273fd9de752b6ce299fef00b7db70da7864b07883ad23c86f63"
+  },
+  "dirty_source_tree": true,
+  "baseline_checker_exit": 1,
+  "harness_exit": 0,
+  "checker_exit": 0,
+  "fixture_tests_unchanged": true,
+  "elapsed_seconds": 19.66,
+  "watchdog_fired": false,
+  "inspection_ok": true,
+  "model_attempts": 5,
+  "tool_dispatches": 7,
+  "known_input_tokens": 17806,
+  "known_output_tokens": 2107,
+  "unknown_usage_observations": 0,
+  "success": true,
+  "provenance": "Run before the history squash with an uncommitted Rust migration. harness_commit is the prior HEAD; binary and source hashes identify the tested implementation.",
+  "independent_checker": {
+    "passed": true,
+    "case_count": 43,
+    "fixture_integrity_checks": 2,
+    "source_sha256": "2f80dd8c0d0e69f73f5c45bbb3f092064c161e7bcee8a95da4b4de1a41c7d0af",
+    "failures": [],
+    "label": "self-authored development smoke; not held-out"
+  }
+}

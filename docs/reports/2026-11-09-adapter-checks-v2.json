@@ -1,0 +1,139 @@
+{
+  "prior_unexplained_sandbox_cleanup_timeouts": 3,
+  "gates": [
+    {
+      "suite": "harness_tests",
+      "exit_code": 0,
+      "elapsed_seconds": 0.165,
+      "test_count": null,
+      "log_sha256": "7d24f16dc2c9e161730052f99e48ab0aa5a45d334e4b87b58360a84c44d2b064"
+    },
+    {
+      "suite": "runtime_properties",
+      "exit_code": 0,
+      "elapsed_seconds": 6.628,
+      "test_count": null,
+      "log_sha256": "1ed07fdbc8556635d32cb4e2ca975048ae0c498a20e0db162b6f79c40b51257c"
+    },
+    {
+      "suite": "runtime_contracts",
+      "exit_code": 0,
+      "elapsed_seconds": 7.43,
+      "test_count": 26,
+      "log_sha256": "d25e5aaf3634fdd40dc3c82b6a50582f73f22c1339117ccf17ec2e00f9984307"
+    },
+    {
+      "suite": "native_abi",
+      "exit_code": 0,
+      "elapsed_seconds": 0.515,
+      "test_count": 3,
+      "log_sha256": "e9b9a258522350710ae1a224cc2750ad973eda83cbb229730477be68114c7a92"
+    },
+    {
+      "suite": "provider_transport",
+      "exit_code": 0,
+      "elapsed_seconds": 4.474,
+      "test_count": 8,
+      "log_sha256": "699d7482b64a2dd7641b52b67a766285e933664ac3c72c8b7c2348eddabe5357"
+    },
+    {
+      "suite": "provider_streaming",
+      "exit_code": 0,
+      "elapsed_seconds": 4.624,
+      "test_count": 7,
+      "log_sha256": "005193c4720fa7aff6911352230e82d9669f2b0a0f20df4f1c8d708d37e3ff82"
+    },
+    {
+      "suite": "event_output",
+      "exit_code": 0,
+      "elapsed_seconds": 3.923,
+      "test_count": 8,
+      "log_sha256": "e18cfe4b64ff5a9a1a1aec3ecce15583e37ed3ebe60ea3d52c092c3491cfef36"
+    },
+    {
+      "suite": "integration",
+      "exit_code": 0,
+      "elapsed_seconds": 9.835,
+      "test_count": 17,
+      "log_sha256": "2077455c8d4cecf9fc5bac5dafca254b7a0384e1f34ea5857a8c630ee478ba76"
+    },
+    {
+      "suite": "crash_recovery",
+      "exit_code": 0,
+      "elapsed_seconds": 8.586,
+      "test_count": 10,
+      "log_sha256": "11113a9dae51b7ce9c8de8f8d648f42234d85e42c66fd6edf7a94d91c4c23d15"
+    },
+    {
+      "suite": "recovery_observations",
+      "exit_code": 0,
+      "elapsed_seconds": 20.611,
+      "test_count": 11,
+      "log_sha256": "4d67f36a321827e23a2f88c4abe326edbfb09b9a8b8b51849cfab5d2e5cde816"
+    },
+    {
+      "suite": "session_boundaries",
+      "exit_code": 0,
+      "elapsed_seconds": 3.873,
+      "test_count": 12,
+      "log_sha256": "9a9b8a3573a22017868ac1c1196dea658a29a60cde7609759e1358bf5e7ed87f"
+    },
+    {
+      "suite": "sandbox_contracts",
+      "exit_code": 0,
+      "elapsed_seconds": 2.018,
+      "test_count": 9,
+      "log_sha256": "43477be93e68efda54cd90adf3265cf1af5ee8c0643ff95f940ad1fe8a4ef95e"
+    },
+    {
+      "suite": "artifacts",
+      "exit_code": 0,
+      "elapsed_seconds": 2.469,
+      "test_count": 7,
+      "log_sha256": "9d749721959049ffff431cefe14b05dce65bbb2d31199b14097af0ece56e95db"
+    },
+    {
+      "suite": "journal_serialization",
+      "exit_code": 0,
+      "elapsed_seconds": 2.87,
+      "test_count": 4,
+      "log_sha256": "83ee20794b3c964b0bb4d1c8ecab03c79f7b7ba77ba4384781ea63008ef4c800"
+    },
+    {
+      "suite": "provider_json_bounds",
+      "exit_code": 0,
+      "elapsed_seconds": 5.627,
+      "test_count": 7,
+      "log_sha256": "9ea005038fffb5c86139f06467dce128fc9387f6b8ae1052f6c0df928196aa53"
+    }
+  ],
+  "binary_sha256": {
+    "harness": "eed8666165f9347037a0726d4779852cf27bb13aaa20f8a0e2a1e1975c0907e5",
+    "runtime_contracts": "d1e77cf600327c4c9c8830ddf36d0ab334b1cd059f1dfcb77387cbbb79664a7c",
+    "harness_tests": "23dba4fd0c4c8dc3afce04d0ec755de1398161cf3807215dd387b60bbd5ce765",
+    "runtime_properties": "289280fb6994bdac0e3aa9fcf05391d8ef708639aeb94fb17d951578016d9ecc"
+  },
+  "unexpected_test_environment": {
+    "LD_PRELOAD_present": false,
+    "HARNESS_TEST_names": []
+  },
+  "passed": true,
+  "adapter_test_count": 129,
+  "date": "2026-11-09",
+  "scope": "Compiled adapter contracts and default generated/core tests; no paid model calls. Tests ran on a private product build; all four binaries are byte-identical to the main workspace build.",
+  "raw_report_sha256": "6d0fb37686127e2b64085c99f5f057b4bdc7cb91b8a18a88476320d6ee2187e4",
+  "main_private_equivalence_sha256": "17265e39d4d4c783aadf5f82fa9b40c399407c8df0da381bebacc9d0893b8464",
+  "prior_report": "2026-11-09-adapter-checks.json",
+  "prior_failures": "Three historical sandbox cleanup timeouts remain unexplained. This passing run does not establish their cause or resolution; the prior report retains the investigation.",
+  "generated_io_scope": "This run used the default 100 generated-data cases and 200 sequences of 30 operations. The extended 2000-by-100 run predates the JSON admission changes.",
+  "json_boundary": {
+    "resource_admission": "Before the existing Lean parser: numeric digits <=4096, exponent magnitude <=4096, nesting <=128, total decimal-digit work <=1048576. Provider streaming events and final tool-argument reparses share the work budget.",
+    "journal_roundtrip": "The complete bounded frame must parse and compare equal under Lean Json BEq before any write. This is executable refusal of unsupported values, not a universal typed-codec proof.",
+    "new_contracts": {
+      "journal_serialization": 4,
+      "provider_json_bounds": 7
+    },
+    "resource_tests": "CPU/address-space and wall-time limits via prlimit; tests require util-linux and do not need Docker.",
+    "limits": "Selected fault cases. No theorem establishes whole-process memory or latency bounds."
+  }
+}

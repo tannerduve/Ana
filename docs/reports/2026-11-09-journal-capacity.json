@@ -1,0 +1,204 @@
+{
+  "binary_sha256": "9b95d0530e9320650e9383dc8aae8fbbeef54ed785e39bff05cd502f83b82d4e",
+  "record_count": 31,
+  "journal_bytes": 65018169,
+  "measurement_probe_rss_kib": 75456,
+  "appends": [
+    {
+      "record": 0,
+      "journal_bytes": 2097297,
+      "seconds": 0.07565647829324007,
+      "worker_peak_rss_kib": 85060
+    },
+    {
+      "record": 1,
+      "journal_bytes": 4194658,
+      "seconds": 0.11269612144678831,
+      "worker_peak_rss_kib": 93044
+    },
+    {
+      "record": 2,
+      "journal_bytes": 6292019,
+      "seconds": 0.141697040759027,
+      "worker_peak_rss_kib": 98968
+    },
+    {
+      "record": 3,
+      "journal_bytes": 8389380,
+      "seconds": 0.17965044546872377,
+      "worker_peak_rss_kib": 104384
+    },
+    {
+      "record": 4,
+      "journal_bytes": 10486741,
+      "seconds": 0.20746351685374975,
+      "worker_peak_rss_kib": 120520
+    },
+    {
+      "record": 5,
+      "journal_bytes": 12584102,
+      "seconds": 0.24138156976550817,
+      "worker_peak_rss_kib": 123088
+    },
+    {
+      "record": 6,
+      "journal_bytes": 14681463,
+      "seconds": 0.2786845052614808,
+      "worker_peak_rss_kib": 125364
+    },
+    {
+      "record": 7,
+      "journal_bytes": 16778824,
+      "seconds": 0.30573497526347637,
+      "worker_peak_rss_kib": 126144
+    },
+    {
+      "record": 8,
+      "journal_bytes": 18876185,
+      "seconds": 0.35121138487011194,
+      "worker_peak_rss_kib": 135296
+    },
+    {
+      "record": 9,
+      "journal_bytes": 20973546,
+      "seconds": 0.3827689466997981,
+      "worker_peak_rss_kib": 138384
+    },
+    {
+      "record": 10,
+      "journal_bytes": 23070909,
+      "seconds": 0.4233249071985483,
+      "worker_peak_rss_kib": 141788
+    },
+    {
+      "record": 11,
+      "journal_bytes": 25168272,
+      "seconds": 0.4466155329719186,
+      "worker_peak_rss_kib": 145132
+    },
+    {
+      "record": 12,
+      "journal_bytes": 27265635,
+      "seconds": 0.5007536206394434,
+      "worker_peak_rss_kib": 152464
+    },
+    {
+      "record": 13,
+      "journal_bytes": 29362998,
+      "seconds": 0.5155439069494605,
+      "worker_peak_rss_kib": 162988
+    },
+    {
+      "record": 14,
+      "journal_bytes": 31460361,
+      "seconds": 0.545842481777072,
+      "worker_peak_rss_kib": 164368
+    },
+    {
+      "record": 15,
+      "journal_bytes": 33557724,
+      "seconds": 0.5774504290893674,
+      "worker_peak_rss_kib": 171172
+    },
+    {
+      "record": 16,
+      "journal_bytes": 35655087,
+      "seconds": 0.6177175501361489,
+      "worker_peak_rss_kib": 200168
+    },
+    {
+      "record": 17,
+      "journal_bytes": 37752450,
+      "seconds": 0.6474658763036132,
+      "worker_peak_rss_kib": 202632
+    },
+    {
+      "record": 18,
+      "journal_bytes": 39849813,
+      "seconds": 0.807314183562994,
+      "worker_peak_rss_kib": 185008
+    },
+    {
+      "record": 19,
+      "journal_bytes": 41947176,
+      "seconds": 0.7341475374996662,
+      "worker_peak_rss_kib": 205228
+    },
+    {
+      "record": 20,
+      "journal_bytes": 44044539,
+      "seconds": 0.7438214085996151,
+      "worker_peak_rss_kib": 208776
+    },
+    {
+      "record": 21,
+      "journal_bytes": 46141902,
+      "seconds": 0.7878928445279598,
+      "worker_peak_rss_kib": 211348
+    },
+    {
+      "record": 22,
+      "journal_bytes": 48239265,
+      "seconds": 0.815746096894145,
+      "worker_peak_rss_kib": 213648
+    },
+    {
+      "record": 23,
+      "journal_bytes": 50336628,
+      "seconds": 0.8499904973432422,
+      "worker_peak_rss_kib": 215656
+    },
+    {
+      "record": 24,
+      "journal_bytes": 52433991,
+      "seconds": 0.8766114246100187,
+      "worker_peak_rss_kib": 220880
+    },
+    {
+      "record": 25,
+      "journal_bytes": 54531354,
+      "seconds": 0.9089792473241687,
+      "worker_peak_rss_kib": 225232
+    },
+    {
+      "record": 26,
+      "journal_bytes": 56628717,
+      "seconds": 0.9572132090106606,
+      "worker_peak_rss_kib": 230908
+    },
+    {
+      "record": 27,
+      "journal_bytes": 58726080,
+      "seconds": 0.9799164831638336,
+      "worker_peak_rss_kib": 237300
+    },
+    {
+      "record": 28,
+      "journal_bytes": 60823443,
+      "seconds": 1.013726633042097,
+      "worker_peak_rss_kib": 244328
+    },
+    {
+      "record": 29,
+      "journal_bytes": 62920806,
+      "seconds": 1.056473571807146,
+      "worker_peak_rss_kib": 248320
+    },
+    {
+      "record": 30,
+      "journal_bytes": 65018169,
+      "seconds": 1.0806846152991056,
+      "worker_peak_rss_kib": 253684
+    }
+  ],
+  "read_validate": {
+    "seconds": 1.0686545614153147,
+    "worker_peak_rss_kib": 256416
+  },
+  "rejected_append": {
+    "seconds": 1.120318409986794,
+    "worker_peak_rss_kib": 263460
+  },
+  "refused_append_preserved_prefix": true,
+  "scope": "actual journal adapter; synthetic records, not logical agent replay"
+}

@@ -1,0 +1,6 @@
+[
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"totals","name":"warehouse_totals","input":{}}]},
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"page-0","name":"low_stock","input":{"warehouse":"south","offset":0,"limit":1}}]},
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"page-1","name":"low_stock","input":{"warehouse":"south","offset":1,"limit":1}},{"type":"tool_use","id":"item","name":"lookup","input":{"sku":"S-GLOVE"}}]},
+  {"type":"message","role":"assistant","stop_reason":"end_turn","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"text","text":"Warehouse south has the largest shortfall: 32 units. Replenish S-GLOVE (Work gloves) by 30 units and S-LABEL (Shipping labels) by 2 units. Both pages were retrieved; nextOffset is null. The lookup confirms S-GLOVE has zero on hand and a reorder point of 30."}]}
+]

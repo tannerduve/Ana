@@ -1,0 +1,10 @@
+[
+  {
+    "theorem": "reverse_twice",
+    "allowed_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+[
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"reserve-cables","name":"reserve","input":{"sku":"N-CABLE","units":4}}]},
+  {"type":"message","role":"assistant","stop_reason":"tool_use","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"tool_use","id":"remaining-cables","name":"lookup","input":{"sku":"N-CABLE"}}]},
+  {"type":"message","role":"assistant","stop_reason":"end_turn","usage":{"input_tokens":1,"output_tokens":1},"content":[{"type":"text","text":"Reserved four N-CABLE units. Eight remain in this session's inventory."}]}
+]

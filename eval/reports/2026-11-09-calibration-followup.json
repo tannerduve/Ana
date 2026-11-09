@@ -1,0 +1,720 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-09",
+  "title": "Two-run follow-up: both development tasks qualified",
+  "scope": {
+    "type": "Known self-authored repository-feature development diagnostic",
+    "task_count": 2,
+    "engines": [
+      "lean"
+    ],
+    "heldout": false,
+    "pi_comparison": false,
+    "parity_claim": false,
+    "full_16_sustained_gate_complete": false,
+    "original_72_heldout_gate_complete": false,
+    "historical_results_preserved": true,
+    "review_kind": "Independent Codex-agent patch and session reviews; no human review claimed."
+  },
+  "candidate": {
+    "repository_commit": "587dcff2d2d4cf38653bc193710d7fe25179341d",
+    "harness_binary_sha256": "53a0665d8d5a60e53fece784943ca1c9defef3a6aeb7f3f16904e77b9a933d7c",
+    "proxy_binary_sha256": "57488d57103ce65a3f324df4255cb3ae37c6d436cb873eac762568feaae99390",
+    "proxy_identity_sha256": "69a69e92a5e20ede6ac6b21dd1873bbd8421d99f3dae5988e7617c57ac059302",
+    "session_schema": 5,
+    "task_context_version": 3,
+    "model": "claude-opus-5-5",
+    "source_snapshot_sha256": "17ba297b74436f38b55fe19af02df64e56840e48ec88d82830c36a777cb5aa6b",
+    "durable_preservation": {
+      "retention": {
+        "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-candidate/retention.json",
+        "sha256": "7f4b5520749cc71d17931134b296266e9c112f6c18f920ea6533f21a2e3e8a3f"
+      },
+      "source_archive": {
+        "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-candidate/source.tar.gz",
+        "sha256": "fec5648968463bcd37727c8ee210bf6b717f91af93fab0e0a058cef6a89efa42"
+      },
+      "binary_archive": {
+        "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-candidate/binaries.tar.gz",
+        "sha256": "1106867200d8176c94b337a1a8ce55dd3b2dc57462113b515b65e8c3b597d933"
+      },
+      "validation_archive": {
+        "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-candidate/validation.tar.gz",
+        "sha256": "5fba6f20f6df03cb669ef62c4206a1f5f303f6ae50a3570f0a29708a9d11ea62"
+      }
+    }
+  },
+  "settings": {
+    "provider_attempts": 40,
+    "tool_dispatches": 120,
+    "output_tokens": 4096,
+    "overall_seconds": 900,
+    "retries": 0,
+    "lean_operation_ms": 90000,
+    "max_response_repairs": 2,
+    "execution_profile": "bubblewrap",
+    "provider_default_effort": "Unchanged provider default; no Pi run in this cohort.",
+    "context_units": "Lean estimated bytes, not model tokens",
+    "broker_request_byte_ceilings": {
+      "lean-adequate": 144000,
+      "lean-constrained-restart": 84000
+    },
+    "cohort_subcap_usd": "4.750000",
+    "allocation": "development",
+    "total_authorization_usd": "150.000000",
+    "retain_responses": true
+  },
+  "cohort": {
+    "planned": 2,
+    "started": 2,
+    "recorded": 2,
+    "unrun": 0,
+    "normal_finishes": 2,
+    "automated_artifact_passes": 2,
+    "independently_qualified": 2,
+    "provider_requests": 60,
+    "model_attempts": 60,
+    "tool_dispatches": 73,
+    "accepted_summaries": 6,
+    "durable_restarts": 17,
+    "typed_timeouts": 0,
+    "skipped_tool_calls": 0,
+    "applicable_continuation_gates": 1,
+    "passed_applicable_continuation_gates": 1,
+    "inapplicable_continuation_gates": 1
+  },
+  "evidence_limits": [
+    "Exact local durable request/context reconstruction and settled Broker metadata alignment passed. Outbound request-body and canonical-context digests were not captured, so independent wire instruction equality is unavailable. Frozen ProviderIO serialization/transport remains a trusted assumption.",
+    "Future outbound-digest instrumentation cannot retroactively upgrade these runs.",
+    "No typed timeout or skipped suffix occurred. These outcomes do not establish live coverage or causal efficacy of the corrected timeout path.",
+    "Sphinx empty input means a valid project/document with no links; no zero-source-directory or missing-master guarantee is claimed.",
+    "Selected upstream checks and retained authored-test observations are not full upstream-suite certification.",
+    "Known development features do not replace the four-task/sixteen-run sustained gate or original thirty-task/seventy-two-run held-out comparison."
+  ],
+  "accounting_at_closure": {
+    "ledger_sha256": "946302d400ed7dc7562294a357c1aa27ddf8e383d58fc1b9f1179b7e6f164025",
+    "opening_prefix_sha256": "19215dc437f1ffbde59f927c3696cab853af33061e963f6477167c343a6a7eb8",
+    "opening_next_sequence": 1255,
+    "closing_next_sequence": 1375,
+    "authorized_usd": "150.000000",
+    "opening_accounted_usd": "61.106444",
+    "cohort_spend_usd": "3.966048",
+    "closing_accounted_usd": "65.072492",
+    "campaign_remaining_usd": "84.927508",
+    "cohort_subcap_usd": "4.750000",
+    "cohort_unspent_usd": "0.783952",
+    "allocation_remaining_usd": {
+      "development": "0.900896",
+      "heldout": "80",
+      "long": "0.923644",
+      "reserve": "3.102968"
+    },
+    "unsettled_requests": 0,
+    "broker_storage_failures": 0,
+    "broker_active_requests": 0,
+    "broker_unknown_usage": 0,
+    "core_unknown_usage": 0
+  },
+  "pricing": {
+    "basis": "Estimate at the predeclared frozen prices, not an invoice or a claim about current provider pricing.",
+    "usd_per_million": {
+      "input": "4.0",
+      "output": "20.0",
+      "cache_read": "0.2",
+      "cache_write": "5.0",
+      "cache_write_1h": "8.0"
+    },
+    "precision": "CampaignLedger integer nanodollars; coordinator floating display is preserved separately in the closure audit."
+  },
+  "inputs": {
+    "protocol": {
+      "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/protocol.json",
+      "sha256": "4fc0720ceacea16d717a7041de32dc39b49c4d3d48bd61a1654b898b972786ce",
+      "bytes": 28725
+    },
+    "release": {
+      "path": "/tmp/lean-harness-calibration-587dcff-release-01.json",
+      "sha256": "c3af93c8b35da2085f44c1e1d90802381a7326a813636638cf43d265883db962",
+      "bytes": 1382
+    },
+    "completion": {
+      "path": "/tmp/lean-harness-calibration-587dcff-live-01/completion.json",
+      "sha256": "5ec292a2272ea524ab5b9fb7c80ee9530bbd21c05dc4f3aaf57c6592dda51dd5",
+      "bytes": 265
+    },
+    "root_closure": {
+      "path": "/tmp/lean-harness-calibration-587dcff-closure-01/evidence.json",
+      "sha256": "e1c8610390853475fe68db7554517ee543a3c88ea3466c58eb0922fe88583b1e",
+      "bytes": 2000
+    },
+    "independent_closure_audit": {
+      "path": "/tmp/lean-harness-calibration-587dcff-session-audit/cohort-closure-audit.json",
+      "sha256": "fa3963b1bf5087b07d1b77e5a5c66004138c2411b9c1b79a9aa9d485bb2d0f81",
+      "bytes": 5421
+    },
+    "acceptance": {
+      "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-calibration-followup/acceptance.json",
+      "sha256": "a52b7f2d5047e9b4caf8ff4432a7ed4c694544454e488504dcbce1bb89582570",
+      "bytes": 1317
+    },
+    "prospective_request_digest_note": {
+      "path": "/tmp/lean-harness-calibration-587dcff-session-audit/prospective-request-digests.json",
+      "sha256": "db9502b9b00037bd5b28bf76301d2d96337a18ac894cb719ac914c4f4678777f",
+      "bytes": 4000
+    },
+    "product_ci": {
+      "path": "/tmp/lean-harness-587dcff-ci-20261109/product.json",
+      "sha256": "f4015e2baf12132ac65eedc001284f1608409d58d5a0c48af04df87bbbea5126",
+      "bytes": 1845
+    },
+    "evaluation_ci": {
+      "path": "/tmp/lean-harness-587dcff-ci-20261109/evaluation.json",
+      "sha256": "3d856748999fd74b468ea2be40237dd52224bbe03a0f4a622cdc1edaba110d14",
+      "bytes": 1686
+    }
+  },
+  "retention": {
+    "record": {
+      "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-calibration-followup/retention.json",
+      "sha256": "bd3736b416b8017fa35bf6714afa27efd563069f0b552c2d14c84d83e3b99128",
+      "bytes": 909
+    },
+    "archive": {
+      "path": "/home/tannerduve/.local/state/lean-harness/evaluations/2026-11-09-587dcff-calibration-followup/evidence.tar.gz",
+      "sha256": "b0fef564abb4d25738621fc6dc2f957c3cc4a9d285f2da91c360af6f9a1fe206",
+      "bytes": 13374116,
+      "verified_regular_members": 2884
+    },
+    "scope": "Private local lossless evidence archive; raw requests/responses, sessions and task contents are not published in this report. Original files were not rewritten."
+  },
+  "runs": [
+    {
+      "slot": 1,
+      "task_id": "long-pytest-collection-report",
+      "repo": "pytest-dev/pytest",
+      "base_commit": "2051e30b9b596e944524ccb787ed20f9f5be93e3",
+      "image_digest": "swebench/sweb.eval.x86_64.pytest-dev_1776_pytest-5227@sha256:c91459f86ed261ab81871b086d7ca2d9fe16abd2ddf374bf172edd5d991fd28b",
+      "engine": "lean",
+      "mode": "lean-adequate",
+      "run_id": "long-pytest-collection-report-lean-0-2443a576",
+      "settings": {
+        "id": "lean-adequate",
+        "engine": "lean",
+        "max_attempts": 40,
+        "max_tools": 120,
+        "context_bytes": 120000,
+        "timeout": 900,
+        "yield_after": 0,
+        "config": {
+          "maxOutputTokens": 4096,
+          "maxToolOutputBytes": 16384,
+          "compactAtPercent": 75,
+          "compactionKeepMessages": 4,
+          "maxSummaryBytes": 12000,
+          "maxResponseRepairs": 2
+        }
+      },
+      "task_text_sha256": "28cb4ade41131dcd73824cbc35cb0f8c77e0bd915d1d97f85a5b1a0180fb8d47",
+      "final_user_task_sha256": "979eab0aeca43254fd9a3cf733932d1545acae43a5cd474d841f3da0b6130098",
+      "normal_finish": true,
+      "artifact_pass": true,
+      "independent_patch_review": "approve",
+      "qualified_success": true,
+      "qualification_scope": "Separate immutable review; original result success=false and pending_independent_review remain unchanged.",
+      "original_result_success": false,
+      "original_qualification_status": "pending_independent_review",
+      "checker": {
+        "passed": true,
+        "resolved": true,
+        "benchmark": "self-authored sustained repository feature",
+        "checker_exit_code": 0,
+        "details": {
+          "passed": true,
+          "cases": 14,
+          "spec": "long-pytest-collection-report"
+        },
+        "result_shape_matches": true,
+        "original_tests_exit_code": 0
+      },
+      "selected_validation": {
+        "independent_feature_checker": {
+          "passed": true,
+          "cases": 14,
+          "log_sha256": "c0045a8eb01ed7997ad205070a0f7201fa419ef7397c5f2f39a0270e0946d3a9"
+        },
+        "selected_upstream_tests": {
+          "passed": 70,
+          "xfailed": 1,
+          "exit_code": 0,
+          "log_sha256": "489e0e3d2ed8f1a64ec8a8f02a0c6618d41d9d054c7c55eb97e576884d351e34"
+        },
+        "new_tests": {
+          "passed": 12,
+          "evidence_kind": "Retained agent tool observation, not independently rerun by this reviewer.",
+          "tool_call_id": "toolu_01N6QisdGS92DydwfAVS7ppZ",
+          "observation": "12 passed in0.40 seconds; pipeline status alone is not used as proof."
+        },
+        "broader_agent_checks": "Retained agent logs contain four additional failures also seen in its temporary baseline comparisons; this review does not independently certify that broader suite or infer causality from final-answer prose."
+      },
+      "checker_definition": {
+        "files": [
+          {
+            "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/private-checkers/long-pytest-collection-report-check.py",
+            "sha256": "96ba0fbbc67d4d2017584b910783a40579f36befe1f86cf401d377cfbb3b6b2a",
+            "name": "check.py"
+          }
+        ],
+        "command": [
+          "/opt/miniconda3/envs/testbed/bin/python",
+          "/checker/check.py"
+        ],
+        "timeout_seconds": 120,
+        "memory": "2g",
+        "format": "json",
+        "expected_counts": {
+          "cases": 14
+        },
+        "baseline_failure_contains": "unrecognized arguments: --collect-json"
+      },
+      "original_tests_definition": {
+        "timeout_seconds": 180,
+        "expected_exit_code": 0,
+        "command": [
+          "/opt/miniconda3/envs/testbed/bin/python",
+          "-m",
+          "pytest",
+          "testing/test_collection.py"
+        ]
+      },
+      "reference_patch": {
+        "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/private-checkers/long-pytest-collection-report-reference.patch",
+        "sha256": "36021a1e5d7b28dd60d2e4bd5192bc03c5ade2d003f7b87f92678b9926e3a587"
+      },
+      "model_attempts": 20,
+      "tool_dispatches": 25,
+      "provider_requests": 20,
+      "task_requests": 19,
+      "accepted_summaries": 1,
+      "durable_restarts": 0,
+      "process_invocations": 1,
+      "summary_operations": [
+        57
+      ],
+      "restart_operations": [],
+      "continuation_gate": {
+        "applicable": false,
+        "passed": null,
+        "reason": "Adequate mode did not request restart; one summary/no restart is not a restart-gate pass."
+      },
+      "typed_timeouts": 0,
+      "skipped_tool_calls": 0,
+      "timeout_continuation_coverage": "unexercised",
+      "response_repairs": 0,
+      "session_integrity": {
+        "passed": true,
+        "journal_frames": 218,
+        "model_attempts": 20,
+        "response_repairs": 0,
+        "tool_dispatches": 25,
+        "verified_artifacts": 1,
+        "verified_artifact_bytes": 78513,
+        "usage": {
+          "known_input_tokens": 335585,
+          "known_output_tokens": 15120,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 20,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "replay_matches": true,
+      "request_audit_status": "PASSED_LOCAL_SESSION_REQUEST_AND_ACCOUNTING_AUDIT",
+      "instruction_delivery": {
+        "frozen_source_task_hash_verified": true,
+        "final_user_task_hash_verified": true,
+        "initial_config_matches_saved_config_instructions": true,
+        "every_recorded_request_system_matches_config": true,
+        "raw_request_or_context_digest_in_broker": false,
+        "established": "Exact durable normalized request messages/system/caps match independently reconstructed history, summary ranges, artifact catalog and current budget notice; attempt counts, output metadata and usage match settled Broker records.",
+        "remaining_assumption": "Trusted frozen ProviderIO serialization/transport delivers those normalized requests. Broker did not retain raw request bodies or request/context digests, so this audit cannot independently prove wire or provider-side instruction equality. No unavailable observation is upgraded to proved."
+      },
+      "accounted_usd": "1.644740",
+      "core_unknown_usage": 0,
+      "provider_unknown_usage": 0,
+      "cleanup_settled": true,
+      "reviewer_kind": "model",
+      "reviewer_identity": "Codex independent static reviewer",
+      "evidence": {
+        "manifest": {
+          "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/manifests/slot-01.json",
+          "sha256": "925ea542060ccda8b77dd06ddd536e0d7d78b7f1fa4b9a862d05e4d06b71820d",
+          "bytes": 3716
+        },
+        "plan": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/plan.json",
+          "sha256": "df712e713f1d3edce53093f6c8513ac7b927aa7a93ac5f7dfb30e752647a61ce",
+          "bytes": 12339
+        },
+        "result": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/result.json",
+          "sha256": "a6334d9f2ae1a6f3cd4058ca6cb5d6c0711318a0208df039f3549db3913e539a",
+          "bytes": 14526
+        },
+        "patch": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/candidate-snapshot/candidate.patch",
+          "sha256": "5fca64e7e9f8aff8a2fc60eac5256c3909a80ccd20a7c3aaff37be377d0b79f9",
+          "bytes": 16126
+        },
+        "inspection": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/inspection.json",
+          "sha256": "fe9cc574736fefbaf67783564d8be196c239c48529f914a12bffe7d08965aaea",
+          "bytes": 130102
+        },
+        "replay": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/replay.json",
+          "sha256": "fe9cc574736fefbaf67783564d8be196c239c48529f914a12bffe7d08965aaea",
+          "bytes": 130102
+        },
+        "journal": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/sessions/session/journal.jsonl",
+          "sha256": "61682f0489c57d3138e18bbd7046b8c5dd29ca8920a7a386e840f644b212ff8d",
+          "bytes": 1055941
+        },
+        "config": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/config.json",
+          "sha256": "25eb8ff898a844178759335f9cd3cb7100dd521c42194ea25753892ceb09bdf1",
+          "bytes": 985
+        },
+        "events": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/events.log",
+          "sha256": "02dc14eb4121b2605cec24438f84e28f99e1f93446ecbfdc55738ca63bd4fe05",
+          "bytes": 356375
+        },
+        "resources": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/long-pytest-collection-report-lean-0-2443a576/resources.jsonl",
+          "sha256": "1058e9924483645bb8f7b14dd7b4d32b2d15bd772d402dc199ee65c7c3d088d1",
+          "bytes": 96
+        },
+        "broker": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-01/broker.json",
+          "sha256": "02f72d63dcfbb3ce8a0b4d4107fa5c8b9aaeb400c483f60d1cbf3a687a1e728f",
+          "bytes": 30100
+        },
+        "patch_review": {
+          "path": "/tmp/lean-harness-calibration-587dcff-reviews/slot-01/patch-review.json",
+          "sha256": "b1216557df899f2bde98495e886a64ad1399dbb845a1cf771f4b3a4fca1fc63d",
+          "bytes": 2617
+        },
+        "qualification": {
+          "path": "/tmp/lean-harness-calibration-587dcff-reviews/slot-01/qualification.json",
+          "sha256": "7c2e78e2d54265294d4f538b209ae03f73df21e1c26fcae141d2d6caff3c8962",
+          "bytes": 3614
+        },
+        "findings": {
+          "path": "/tmp/lean-harness-calibration-587dcff-reviews/slot-01/findings.json",
+          "sha256": "63bbe15af965a635058eaa6a67afc2a6846b9c05ef5f7e0c15389f99dd749c84",
+          "bytes": 7282
+        },
+        "session_audit": {
+          "path": "/tmp/lean-harness-calibration-587dcff-session-audit/pytest-final-audit.json",
+          "sha256": "a0e62bc169abc10475d8cd25d056ad0641f70a04aa653f666662498450fe4742",
+          "bytes": 37193
+        },
+        "handoff": {
+          "path": "/tmp/lean-harness-calibration-587dcff-review-handoffs/pytest.json",
+          "sha256": "5143952dde55eca887163744bc66c7a95e5842ad49cc9c6f952fd3662893d1ba",
+          "bytes": 3192
+        }
+      }
+    },
+    {
+      "slot": 2,
+      "task_id": "long-sphinx-linkcheck-report",
+      "repo": "sphinx-doc/sphinx",
+      "base_commit": "82ef497a8c88f0f6e50d84520e7276bfbf65025d",
+      "image_digest": "swebench/sweb.eval.x86_64.sphinx-doc_1776_sphinx-8721@sha256:8f02afdb324767a2e56b7940569ea822cfa58c3c1f0ef9a910162d21cf52c3f5",
+      "engine": "lean",
+      "mode": "lean-constrained-restart",
+      "run_id": "long-sphinx-linkcheck-report-lean-0-74a16217",
+      "settings": {
+        "id": "lean-constrained-restart",
+        "engine": "lean",
+        "max_attempts": 40,
+        "max_tools": 120,
+        "context_bytes": 60000,
+        "timeout": 900,
+        "yield_after": 12,
+        "config": {
+          "maxOutputTokens": 4096,
+          "maxToolOutputBytes": 8192,
+          "compactAtPercent": 90,
+          "compactionKeepMessages": 2,
+          "maxSummaryBytes": 8000,
+          "maxResponseRepairs": 2
+        }
+      },
+      "task_text_sha256": "f02c0456568edd0f5f12a101b06341cc35cbdd42bb2f8f37b4d1f62cf5dc864d",
+      "final_user_task_sha256": "6dbd4f2b2ce6e5d18c08f90172264f7336c6a6072999b9decfa9a85099587e9f",
+      "normal_finish": true,
+      "artifact_pass": true,
+      "independent_patch_review": "approve",
+      "qualified_success": true,
+      "qualification_scope": "Separate immutable review; original result success=false and pending_independent_review remain unchanged.",
+      "original_result_success": false,
+      "original_qualification_status": "pending_independent_review",
+      "checker": {
+        "passed": true,
+        "resolved": true,
+        "benchmark": "self-authored sustained repository feature",
+        "checker_exit_code": 0,
+        "details": {
+          "tests_run": 8,
+          "passed": true
+        },
+        "result_shape_matches": true,
+        "original_tests_exit_code": 0
+      },
+      "selected_validation": {
+        "feature_checker": {
+          "passed": true,
+          "tests": 8,
+          "seconds": 7.33
+        },
+        "selected_upstream": {
+          "passed": true,
+          "tests": 24,
+          "deselected": 3,
+          "seconds": 0.85,
+          "scope": "Exact frozen selection; three external-network tests excluded before candidate work."
+        },
+        "new_candidate_tests": {
+          "saved_operation": 206,
+          "tests": 5,
+          "passed": true,
+          "seconds": 0.33,
+          "final_test_source_sha256": "16116da974bf5772273238325191fc1c223d564d095e7df3cc452fa2e7e636d9",
+          "preceding_final_edit_operation": 201,
+          "scope": "Read saved actual output5 passed, not a new reviewer run. Shell command also probes flake8/mypy; both unavailable, not reported as passing."
+        },
+        "historical_in_run_failures_preserved": [
+          "Earlier new request-counter assertion failed before correction.",
+          "Unfiltered existing tests had3 external-network failures, also observed on stashed baseline. Frozen selected verifier completes24 tests."
+        ]
+      },
+      "checker_definition": {
+        "files": [
+          {
+            "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/private-checkers/long-sphinx-linkcheck-report-checker.py",
+            "sha256": "ed6d09a117f444115c3dd84016a9ac88c7865e1326808cec6d13cbb9f48a7732",
+            "name": "checker.py"
+          }
+        ],
+        "command": [
+          "/opt/miniconda3/envs/testbed/bin/python",
+          "/checker/checker.py"
+        ],
+        "timeout_seconds": 120,
+        "memory": "2g",
+        "format": "unittest",
+        "expected_counts": {
+          "tests_run": 8
+        }
+      },
+      "original_tests_definition": {
+        "timeout_seconds": 180,
+        "expected_exit_code": 0,
+        "command": [
+          "/opt/miniconda3/envs/testbed/bin/python",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/test_build_linkcheck.py",
+          "-k",
+          "not test_defaults and not test_anchors_ignored"
+        ],
+        "exclusions": "Three existing tests require external Internet; exclusion fixed before any candidate runs."
+      },
+      "reference_patch": {
+        "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/private-checkers/long-sphinx-linkcheck-report-reference.patch",
+        "sha256": "34cc5492ae3c984f1706fb76cf4fc3aa636b4a1225e35a2975cd7bb935d6adcd"
+      },
+      "model_attempts": 40,
+      "tool_dispatches": 48,
+      "provider_requests": 40,
+      "task_requests": 35,
+      "accepted_summaries": 5,
+      "durable_restarts": 17,
+      "process_invocations": 18,
+      "summary_operations": [
+        26,
+        50,
+        93,
+        154,
+        180
+      ],
+      "restart_operations": [
+        12,
+        24,
+        36,
+        48,
+        60,
+        72,
+        84,
+        96,
+        108,
+        120,
+        132,
+        144,
+        156,
+        168,
+        180,
+        192,
+        204
+      ],
+      "continuation_gate": {
+        "applicable": true,
+        "passed": true,
+        "summary_count": 5,
+        "restart_count": 17,
+        "separate_invocations": 18,
+        "post_summary_restart_count": 15
+      },
+      "typed_timeouts": 0,
+      "skipped_tool_calls": 0,
+      "timeout_continuation_coverage": "unexercised",
+      "response_repairs": 0,
+      "session_integrity": {
+        "passed": true,
+        "journal_frames": 422,
+        "model_attempts": 40,
+        "response_repairs": 0,
+        "tool_dispatches": 48,
+        "verified_artifacts": 4,
+        "verified_artifact_bytes": 73730,
+        "usage": {
+          "known_input_tokens": 431487,
+          "known_output_tokens": 29768,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 40,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "replay_matches": true,
+      "request_audit_status": "PASSED_STRICT_CONTINUATION_AND_LOCAL_REQUEST_ACCOUNTING_AUDIT",
+      "instruction_delivery": {
+        "frozen_source_task_hash_verified": true,
+        "final_user_task_hash_verified": true,
+        "every_recorded_request_system_matches_config": true,
+        "raw_request_or_context_digest_in_broker": false,
+        "established": "Exact durable normalized system/messages/caps match history, summary source ranges, artifact catalog and current request-only limits; ordinal/cap metadata and usage align with closed Broker records.",
+        "remaining_assumption": "Trusted frozen ProviderIO serialization/transport delivers those requests. No raw request or request/context digest was captured; independent wire instruction equality remains unavailable and is not claimed."
+      },
+      "accounted_usd": "2.321308",
+      "core_unknown_usage": 0,
+      "provider_unknown_usage": 0,
+      "cleanup_settled": true,
+      "reviewer_kind": "model",
+      "reviewer_identity": "/root/runtime",
+      "evidence": {
+        "manifest": {
+          "path": "/tmp/lean-harness-calibration-587dcff-frozen-01/manifests/slot-02.json",
+          "sha256": "3b431e922d2e119935e93aab8a98bc3771dcbecb8ee14c5a9f736968a43a16df",
+          "bytes": 4407
+        },
+        "plan": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/plan.json",
+          "sha256": "1d485b16521ee44f0f2899c3db1d4519c01399b9c6493e2fc18e1df6f3e320aa",
+          "bytes": 12349
+        },
+        "result": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/result.json",
+          "sha256": "e4ccbbb8ada651bd35255f832f1c178fc924ba6813c13378f0b320268dcac291",
+          "bytes": 35871
+        },
+        "patch": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/candidate-snapshot/candidate.patch",
+          "sha256": "ecf93aba11b831e088315e5d7520854c2c4b1e4bf1bcfe2cf577fd3bdde6754f",
+          "bytes": 17483
+        },
+        "inspection": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/inspection.json",
+          "sha256": "b63f28f722da0a87c1872e71a210cfee4c25547b5bd9a38a66af3c90e82d6cac",
+          "bytes": 279028
+        },
+        "replay": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/replay.json",
+          "sha256": "b63f28f722da0a87c1872e71a210cfee4c25547b5bd9a38a66af3c90e82d6cac",
+          "bytes": 279028
+        },
+        "journal": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/sessions/session/journal.jsonl",
+          "sha256": "897c662b31dc39b6e541eb6938e2fe62f77f5c6f140585ff8315795654ea4cd6",
+          "bytes": 1424163
+        },
+        "config": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/config.json",
+          "sha256": "9195542b26636994b320770ab77afb2340de4855ebff1819d5e39fadcdfd3003",
+          "bytes": 981
+        },
+        "events": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/events.log",
+          "sha256": "cb6419298abfd15cc0cbe79775f1ac49309936247cba7ece50345f4c2dad639c",
+          "bytes": 1502575
+        },
+        "resources": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/long-sphinx-linkcheck-report-lean-0-74a16217/resources.jsonl",
+          "sha256": "2394c1c95fb7a8867174ca3a8a1fceed8097d42fdc3594916355eb9db707b982",
+          "bytes": 1725
+        },
+        "broker": {
+          "path": "/tmp/lean-harness-calibration-587dcff-live-01/batch-02/broker.json",
+          "sha256": "03011fe1463e07c9c028612fa5dc311c48c4a375444b0db3ddceff8b4e4b5e59",
+          "bytes": 59677
+        },
+        "patch_review": {
+          "path": "/tmp/lean-harness-calibration-587dcff-reviews/slot-02/patch-review.json",
+          "sha256": "9e4909f67fb65b3c9059b3a998da6508381ecb4df52cb024c724ffe728be36a4",
+          "bytes": 2362
+        },
+        "qualification": {
+          "path": "/tmp/lean-harness-calibration-587dcff-reviews/slot-02/qualification.json",
+          "sha256": "8df6087ec300b93b473819e3f0fa06022964879277989cbe6bd163a041074eff",
+          "bytes": 3342
+        },
+        "findings": {
+          "path": "/tmp/lean-harness-calibration-587dcff-reviews/slot-02/findings.json",
+          "sha256": "a2af971eae3b67b76c2bac39bb77c63152cc1ab829987a7c3af6ccd9622fce3e",
+          "bytes": 10364
+        },
+        "session_audit": {
+          "path": "/tmp/lean-harness-calibration-587dcff-session-audit/sphinx-final-audit.json",
+          "sha256": "49d646d9efbc79591b97083f53e4c56c0a091be193967088a5d898a75d40d025",
+          "bytes": 75713
+        },
+        "handoff": {
+          "path": "/tmp/lean-harness-calibration-587dcff-review-handoffs/sphinx.json",
+          "sha256": "11f0924547b4f6de058c4d8a3785a3e44303cadae535a5ea48333cc316e6c954",
+          "bytes": 3198
+        },
+        "summary_fidelity": {
+          "path": "/tmp/lean-harness-calibration-587dcff-session-audit/sphinx-summary-fidelity.json",
+          "sha256": "db6e26e537d5c19fb165c9be9b8dc53184831cd3ff623eeeb0f814547665f3ff",
+          "bytes": 15370
+        }
+      },
+      "empty_input_scope": "Valid project/document with no links; no claim of source directories without a master document. Later summaries retained an interpretation of this boundary, not a new user authorization."
+    }
+  ],
+  "markdown_report": {
+    "path": "/home/tannerduve/lean-harness/eval/reports/2026-11-09-calibration-followup.md",
+    "sha256": "8f2a9e27ed1854e1652e88636e95b42d12e23f86fa154d57736efd4807b98489",
+    "bytes": 3211
+  }
+}

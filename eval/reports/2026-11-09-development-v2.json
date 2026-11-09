@@ -1,0 +1,687 @@
+{
+  "schema_version": 1,
+  "cohort": "linux-pilot-development-v1",
+  "scope": "Four preselected public real-repository development tasks; one run per engine. Selected SWE-bench Lite official evaluator, not the full benchmark, not held-out or parity evidence.",
+  "candidate_binary_sha256": "bf2b090dda48d5352e5c2377c400f6937eae53bc8d805fe4fc56c1addba1a6cf",
+  "eval_tools_sha256": "647a35724ab313711e4f1db97d84055bc7a2232556d2e80501102f70ce76cb2f",
+  "original_frozen_protocol_sha256": "0592c7ac4e542796bc937ad918021ed115c257efdb99efb959a0ed584955318e",
+  "task_lock_sha256": "0ddbb5b6ae418321142ed47af347869ca152f42fcac506c9eb29b044a2b62750",
+  "source_archive_sha256": "a855290c2165ed95c6bb225e2858877b48413104a769ee04bcae5aa8f1973e83",
+  "model": "claude-opus-5-5",
+  "fixture_and_grader": {
+    "repository": "https://github.com/SWE-bench/SWE-bench",
+    "evaluator_commit": "02e7a74ffd0b707aab73d203fe87bdc7c76afc8e",
+    "evaluator_version": "5.0.2",
+    "revision": "b0dde1093fe417d83b7184254edf8199c1f0dff5",
+    "dataset_sha256": "9535b3885695923512f8e8267646d8566259f6dc1b317033b96dd0f27f10a0e5"
+  },
+  "counts": {
+    "distinct_tasks": 4,
+    "repositories": 4,
+    "planned_runs": 8,
+    "executed_runs": 8,
+    "unrun_slots": 0,
+    "official_resolved": 8,
+    "normal_finishes": 8,
+    "original_strict_successes": 0,
+    "infrastructure_failures": 0,
+    "unknown_usage_requests": 0
+  },
+  "total_cost_usd": 7.099212,
+  "development_allocation_usd": 12,
+  "settings": {
+    "max_model_attempts": 40,
+    "max_tool_dispatches": 120,
+    "max_output_tokens": 4096,
+    "max_context_bytes": 120000,
+    "max_retries": 0,
+    "operation_timeout_ms": 90000,
+    "overall_run_timeout_seconds": 900,
+    "compaction": {
+      "enabled": true,
+      "at_percent": 75,
+      "recent_messages": 4,
+      "max_summary_bytes": 12000
+    }
+  },
+  "shared_user_constraints": "Preserve existing tests, assertions, and theorem statements. Do not disable or bypass checks. You may add regression tests. Work within the task workspace.",
+  "shared_user_constraints_sha256": "842abdde7e0c4d606d861c63cfc6000e31d9037d77a25cc8131a9273d88d7e74",
+  "original_qualification": "Normal finish, official resolved, unchanged detected existing test files, plus Lean session-integrity audit.",
+  "qualification_caveat": "Six patches only add new tests to existing files, without modifying existing tests/assertions. The prompt explicitly permits adding regression tests and does not forbid editing existing test files. All eight fail the byte-level file criterion, but this is not evidence that all eight violated the user-facing instructions or bypassed tests. Pytest also adjusts expected format patterns for the requested behavior change.",
+  "original_audit_caveat": "Two Lean runs fail the original independent checksum auditor because it spells a TAB differently from pinned Lean. Original verdicts remain unchanged; a separately versioned post-hoc diagnostic passes all four Lean integrity audits. No model reruns or score upgrades.",
+  "runtime_caveat": "Three earlier sandbox cleanup deadline failures remain unexplained. The captured dead-/proc-state parsing defect was fixed before this cohort. All eight runs here completed normally; this does not erase the earlier failures.",
+  "json_caveat": "A separate fault probe after the freeze found invalid pinned-Lean JSON numeric serialization. No numeric-serialization corruption or replay failure was observed in this cohort. The fix belongs to a later candidate revision, not this frozen result.",
+  "protocol_differences": [
+    "Product track uses each engine tools/context policy; shared task constraints and call/output limits are aligned.",
+    "Lean omits output_config/effort (provider default); pinned Pi thinkingLevel off maps to model-specific low effort. No matched reasoning-effort claim.",
+    "Lean outer task container permits nested sandbox setup; every Lean process tool runs the production bubblewrap profile. Pi uses ordinary Docker product tools.",
+    "Task images share the loopback broker network; real credentials remain in the host broker. Lean process sandbox has no network.",
+    "Lean has a90second tool-operation cap; Pi product tools retain native/model-supplied timeouts under the common900second overall allowance.",
+    "Lean uses120000byte context admission; Pi retains native context policy. The common broker request-byte ceiling is144000."
+  ],
+  "timing_caveat": "Observed shared-host elapsed times, not a controlled latency comparison. Concurrent trusted build, fault tests and capacity validation are recorded separately. Memory is sampled whole-container cgroup memory.current including page cache, not process RSS.",
+  "environment_events": [
+    {
+      "observed_unix": 1794201952.728362,
+      "event": "concurrent_trusted_validation",
+      "details": "Root reports clean-install build and a brief unpaid Sphinx compaction/restart smoke on the same host. No benchmark source/settings change or provider spend; observed elapsed times are not a controlled performance comparison."
+    },
+    {
+      "observed_unix": 1794202064.2734213,
+      "event": "concurrent_trusted_validation_finished",
+      "details": "Root clean product-only install and unpaid sustained smoke complete; no further build/smoke workload reported. Independent clean CLI hash matches bf2b090d."
+    },
+    {
+      "observed_unix": 1794202452.2455013,
+      "event": "concurrent_private_validation",
+      "details": "Runtime preparing journal-serialization guard in a private cached build (~200MiB), with small fakeHTTP tests. Main source/binary and paid-run settings unchanged; no extra paid calls."
+    },
+    {
+      "observed_unix": 1794203254.9602315,
+      "event": "concurrent_capacity_validation",
+      "details": "Root reports private fixed-binary capacity measurement during final pair (~1CPU worker,700MiB peak,up to1200s) plus short private adapter/generated tests. No main source/binary mutation or extra paid calls. Shared-host elapsed measurements remain observational."
+    }
+  ],
+  "continuation_evidence": "Lean accepted one summary in pytest and one in Pylint; Sphinx and SymPy had none. These runs had no scheduled restart and do not establish the separate sustained-session gate.",
+  "runs": [
+    {
+      "run_id": "pytest-dev__pytest-5227-lean-0-3cfb2160",
+      "task_id": "pytest-dev__pytest-5227",
+      "engine": "lean",
+      "exit_code": 0,
+      "provider_attempts": 28,
+      "tool_dispatches": 34,
+      "agent_elapsed_seconds": 218.46,
+      "preparation_seconds": 14.229,
+      "elapsed_seconds": 232.689,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 2180,
+        "baseline_bytes": 7979008,
+        "sampled_peak_bytes": 383627264,
+        "elapsed_seconds": 218.476,
+        "unavailable_reason": null
+      },
+      "summaries": 1,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "3a2ff514af781d2bbeeba733d6cc9ee99766a5c70718f731e0cd2ea4048ad26c",
+      "user_task_sha256": "3c07ed2d08de6b37d29db5559e101fe065872e49f11eec6244412469fd38fcda",
+      "replay_matches": true,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 1.820296,
+      "normal_finish": true,
+      "original_session_integrity": {
+        "passed": false,
+        "reason": "journal frame checksum differs"
+      },
+      "existing_test_file_changes": [
+        {
+          "path": "testing/logging/test_reporting.py",
+          "added_lines": 29,
+          "removed_lines": 7,
+          "review": "regression test added and existing expected logging-format patterns adjusted; no test deletion observed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 26,
+        "endTurn": 2
+      },
+      "model_purposes": {
+        "task": 27,
+        "summary": 1
+      },
+      "observed_thinking_blocks": 11,
+      "maximum_provider_request_bytes": 67292,
+      "maximum_observed_output_tokens": 1124,
+      "provider_usage_totals": {
+        "input_tokens": 412754,
+        "output_tokens": 8464,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "testing/logging/test_reporting.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "4874eccc94f98e8fee151bbba3a36fa31a79311098e0e4f3509e52ff2a620347",
+        "candidate.patch": "906e66480876426ade9edcadb4afa86b740f3e0ced502ccf9df8b610442aded6",
+        "predictions.jsonl": "bb6edcf441bad8a8e448f83c647dc4b38817f21afda0c0cb3224a547183e19ff",
+        "events.log": "4de10d18f8aee188fe555cab2677dffdd35ee6a03594123eaf626258e72d7ad6"
+      },
+      "official_eval_script_sha256": "d73279f978e58ac371fe00d070c5612cddc929cf3269e90d584e51699944266c",
+      "broker_sha256": "a6b7e8d08982490fb6d9e4b4688819f767f8b360077e6fe4f12507f73154efe8"
+    },
+    {
+      "run_id": "pytest-dev__pytest-5227-pi-0-016e33d4",
+      "task_id": "pytest-dev__pytest-5227",
+      "engine": "pi",
+      "exit_code": 0,
+      "provider_attempts": 10,
+      "tool_dispatches": 9,
+      "agent_elapsed_seconds": 78.546,
+      "preparation_seconds": 1.844,
+      "elapsed_seconds": 80.402,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 784,
+        "baseline_bytes": 6090752,
+        "sampled_peak_bytes": 214540288,
+        "elapsed_seconds": 78.562,
+        "unavailable_reason": null
+      },
+      "summaries": null,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "3a2ff514af781d2bbeeba733d6cc9ee99766a5c70718f731e0cd2ea4048ad26c",
+      "user_task_sha256": "3c07ed2d08de6b37d29db5559e101fe065872e49f11eec6244412469fd38fcda",
+      "replay_matches": null,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 0.336672,
+      "normal_finish": true,
+      "original_session_integrity": null,
+      "existing_test_file_changes": [
+        {
+          "path": "testing/logging/test_reporting.py",
+          "added_lines": 28,
+          "removed_lines": 7,
+          "review": "regression test added and existing expected logging-format patterns adjusted; no test deletion observed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 9,
+        "stop": 1
+      },
+      "model_purposes": {},
+      "observed_thinking_blocks": 6,
+      "maximum_provider_request_bytes": 35062,
+      "maximum_observed_output_tokens": 813,
+      "provider_usage_totals": {
+        "input_tokens": 63588,
+        "output_tokens": 4116,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "testing/logging/test_reporting.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "0ce21d969b38318815bbaec49b600ad0c08d33096d4581af42e612925f767934",
+        "candidate.patch": "5014341ff797a31993d10b73e73c2c46f40766f83f1187122114d485ddd6b82f",
+        "predictions.jsonl": "b91508094e598f691c23b1265c24f145da87ad04d0b74e63fd5cd86e5d3ae9a3",
+        "events.log": "c8fcc4b17fa6452bc095e8a7a32c010825188f4c4c6a56e0ab2760ce543b5d1f"
+      },
+      "official_eval_script_sha256": "d73279f978e58ac371fe00d070c5612cddc929cf3269e90d584e51699944266c",
+      "broker_sha256": "a6b7e8d08982490fb6d9e4b4688819f767f8b360077e6fe4f12507f73154efe8"
+    },
+    {
+      "run_id": "pylint-dev__pylint-7114-pi-0-b75474ed",
+      "task_id": "pylint-dev__pylint-7114",
+      "engine": "pi",
+      "exit_code": 0,
+      "provider_attempts": 19,
+      "tool_dispatches": 19,
+      "agent_elapsed_seconds": 348.102,
+      "preparation_seconds": 17.727,
+      "elapsed_seconds": 365.859,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 3474,
+        "baseline_bytes": 30433280,
+        "sampled_peak_bytes": 796831744,
+        "elapsed_seconds": 348.119,
+        "unavailable_reason": null
+      },
+      "summaries": null,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "342901085ab1d60b45a820d689e8f1bc107a622fe3f7c89ab03492b77ff769d8",
+      "user_task_sha256": "362d5de359bf29def3fb4766f1b62d5d4f23bad7445912d1d75525eb4e72e094",
+      "replay_matches": null,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 1.597296,
+      "normal_finish": true,
+      "original_session_integrity": null,
+      "existing_test_file_changes": [
+        {
+          "path": "tests/lint/unittest_lint.py",
+          "added_lines": 19,
+          "removed_lines": 0,
+          "review": "regression tests added; no existing lines removed or changed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 18,
+        "stop": 1
+      },
+      "model_purposes": {},
+      "observed_thinking_blocks": 13,
+      "maximum_provider_request_bytes": 104790,
+      "maximum_observed_output_tokens": 3545,
+      "provider_usage_totals": {
+        "input_tokens": 327359,
+        "output_tokens": 14393,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "tests/checkers/unittest_imports.py",
+        "tests/lint/unittest_lint.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "8cabc8d32fa054999a0688c036a08556b5d29c6969cb6d8409b6458b754eb2be",
+        "candidate.patch": "380f0991c0766d23b0154877ef83d4fd8637c38f3e93101e157945f06c072065",
+        "predictions.jsonl": "461ff0a473749c80b1268a3aec589de5bc27954f3712b2a65f12572791777cc6",
+        "events.log": "6985178eabe77cd6e1423ab76ec90f3f32a62f3272255097276b1e98e4ecc6bc"
+      },
+      "official_eval_script_sha256": "b267ad799ea5101ab6f5be1e676a7d4690c754b68610ec620afa157c58ff89f1",
+      "broker_sha256": "f8d9a0d928ef39bd1075d6c55e56ace8317cb31030e2cda54922e9e850d69b60"
+    },
+    {
+      "run_id": "pylint-dev__pylint-7114-lean-0-f5b209da",
+      "task_id": "pylint-dev__pylint-7114",
+      "engine": "lean",
+      "exit_code": 0,
+      "provider_attempts": 27,
+      "tool_dispatches": 29,
+      "agent_elapsed_seconds": 230.781,
+      "preparation_seconds": 8.859,
+      "elapsed_seconds": 239.64,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 2303,
+        "baseline_bytes": 29732864,
+        "sampled_peak_bytes": 863191040,
+        "elapsed_seconds": 230.798,
+        "unavailable_reason": null
+      },
+      "summaries": 1,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "342901085ab1d60b45a820d689e8f1bc107a622fe3f7c89ab03492b77ff769d8",
+      "user_task_sha256": "362d5de359bf29def3fb4766f1b62d5d4f23bad7445912d1d75525eb4e72e094",
+      "replay_matches": true,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 1.760548,
+      "normal_finish": true,
+      "original_session_integrity": {
+        "passed": true,
+        "journal_frames": 276,
+        "model_attempts": 27,
+        "tool_dispatches": 29,
+        "verified_artifacts": 0,
+        "verified_artifact_bytes": 0,
+        "usage": {
+          "known_input_tokens": 370222,
+          "known_output_tokens": 13983,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 27,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "existing_test_file_changes": [
+        {
+          "path": "tests/lint/unittest_lint.py",
+          "added_lines": 15,
+          "removed_lines": 0,
+          "review": "regression tests added; no existing lines removed or changed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 25,
+        "endTurn": 2
+      },
+      "model_purposes": {
+        "task": 26,
+        "summary": 1
+      },
+      "observed_thinking_blocks": 17,
+      "maximum_provider_request_bytes": 78221,
+      "maximum_observed_output_tokens": 1676,
+      "provider_usage_totals": {
+        "input_tokens": 370222,
+        "output_tokens": 13983,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "tests/checkers/unittest_imports.py",
+        "tests/lint/unittest_lint.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "0975e9688f848bbda0a2edd17e88562313efd7a1f268f41f0d40a4c8838e9b4a",
+        "candidate.patch": "3e2ec0d996c2e1b9cae021c604be1f24fa2f31ae5c94763c57b9cbd6fff203ab",
+        "predictions.jsonl": "a3df797ed39a552748f9af9d8decd709c3a22716030946e79b0cb99fe56eac3d",
+        "events.log": "9f725e16e2088c94e0a418a1585d327e7358a1892a80d99c4cf9205be6546439"
+      },
+      "official_eval_script_sha256": "b267ad799ea5101ab6f5be1e676a7d4690c754b68610ec620afa157c58ff89f1",
+      "broker_sha256": "f8d9a0d928ef39bd1075d6c55e56ace8317cb31030e2cda54922e9e850d69b60"
+    },
+    {
+      "run_id": "sphinx-doc__sphinx-8721-lean-0-29de6b6a",
+      "task_id": "sphinx-doc__sphinx-8721",
+      "engine": "lean",
+      "exit_code": 0,
+      "provider_attempts": 13,
+      "tool_dispatches": 13,
+      "agent_elapsed_seconds": 48.48,
+      "preparation_seconds": 5.44,
+      "elapsed_seconds": 53.92,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 484,
+        "baseline_bytes": 19906560,
+        "sampled_peak_bytes": 271671296,
+        "elapsed_seconds": 48.496,
+        "unavailable_reason": null
+      },
+      "summaries": 0,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "684041d7ab737dd04914a0017b92d238cd8dae72182457e3f3a21f494e7acb3e",
+      "user_task_sha256": "8a4c3574570ae03ec7e922e5037955dd1465d24b9d7cb19a7098fddccd1aec65",
+      "replay_matches": true,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 0.680404,
+      "normal_finish": true,
+      "original_session_integrity": {
+        "passed": false,
+        "reason": "journal frame checksum differs"
+      },
+      "existing_test_file_changes": [
+        {
+          "path": "tests/test_ext_viewcode.py",
+          "added_lines": 28,
+          "removed_lines": 0,
+          "review": "regression tests added; no existing lines removed or changed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 12,
+        "endTurn": 1
+      },
+      "model_purposes": {
+        "task": 13
+      },
+      "observed_thinking_blocks": 4,
+      "maximum_provider_request_bytes": 52250,
+      "maximum_observed_output_tokens": 911,
+      "provider_usage_totals": {
+        "input_tokens": 148091,
+        "output_tokens": 4402,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "tests/test_ext_viewcode.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "d44f9f5fff4ca7f994b65fca4c63bf72e452092892b2e5a82f2e7d34ee2f2d53",
+        "candidate.patch": "aad07dc8315d90e9ffc7734865e14eb250473a3a02401001ccf4a0d27997d45d",
+        "predictions.jsonl": "bea96964d13e15babfbaf8fbf1c3cc5d6a18a12eea4681ae551d72a682d4e5c9",
+        "events.log": "11b892ac0960c6513ced6b0e4ec6ec7196206bc42c688f4d3ea841a34f2687d3"
+      },
+      "official_eval_script_sha256": "72e3dbcde474655e113f384bb2abb4952743f02907dfe5a9cea5cea4be262e61",
+      "broker_sha256": "2f9d4b122a1019643edb3d4dd137d57f4bee35999740f89889063a92a87d8b9e"
+    },
+    {
+      "run_id": "sphinx-doc__sphinx-8721-pi-0-d09daf18",
+      "task_id": "sphinx-doc__sphinx-8721",
+      "engine": "pi",
+      "exit_code": 0,
+      "provider_attempts": 13,
+      "tool_dispatches": 13,
+      "agent_elapsed_seconds": 60.804,
+      "preparation_seconds": 4.728,
+      "elapsed_seconds": 65.543,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 607,
+        "baseline_bytes": 19587072,
+        "sampled_peak_bytes": 189595648,
+        "elapsed_seconds": 60.821,
+        "unavailable_reason": null
+      },
+      "summaries": null,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "684041d7ab737dd04914a0017b92d238cd8dae72182457e3f3a21f494e7acb3e",
+      "user_task_sha256": "8a4c3574570ae03ec7e922e5037955dd1465d24b9d7cb19a7098fddccd1aec65",
+      "replay_matches": null,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 0.408488,
+      "normal_finish": true,
+      "original_session_integrity": null,
+      "existing_test_file_changes": [
+        {
+          "path": "tests/test_ext_viewcode.py",
+          "added_lines": 30,
+          "removed_lines": 0,
+          "review": "regression tests added; no existing lines removed or changed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 12,
+        "stop": 1
+      },
+      "model_purposes": {},
+      "observed_thinking_blocks": 7,
+      "maximum_provider_request_bytes": 39263,
+      "maximum_observed_output_tokens": 748,
+      "provider_usage_totals": {
+        "input_tokens": 81357,
+        "output_tokens": 4153,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "tests/test_ext_viewcode.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "83429c903ad15c7600ecbe2fce420413520a48d57a12cc10ff95f5d2701da08e",
+        "candidate.patch": "41e5ef8d877f8ebec0e0314fe50fb8f11bfeda2155b1e2d6102d5f10a923039e",
+        "predictions.jsonl": "3e7a5bd986fb7983da35eaa2cb7e11fe083c1137a8754d5185392756825c2fb5",
+        "events.log": "9d0533241714b1a29deee0efc31e1ab59f328c684c3bacc5591a94125fee33e0"
+      },
+      "official_eval_script_sha256": "72e3dbcde474655e113f384bb2abb4952743f02907dfe5a9cea5cea4be262e61",
+      "broker_sha256": "2f9d4b122a1019643edb3d4dd137d57f4bee35999740f89889063a92a87d8b9e"
+    },
+    {
+      "run_id": "sympy__sympy-18189-pi-0-ce957480",
+      "task_id": "sympy__sympy-18189",
+      "engine": "pi",
+      "exit_code": 0,
+      "provider_attempts": 11,
+      "tool_dispatches": 11,
+      "agent_elapsed_seconds": 52.186,
+      "preparation_seconds": 14.648,
+      "elapsed_seconds": 66.842,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 521,
+        "baseline_bytes": 22736896,
+        "sampled_peak_bytes": 241475584,
+        "elapsed_seconds": 52.203,
+        "unavailable_reason": null
+      },
+      "summaries": null,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "7c3dbee591c8248e8411469c75edcf733756664c61dac40611ba50a9dab45cae",
+      "user_task_sha256": "6572591274695084860c2d7ddaf8385d019ad77ca67761c08827cb5b8e57ee8c",
+      "replay_matches": null,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 0.307992,
+      "normal_finish": true,
+      "original_session_integrity": null,
+      "existing_test_file_changes": [
+        {
+          "path": "sympy/solvers/tests/test_diophantine.py",
+          "added_lines": 13,
+          "removed_lines": 0,
+          "review": "regression tests added; no existing lines removed or changed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 10,
+        "stop": 1
+      },
+      "model_purposes": {},
+      "observed_thinking_blocks": 3,
+      "maximum_provider_request_bytes": 24962,
+      "maximum_observed_output_tokens": 789,
+      "provider_usage_totals": {
+        "input_tokens": 60118,
+        "output_tokens": 3376,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "sympy/solvers/tests/test_diophantine.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "5024748dad5ac67cb91f1700c2ff3d918c3dd8ed3ea471a85fb5d009ac35c2d1",
+        "candidate.patch": "a9e3d35c3f122ef283537885fa7013bd2e3b9f04e72a03e14ec80d985e6af676",
+        "predictions.jsonl": "6d12c94876daf3cdf0ca5eba34f3f9868fe532004b0a57fbef7db26bfc8d3618",
+        "events.log": "5e7879212e306e394a95091b92c2d3b2f2536e8c5cda39d676382f5b5969e077"
+      },
+      "official_eval_script_sha256": "a44c4b87eab6082940fb4b7615779a8aff1ba66e8230585f60f5004029209f96",
+      "broker_sha256": "ec3e9c95f0e82d8876288124f63ce22aab7112588739ead839bed11b8ff4c602"
+    },
+    {
+      "run_id": "sympy__sympy-18189-lean-0-358df533",
+      "task_id": "sympy__sympy-18189",
+      "engine": "lean",
+      "exit_code": 0,
+      "provider_attempts": 8,
+      "tool_dispatches": 9,
+      "agent_elapsed_seconds": 31.338,
+      "preparation_seconds": 7.665,
+      "elapsed_seconds": 39.003,
+      "memory": {
+        "method": "sampled cgroup-v2 memory.current",
+        "scope": "whole candidate container during agent invocation",
+        "includes_page_cache": true,
+        "is_process_rss": false,
+        "sampling_interval_seconds": 0.1,
+        "samples": 313,
+        "baseline_bytes": 32600064,
+        "sampled_peak_bytes": 335450112,
+        "elapsed_seconds": 31.354,
+        "unavailable_reason": null
+      },
+      "summaries": 0,
+      "unknown_usage_requests": 0,
+      "source_task_sha256": "7c3dbee591c8248e8411469c75edcf733756664c61dac40611ba50a9dab45cae",
+      "user_task_sha256": "6572591274695084860c2d7ddaf8385d019ad77ca67761c08827cb5b8e57ee8c",
+      "replay_matches": true,
+      "original_success": false,
+      "official_resolved": true,
+      "cost_usd": 0.187516,
+      "normal_finish": true,
+      "original_session_integrity": {
+        "passed": true,
+        "journal_frames": 84,
+        "model_attempts": 8,
+        "tool_dispatches": 9,
+        "verified_artifacts": 0,
+        "verified_artifact_bytes": 0,
+        "usage": {
+          "known_input_tokens": 36434,
+          "known_output_tokens": 2089,
+          "core_unknown_attempts": 0,
+          "provider_unknown_attempts": 0,
+          "attempts_aligned": true,
+          "matched_known_attempts": 8,
+          "known_core_unknown_provider": 0,
+          "unknown_core_known_provider": 0
+        },
+        "scope": "core replay plus independent frame/count/usage/event/artifact checks; no task-quality inference"
+      },
+      "existing_test_file_changes": [
+        {
+          "path": "sympy/solvers/tests/test_diophantine.py",
+          "added_lines": 13,
+          "removed_lines": 0,
+          "review": "regression tests added; no existing lines removed or changed"
+        }
+      ],
+      "model_stop_reasons": {
+        "toolUse": 7,
+        "endTurn": 1
+      },
+      "model_purposes": {
+        "task": 8
+      },
+      "observed_thinking_blocks": 2,
+      "maximum_provider_request_bytes": 17841,
+      "maximum_observed_output_tokens": 553,
+      "provider_usage_totals": {
+        "input_tokens": 36434,
+        "output_tokens": 2089,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0
+      },
+      "expected_test_files_reset_by_official_script": [
+        "sympy/solvers/tests/test_diophantine.py"
+      ],
+      "infrastructure_failure": null,
+      "admission_refused": null,
+      "source_hashes": {
+        "result.json": "11955eec8d41db38d7c5338c273748a3bc3938ccb8def8674c725a2fd000fb6d",
+        "candidate.patch": "253a0a895c96747a26761b0b1e83ae20c8d7caea48612bad00db16993cbeb57d",
+        "predictions.jsonl": "d77cd1bd9bb0d9ddba03eb4e1c5964bd756ebacb659727d3f099cfb2b490d8c3",
+        "events.log": "93d9167a2b592fe45e191dc3c25751f94c5981341b12a4ef0100e3da57f843d1"
+      },
+      "official_eval_script_sha256": "a44c4b87eab6082940fb4b7615779a8aff1ba66e8230585f60f5004029209f96",
+      "broker_sha256": "ec3e9c95f0e82d8876288124f63ce22aab7112588739ead839bed11b8ff4c602"
+    }
+  ],
+  "instruction_alignment_caveat": "Lean additionally received the system instruction Do not modify existing tests, conflicting with the shared permission to add regression tests; instructions were not fully aligned. The prospective v3 policy removes this conflict without changing these original scores."
+}

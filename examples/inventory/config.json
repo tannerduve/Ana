@@ -1,0 +1,12 @@
+{
+  "model": "scripted-inventory",
+  "toolPolicy": "allow",
+  "maxModelAttempts": 8,
+  "maxToolCalls": 12,
+  "maxContextBytes": 60000,
+  "compactionEnabled": false,
+  "maxOutputTokens": 512,
+  "maxRetries": 0,
+  "operationTimeoutMs": 5000,
+  "maxElapsedMs": 60000
+}

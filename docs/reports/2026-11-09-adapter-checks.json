@@ -1,0 +1,116 @@
+{
+  "binary_sha256": "bf2b090dda48d5352e5c2377c400f6937eae53bc8d805fe4fc56c1addba1a6cf",
+  "runtime_contracts_sha256": "f4cd28ed713af1911beb04d205b00686438a53d761d49c8d44b4f689db2b244e",
+  "prior_unexplained_failures": "sandbox_contracts-canonical-fix.log retains3cleanup timeouts; not attributed to the independently fixed dead-process stat parser",
+  "runs": [
+    {
+      "test": "runtime_contracts",
+      "exit": 0,
+      "seconds": 7.08,
+      "checks_passed": 26,
+      "log_sha256": "59d2d62c35e5f3b6f82f593a8a425857ab87ba14bcdb0cb61d862db8e94e855a"
+    },
+    {
+      "test": "native_abi",
+      "exit": 0,
+      "seconds": 0.515,
+      "checks_passed": 3,
+      "log_sha256": "dc21871ed86f3d97dbb235364894332a0047967e75172d13ef6cf4df8b3fb67b"
+    },
+    {
+      "test": "provider_transport",
+      "exit": 0,
+      "seconds": 4.473,
+      "checks_passed": 8,
+      "log_sha256": "2780d6d4f2efdf69b198f016f3389027e0cc933f3377a10bf65904b6cd1b72c2"
+    },
+    {
+      "test": "provider_streaming",
+      "exit": 0,
+      "seconds": 4.624,
+      "checks_passed": 7,
+      "log_sha256": "474c2f100cdf49ec4fb0811ee79e5eb57d205d9fbdd68b7478a99747435ce6cc"
+    },
+    {
+      "test": "event_output",
+      "exit": 0,
+      "seconds": 4.577,
+      "checks_passed": 8,
+      "log_sha256": "98441f5a1a123097c5de9e537ec9fb457dfe061d04be3247c044ccd261adab71"
+    },
+    {
+      "test": "integration",
+      "exit": 0,
+      "seconds": 9.937,
+      "checks_passed": 17,
+      "log_sha256": "dddfbda88f8468d952c78cc82b4fc06d057d59bddc766af523427aa6cc6ff0e0"
+    },
+    {
+      "test": "crash_recovery",
+      "exit": 0,
+      "seconds": 8.433,
+      "checks_passed": 10,
+      "log_sha256": "45a3558f1365336b3f540d20d9ebdb5dad076bc07f2fc54cbb0f0a3b877590ce"
+    },
+    {
+      "test": "recovery_observations",
+      "exit": 0,
+      "seconds": 20.82,
+      "checks_passed": 11,
+      "log_sha256": "2511af63d513543d53960e181dbd34f22f623805e2c1a9b46eeefcece1393c46"
+    },
+    {
+      "test": "session_boundaries",
+      "exit": 0,
+      "seconds": 7.332,
+      "checks_passed": 12,
+      "log_sha256": "a29ac382e690dd6d82d91a8218120046dfdeef8c82e9f648ef14cf36c534dc2f"
+    },
+    {
+      "test": "sandbox_contracts",
+      "exit": 0,
+      "seconds": 2.018,
+      "checks_passed": 9,
+      "log_sha256": "62b9e77c5bdcfd98c904b7fbaefb24031e8254f7ddeddd6cddbf5885f4b52e89"
+    },
+    {
+      "test": "artifacts",
+      "exit": 0,
+      "seconds": 2.469,
+      "checks_passed": 7,
+      "log_sha256": "5a2022a3367c89e3704abc63154f3008a91bdfbecb89e1545198e3270a0cb37e"
+    }
+  ],
+  "checks_passed": 118,
+  "raw_report_sha256": "7cb2ff59490f3252d183433b5efa064e08d88655775d11bb027097bdbbb4bc24",
+  "cleanup_investigation": {
+    "original_failures": {
+      "tests": 3,
+      "suite_total": 9,
+      "log_sha256": "eba69213251ed77f5c0bbcc614ce26d094f0406b79ee1ff377b3d209e88b3f84",
+      "classification": "cleanup deadline after reported exit0; root environment had no LD_PRELOAD or HARNESS_TEST_* variables",
+      "root_cause_established": false
+    },
+    "confirmed_distinct_bug": {
+      "classification": "Linux dead-task /proc stat can contain state X and PGID/SID -1 during concurrent teardown; unsigned PGID parser ran before dead-state exclusion",
+      "fix": "classify dead state before reading its disappearing process identifiers; malformed live metadata still fails",
+      "regression_tests": [
+        "dead_task_teardown_does_not_require_a_live_group_id",
+        "live_group_ids_remain_required_and_names_are_not_field_delimiters"
+      ],
+      "captured_bytes_sha256": "4d9ab607a22c56db61cbf87a2a6deb15aa9683576ef9aa5431262b4356b0db95"
+    },
+    "postfix_checks": {
+      "native_unit_tests_passed": 3,
+      "runtime_contract_tests_passed": 26,
+      "sandbox_contract_tests_passed": 9,
+      "simultaneous_full_sandbox_suites": 3,
+      "simultaneous_full_sandbox_cases_passed": 27,
+      "concurrent_validation_probes": 1000,
+      "probe_failures": 0,
+      "max_probe_elapsed_seconds": 0.091
+    },
+    "new_diagnostics": "Cleanup deadline now includes stdout EOF, stderr EOF, residual-group observation; adapter exception preserves at most512characters of error reason.",
+    "conclusion": "Confirmed parse bug fixed. Original cleanup deadlines remain unexplained; passing reruns are not evidence that those failures were fixed. Failures remained uncertain rather than reporting clean completion; no release reliability claim."
+  }
+}

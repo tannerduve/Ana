@@ -1,0 +1,86 @@
+[
+  {
+    "args": [
+      "category,amount\n"
+    ],
+    "value": []
+  },
+  {
+    "args": [
+      "category,amount\nb,2\na,-3\nb,+4\n"
+    ],
+    "value": [
+      {
+        "category": "a",
+        "total": -3,
+        "count": 1
+      },
+      {
+        "category": "b",
+        "total": 6,
+        "count": 2
+      }
+    ]
+  },
+  {
+    "args": [
+      "amount,category\n2,\"hello, there\"\n3,\"multi\nline\"\n"
+    ],
+    "value": [
+      {
+        "category": "hello, there",
+        "total": 2,
+        "count": 1
+      },
+      {
+        "category": "multi\nline",
+        "total": 3,
+        "count": 1
+      }
+    ]
+  },
+  {
+    "args": [
+      "category,category\na,2\n"
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      "category,amount\nx, 2\n"
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      "category,amount\nx,١\n"
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      "category,amount\nx,2,3\n"
+    ],
+    "error": "ValueError"
+  },
+  {
+    "cli_input": "category,amount\na,1\nb,3\n",
+    "cli_args": [
+      "--min-total",
+      "2"
+    ],
+    "cli_json": [
+      {
+        "category": "b",
+        "total": 3,
+        "count": 1
+      }
+    ],
+    "exit": 0
+  },
+  {
+    "cli_input": "bad\n",
+    "exit": 2,
+    "empty_stdout": true
+  }
+]

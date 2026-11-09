@@ -1,0 +1,72 @@
+name: evaluation-contracts
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  standalone:
+    defaults:
+      run:
+        working-directory: eval
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install isolation dependencies
+        run: sudo apt-get update && sudo apt-get install -y bubblewrap apparmor zstd
+      - name: Enable and check evaluation namespaces
+        run: |
+          # Scoped allowance on this ephemeral runner; no global restriction change.
+          sudo tee /etc/apparmor.d/bwrap > /dev/null <<'PROFILE'
+          abi <abi/4.0>,
+          include <tunables/global>
+          profile bwrap /usr/bin/bwrap flags=(unconfined) {
+            userns,
+          }
+          PROFILE
+          sudo apparmor_parser -r /etc/apparmor.d/bwrap
+          bwrap --unshare-all --share-net --die-with-parent --new-session \
+            --ro-bind / / --proc /proc --dev /dev -- \
+            bwrap --unshare-all --die-with-parent --new-session \
+              --ro-bind / / --proc /proc --dev /dev -- /bin/true
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.16.0
+      - name: Install pinned fixture toolchains
+        run: |
+          if ! curl -sSfL --retry 3 --retry-delay 2 --retry-max-time 120 --connect-timeout 20 --max-time 120 https://github.com/leanprover/elan/releases/download/v4.1.2/elan-x86_64-unknown-linux-gnu.tar.gz -o /tmp/elan.tar.gz; then
+            curl -sSfL --retry 3 --retry-delay 2 --retry-max-time 120 --connect-timeout 20 --max-time 120 \
+              -H 'Accept: application/octet-stream' https://api.github.com/repos/leanprover/elan/releases/assets/258187011 -o /tmp/elan.tar.gz
+          fi
+          echo 'f81c2e48c1588d4612cd2c8851947898a45ac8d72748a07dff3a5694f1cf589b  /tmp/elan.tar.gz' | sha256sum --check --status
+          mkdir /tmp/elan-installer
+          tar -xzf /tmp/elan.tar.gz -C /tmp/elan-installer
+          /tmp/elan-installer/elan-init -y --default-toolchain none
+          bash ../scripts/install_ci_lean.sh lean-toolchain
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          rustup toolchain install 1.97.1 --profile minimal
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+      - name: Check evaluation machinery and fixture isolation
+        run: |
+          lean --version
+          python3 Tests/path_configuration.py
+          python3 Tests/docker_transport.py
+          python3 Tests/evaluation.py
+          python3 Tests/campaign.py
+          python3 Tests/broker_responses.py
+          python3 Tests/broker_requests.py
+          python3 Tests/evaluation_isolation.py
+          python3 Tests/continuation_audit.py
+          python3 Tests/budget_context_audit.py
+          python3 Tests/plan_context_version.py
+          python3 Tests/evaluation_patches.py
+          python3 Tests/evaluation_window.py
+          python3 Tests/public_reporting.py
+          python3 Tests/public_preparation.py
+          python3 Tests/patch_review.py
+          python3 Tests/session_audit.py
+          python3 Tests/workspace_snapshot.py
+          python3 Tests/interruption_capture.py
+          python3 Tests/sustained.py
+          python3 corpus/test_checkers.py
+          python3 corpus/validate.py --output /tmp/corpus-validation.json
+      # Product/proxy integration and pinned-image Coq tests are explicit local
+      # gates documented in README.md; this job does not claim to run them.

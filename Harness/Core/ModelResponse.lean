@@ -1,10 +1,18 @@
 import Harness.Core.Protocol
 
 /-!
-The normalized assistant-content contract is enforced in the core as well as used
-by provider normalization. Blocks are inspected without rebuilding them, so opaque
-reasoning/signature content remains available for the next provider request.
+# Assistant Content Validation
+
+`parseModelContent` decodes supported assistant blocks in their original order: text, thinking,
+redacted thinking and tool use. It returns the raw calls and concatenated text. It inspects
+blocks without rebuilding them, so opaque reasoning content is preserved for later requests. It
+does not authorize tools, and argument checks remain in `Policy`.
+
+`RawCall.descriptor` compares calls at the wire level. `ModelResponseConsistent` states that
+retained content agrees with the normalized `calls` and `text`. `validateModelResponse` checks
+this agreement before a response enters history.
 -/
+
 namespace Harness
 open Lean
 

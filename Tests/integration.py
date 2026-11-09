@@ -40,14 +40,14 @@ class Integration(unittest.TestCase):
         self.assertEqual(result.returncode, expected, result.stderr + result.stdout)
         return result
 
-    def run_script(self, script, expected=0):
+    def run_script(self, script, expected=0, extra=()):
         cfg = self.root / "config.json"
         cfg.write_text(json.dumps(self.config))
         scripted = self.root / "script.json"
         scripted.write_text(json.dumps(script))
         return self.cli("run", "--workspace", self.ws, "--config", cfg,
                         "--task", "repair the program and test it", "--session", self.session,
-                        "--script", scripted, "--json", expected=expected)
+                        "--script", scripted, "--json", *extra, expected=expected)
 
     def inspect(self):
         return json.loads(self.cli("inspect", self.session).stdout)
@@ -221,6 +221,107 @@ class Integration(unittest.TestCase):
         self.run_script([response([("one", "process", {"argv": [sys.executable, "-c", "open('bad','w').write('bad')"]})]), response()])
         self.assertFalse((self.ws / "bad").exists())
         self.assertEqual(self.inspect()["state"]["toolDispatches"], 0)
+
+    def test_yield_is_a_durable_boundary_with_preserved_reservations(self):
+        self.run_script([response([("one", "create", {"path": "once", "content": "original"})]),
+                         response(text="done")], expected=75, extra=("--yield-after", "3"))
+        before = self.inspect()
+        self.assertFalse(before["pending"])
+        self.assertFalse(before["terminal"])
+        self.assertEqual(before["state"]["modelAttempts"], 1)
+        self.assertEqual(before["state"]["toolDispatches"], 1)
+        self.assertFalse((self.ws / "once").exists())
+        records = helper.journal_read(self.session / "journal.jsonl")["records"]
+        self.assertEqual(records[-1]["kind"], "completion")
+        self.cli("resume", self.session)
+        after = self.inspect()
+        self.assertEqual(after["state"]["modelAttempts"], 2)
+        self.assertEqual(after["state"]["toolDispatches"], 1)
+        self.assertEqual((self.ws / "once").read_text(), "original")
+        self.assertEqual(json.loads(self.cli("replay", self.session).stdout), after)
+
+    def test_compaction_crosses_a_durable_restart_boundary(self):
+        self.config.update(maxContextBytes=26000, compactAtPercent=85,
+                           compactionKeepMessages=2, maxSummaryBytes=2000)
+        (self.ws / "large.txt").write_text("repository fact " + "x" * 3900)
+        scripted = [response([("read1", "read", {"path": "large.txt"})]),
+                    response([("read2", "read", {"path": "large.txt"})]),
+                    response(text="The file was inspected twice; continue with the requested final answer."),
+                    response(text="Completed after compaction and restart.")]
+        self.run_script(scripted, expected=75, extra=("--yield-after", "12"))
+        before = self.inspect()
+        self.assertEqual(len(before["state"]["summaries"]), 1)
+        self.assertEqual(before["state"]["modelAttempts"], 3)
+        self.assertEqual(before["state"]["toolDispatches"], 2)
+        self.assertEqual(len(before["state"]["history"]), 5)
+        self.assertFalse(before["pending"])
+        self.assertFalse(before["terminal"])
+        records = helper.journal_read(self.session / "journal.jsonl")["records"]
+        summary = [r for r in records if r.get("kind") == "intent"
+                   and r["action"].get("request", {}).get("purpose") == "summary"]
+        self.assertEqual(len(summary), 1)
+        self.cli("resume", self.session)
+        after = self.inspect()
+        self.assertEqual(after["state"]["modelAttempts"], 4)
+        self.assertEqual(after["state"]["toolDispatches"], 2)
+        self.assertEqual(after["state"]["summaries"], before["state"]["summaries"])
+        self.assertEqual(after["state"]["history"][:5], before["state"]["history"])
+        self.assertTrue(after["terminal"])
+        self.assertEqual(json.loads(self.cli("replay", self.session).stdout), after)
+
+    def test_frozen_loopback_provider_and_external_override_rejection(self):
+        import http.server
+        import threading
+        bodies = []
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_POST(handler):
+                bodies.append(json.loads(handler.rfile.read(int(handler.headers["Content-Length"]))))
+                data = json.dumps(response(text="loopback completed")).encode()
+                handler.send_response(200)
+                handler.send_header("Content-Length", str(len(data)))
+                handler.end_headers()
+                handler.wfile.write(data)
+            def log_message(self, *_):
+                pass
+        server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        self.addCleanup(server.server_close)
+        self.addCleanup(server.shutdown)
+        self.config["testEndpoint"] = f"http://127.0.0.1:{server.server_port}/messages"
+        cfg = self.root / "provider-config.json"
+        cfg.write_text(json.dumps(self.config))
+        self.cli("run", "--workspace", self.ws, "--config", cfg, "--task", "answer",
+                 "--session", self.session)
+        self.assertEqual(len(bodies), 1)
+        self.assertEqual(self.inspect()["state"]["config"]["testEndpoint"], self.config["testEndpoint"])
+        cfg.write_text(json.dumps({**self.config, "testEndpoint": "https://example.com/messages"}))
+        self.cli("run", "--workspace", self.ws, "--config", cfg, "--task", "answer",
+                 "--session", self.root / "rejected-session", expected=1)
+        self.assertEqual(len(bodies), 1)
+
+    def test_resolution_of_recorded_interruption_preserves_remaining_batch(self):
+        self.config["operationTimeoutMs"] = 500
+        self.run_script([response([
+            ("partial", "process", {"argv": ["/bin/sh", "-c", "printf x >> once; sleep 5"]}),
+            ("remaining", "create", {"path": "remaining", "content": "continued"})]),
+            response(text="continued after explicit resolution")], expected=4)
+        before = self.inspect()
+        operation = before["recoverableOperation"]
+        self.assertIsNotNone(operation)
+        self.assertFalse(before["pending"])
+        self.assertTrue(before["terminal"])
+        self.assertFalse((self.ws / "remaining").exists())
+        self.assertEqual((self.ws / "once").read_bytes(), b"x")
+        self.cli("resolve", self.session, "--operation", str(operation), "--status", "abandoned",
+                 "--note", "Observed partial output; original process group was terminated",
+                 "--resources-settled")
+        self.cli("resume", self.session)
+        after = self.inspect()
+        self.assertEqual((self.ws / "once").read_bytes(), b"x")
+        self.assertEqual((self.ws / "remaining").read_text(), "continued")
+        self.assertEqual(after["state"]["toolDispatches"], 2)
+        self.assertEqual(after["state"]["modelAttempts"], 2)
 
 
 if __name__ == "__main__":

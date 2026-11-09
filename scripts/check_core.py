@@ -51,6 +51,11 @@ names = ['Harness.budget_init', 'Harness.budget_preserved', 'Harness.reachable_b
          'Harness.inconsistent_model_response_stops', 'Harness.accepted_tool_response_contract',
          'Harness.inconsistent_model_response_terminal',
          'Harness.config_preserved', 'Harness.reachable_config',
+         'Harness.summary_history_preserved', 'Harness.summary_cancel_preserves_view',
+         'Harness.summary_failure_preserves_view', 'Harness.accepted_summary_contract',
+         'Harness.rejected_summary_preserves_view', 'Harness.emitted_summary_admitted',
+         'Harness.admitted_summary_reservation',
+         'Harness.task_request_preserves_instructions', 'Harness.summary_request_preserves_instructions',
          'Harness.Recovery.replay_deterministic']
 with tempfile.NamedTemporaryFile(mode='w', suffix='.lean', dir=ROOT, delete=False) as file:
     path = pathlib.Path(file.name)

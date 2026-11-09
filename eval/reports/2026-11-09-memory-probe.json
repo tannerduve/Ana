@@ -1,0 +1,11 @@
+{
+  "purpose": "Post hoc validation of local evaluation memory instrumentation; no candidate or score changes",
+  "host": "Linux-6.11.0-1016-nvidia-x86_64-with-glibc2.39",
+  "allocation_bytes": 104857600,
+  "probe_python": "import resource; a=bytearray(100*1024*1024); print(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)",
+  "exit_code": 0,
+  "inner_self_max_rss_kib": 112256,
+  "outer_time_max_rss_kib": 1916,
+  "suite_sha256": "9e19fa7353507e30f6ef7b7098f49246e8b7a5010ebad759e3ca5e6e1b481e0b",
+  "finding": "GNU time outside bubblewrap omits the candidate memory on this host. Existing max_process_rss_kib values describe the supervisor and are unsuitable for agent-memory comparison. Agent peak memory remains unmeasured."
+}

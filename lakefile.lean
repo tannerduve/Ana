@@ -31,6 +31,9 @@ extern_lib harness_native pkg := do
 @[default_target] lean_lib Harness
 lean_lib Tests
 
+lean_exe eval_tools where
+  root := `eval.Tools
+
 @[default_target] lean_exe harness where
   root := `Harness.CLI
 

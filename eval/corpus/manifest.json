@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "corpus_id": "self-authored-v1",
+  "label": "development and reserved self-authored tasks; not a parity result",
+  "reserved_policy": "Reserved task cases and references are validated mechanically but must not inform prompt/tool tuning before the first comparison. Reserved is not a claim of globally unseen data.",
+  "tasks": [
+    {
+      "id": "dev01-inventory-cli",
+      "split": "development",
+      "language": "python",
+      "title": "Inventory aggregation and CLI",
+      "fixture": "fixtures/dev01-inventory-cli",
+      "reference": "references/dev01-inventory-cli",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.py"
+      ],
+      "editable": [
+        "inventory.py",
+        "cli.py"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "python3"
+      ],
+      "tags": [
+        "multi_file",
+        "cli"
+      ],
+      "entry": {
+        "file": "inventory.py",
+        "function": "summarize",
+        "cli": "cli.py"
+      },
+      "cases": "cases/dev01-inventory-cli.json",
+      "artifact_sha256": {
+        "README.md": "4ca0bdb6e4e44c6843ad136f5024c6ab593939740fa1ad46a606d7b3f2f824cc",
+        "cli.py": "a715342d2dc2df8ec3ae7a2cf25e72ef61155fea41845ab059ce7ab3e8153e5f",
+        "inventory.py": "a8e27285b647a5267d8637374ee3268c98dc03bbf3d7ee31709e10c5079ec2f1",
+        "test_public.py": "b980bb4a158ff34b1dcef399d3f23227b725a338ed777489c79c05c8e7286d66"
+      },
+      "case_sha256": "25efb345abdbd009a99e069b80b7e6d4441922a7b66cbb95cc4de0dc9a6db877",
+      "reference_sha256": {
+        "cli.py": "ff72f777a1de4d101c7f537503864f0c6cdc7b62463bf0e1923e795acedabe82",
+        "inventory.py": "8f67dcda6105cce6ef3f65083148d229074f478a3e96c7d9d07622c2c9af93d7"
+      }
+    },
+    {
+      "id": "dev02-config-overlay",
+      "split": "development",
+      "language": "python",
+      "title": "Recursive configuration overlay",
+      "fixture": "fixtures/dev02-config-overlay",
+      "reference": "references/dev02-config-overlay",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.py"
+      ],
+      "editable": [
+        "overlay.py"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "python3"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "overlay.py",
+        "function": "overlay"
+      },
+      "cases": "cases/dev02-config-overlay.json",
+      "artifact_sha256": {
+        "README.md": "3524c97fc3aadef351fe06dea2eed49dc5111ed2fd7ae777bfcc4e9a3e48d214",
+        "overlay.py": "9119790021433eff797609cc0caf0773962125f97b2a19f9ad837b6a79c4268f",
+        "test_public.py": "e226c284af5e8a9a84c5ba46ab66d84df47c03c8cbae4b6c9778a8071152d129"
+      },
+      "case_sha256": "b9eefcc988b260cf72f79cefd08d028cfcd628ddd84bc4452dc12e540a2d62d0",
+      "reference_sha256": {
+        "overlay.py": "a4fe8c97ab369fdaeee9b088d6ba5e8bd89cb14403da5b506a3aeeffa042e6b8"
+      }
+    },
+    {
+      "id": "dev03-repo-graph",
+      "split": "development",
+      "language": "python",
+      "title": "Find and repair the dependency planner",
+      "fixture": "fixtures/dev03-repo-graph",
+      "reference": "references/dev03-repo-graph",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.py",
+        "planner.py",
+        "project/__init__.py",
+        "project/scheduling/__init__.py",
+        "docs/architecture.md"
+      ],
+      "editable": [
+        "project/scheduling/graph.py"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "python3"
+      ],
+      "tags": [
+        "repo_navigation",
+        "multi_file"
+      ],
+      "entry": {
+        "file": "planner.py",
+        "function": "plan"
+      },
+      "cases": "cases/dev03-repo-graph.json",
+      "artifact_sha256": {
+        "README.md": "03d9c6b78b100bbc717cb36dcaa1fac9536d5ea2dc806830e72d822d0a000b8a",
+        "docs/architecture.md": "c4c6333273e0700109c5a931ee025dc362a397dfe60083a9e523e3eb6925482f",
+        "planner.py": "dda7b11f1fff8d1ceb4d9b2a4e69200ea9f9d7c4fa770d30abcfcc2b99b20c2a",
+        "project/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "project/scheduling/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "project/scheduling/graph.py": "501c3912433ace94b62f83252786f507936e6e24473e29423682986280a0d276",
+        "test_public.py": "975c9306234223a68a3a39ae005a4bedcedbc908d1b744867ac88661e529ff8b"
+      },
+      "case_sha256": "17cbf59698a25b9a60c94dacec43e7f27df53755a085485f7add83a3ec0d05a8",
+      "reference_sha256": {
+        "project/scheduling/graph.py": "1556bfe1086a4d5283e41c0d581e6d33ef0ba2456f84bc58b9bc9959d2f90ac0"
+      }
+    },
+    {
+      "id": "dev04-csv-report",
+      "split": "development",
+      "language": "python",
+      "title": "CSV category report",
+      "fixture": "fixtures/dev04-csv-report",
+      "reference": "references/dev04-csv-report",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.py"
+      ],
+      "editable": [
+        "report.py",
+        "cli.py"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "python3"
+      ],
+      "tags": [
+        "multi_file",
+        "cli"
+      ],
+      "entry": {
+        "file": "report.py",
+        "function": "report",
+        "cli": "cli.py"
+      },
+      "cases": "cases/dev04-csv-report.json",
+      "artifact_sha256": {
+        "README.md": "20050de66783a2305bd2ef286efaf3307dced0d5315b900d0cc0d173d64bb8ce",
+        "cli.py": "971898bd4b4a18bfaf591d450f2e4290f2dc0d57b5dac198f0fcac0251cb4d30",
+        "report.py": "f6a12c8b952f1ffad4cdba2412e9d25769e53822f31f5a9e27a88882b0e4304f",
+        "test_public.py": "94b4a572a496b0db99d1869372896ce75ecede7bffd3ccb2f9eba480e71ddfa3"
+      },
+      "case_sha256": "8468f6fcc679c8633ef44672758dfb42e763ebd9e5293008ddc1585c9627666e",
+      "reference_sha256": {
+        "cli.py": "93b22e21b872b57363745af04c1701a20e48274c0bf5a0ca1a9ba4ba47568262",
+        "report.py": "e757064deaa86ed8bbf339e0c1cec76e4005ee693ecf8de2f128782ea32033b4"
+      }
+    },
+    {
+      "id": "dev05-version-order",
+      "split": "development",
+      "language": "python",
+      "title": "Numeric version comparison",
+      "fixture": "fixtures/dev05-version-order",
+      "reference": "references/dev05-version-order",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.py"
+      ],
+      "editable": [
+        "versions.py"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "python3"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "versions.py",
+        "function": "compare"
+      },
+      "cases": "cases/dev05-version-order.json",
+      "artifact_sha256": {
+        "README.md": "dcd37c890d7b748454e69cecf00750c276c0382210982b455c6606d6104fea58",
+        "test_public.py": "0e5237bec8937e335eec9fd03efd059650f3abd8330c1bee19140cb1b7b555c4",
+        "versions.py": "d51d8db8fc1b4e972a9abc06a49858144e50faf2b7e0030cf99d94ffcbbd929e"
+      },
+      "case_sha256": "e8e6fe3dbe7b515cee6581d78d591ef614a0b435973dca383b07ad08e1726d00",
+      "reference_sha256": {
+        "versions.py": "ad49d4348e1aa57c41e0a9296e56622492836b1becc2ae9e14ba7032f355e3c7"
+      }
+    },
+    {
+      "id": "dev06-js-intervals",
+      "split": "development",
+      "language": "javascript",
+      "title": "Merge half-open intervals",
+      "fixture": "fixtures/dev06-js-intervals",
+      "reference": "references/dev06-js-intervals",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.js"
+      ],
+      "editable": [
+        "intervals.js"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "node"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "intervals.js",
+        "function": "mergeIntervals"
+      },
+      "cases": "cases/dev06-js-intervals.json",
+      "artifact_sha256": {
+        "README.md": "2cb552ab5aa26d9a8e74444f1877fc01a9b774dc6b937beb84cbaa06eafec249",
+        "intervals.js": "eecabe8083faae55baee767cd5a07af8255075e116a662e06401bf5bfbeddcfd",
+        "test_public.js": "d4f87389d44030c496b9a66524768951cfe27d9fdafba9577c27bd87366946ea"
+      },
+      "case_sha256": "2b995d65d7d5acb3e5ddf9e4284d12b8065395fde8db59c07cd4d20f6ffa5e24",
+      "reference_sha256": {
+        "intervals.js": "931710380fcd77dc5a8fe546c48cb71c88a27477c462b4a56506a7c915abec4f"
+      }
+    },
+    {
+      "id": "dev07-js-query",
+      "split": "development",
+      "language": "javascript",
+      "title": "Query decoder",
+      "fixture": "fixtures/dev07-js-query",
+      "reference": "references/dev07-js-query",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.js"
+      ],
+      "editable": [
+        "query.js"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "node"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "query.js",
+        "function": "parseQuery"
+      },
+      "cases": "cases/dev07-js-query.json",
+      "artifact_sha256": {
+        "README.md": "c9becbcef81a40b00f090b370f71e9f93190cf7b8b81d3f4fb55f621b6e1a087",
+        "query.js": "dbae7d2bacac7aef8b263c6215bfa9bc2bade45a76c4e8f6662968a87225ea1d",
+        "test_public.js": "9c8e88962949da3ac61cca712ac1bf72d1160e84bac9ca64ebffc780f02b962c"
+      },
+      "case_sha256": "1fb1dfea428b440111cad933adb7be2c022df2a7bc3fa6ebd7e8cf5e98fa1853",
+      "reference_sha256": {
+        "query.js": "2424a92d375c77cbfa196c00e2c14b449a961050458bf38de9e8ebb71a3c92e5"
+      }
+    },
+    {
+      "id": "dev08-js-window",
+      "split": "development",
+      "language": "javascript",
+      "title": "Moving-window sums",
+      "fixture": "fixtures/dev08-js-window",
+      "reference": "references/dev08-js-window",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.js"
+      ],
+      "editable": [
+        "window.js"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "node"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "window.js",
+        "function": "windowSums"
+      },
+      "cases": "cases/dev08-js-window.json",
+      "artifact_sha256": {
+        "README.md": "814253d80f4029cde2055e0541445c593e28142f496aff7702da6ccba2c8d768",
+        "test_public.js": "3d579c5f3fa341647d7e5c8c157415a9de61250c71180aa8c20691b794c41434",
+        "window.js": "ac9ed4724065404f6dc92040a63064e1fe4ba9bb4d1ed60ae174f0803c37602a"
+      },
+      "case_sha256": "7963c8952e7aa6d72fc1248b9042ba9b11e088a285ce040af45b875cca9e4b3f",
+      "reference_sha256": {
+        "window.js": "42fa5309f922feca6508908ea033186f9e5abdc8513ff206e1f402112e6c9c65"
+      }
+    },
+    {
+      "id": "dev09-rust-percent",
+      "split": "development",
+      "language": "rust",
+      "title": "Percent decoding with UTF-8 validation",
+      "fixture": "fixtures/dev09-rust-percent",
+      "reference": "references/dev09-rust-percent",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.rs"
+      ],
+      "editable": [
+        "solution.rs"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "rustc"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "solution.rs",
+        "function": "decode",
+        "rust_probe": "percent"
+      },
+      "cases": "cases/dev09-rust-percent.json",
+      "artifact_sha256": {
+        "README.md": "89c5c47144c94bf802d0f86b9f4e12d6e4192a0e773d59c21d428b40c2a05f6d",
+        "solution.rs": "b3044ba5d93eb228cb1f8b2fcab879d3dfcac92640934cf5c085f1bf5ec064a8",
+        "test_public.rs": "c744b73986aed05a43948479aacd23ac83b6f0a931b1871d10aa26f97bcd4f1f"
+      },
+      "case_sha256": "c3cb16d99ed52b4fc8e89b22acea6396034c9736a4342d6793eb04bbd78d62bb",
+      "reference_sha256": {
+        "solution.rs": "5d47b2dc8c92f55ecc78fc07a038bbc877e8bc6756e32aee94fb99fbced3ca0b"
+      }
+    },
+    {
+      "id": "dev10-rust-tail",
+      "split": "development",
+      "language": "rust",
+      "title": "Bounded tail retention",
+      "fixture": "fixtures/dev10-rust-tail",
+      "reference": "references/dev10-rust-tail",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.rs"
+      ],
+      "editable": [
+        "solution.rs"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "rustc"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "solution.rs",
+        "function": "tail",
+        "rust_probe": "tail"
+      },
+      "cases": "cases/dev10-rust-tail.json",
+      "artifact_sha256": {
+        "README.md": "1257b62355d86e348eb142b3abaeb39b4152f1e0f79e713521b80cc127032910",
+        "solution.rs": "7290838d3bffdedaf6aa40cd99466bb7765dd4820acb141bf683543a333a6fb5",
+        "test_public.rs": "7b2f05175450e0ddff9a3613817c62418cd30858c447f9b85a9cc56fb7fe2eb6"
+      },
+      "case_sha256": "4fae1dd92583e788a044f6bda53632c5962a18f959c3696a55a1463078e1dc62",
+      "reference_sha256": {
+        "solution.rs": "50b5d71bacb843b5f0d386b3fed2a4c89325448c78dfb2ff80638a36f7541df1"
+      }
+    },
+    {
+      "id": "dev11-lean-reverse",
+      "split": "development",
+      "language": "lean",
+      "title": "Repair a list proof after an API rename",
+      "fixture": "fixtures/dev11-lean-reverse",
+      "reference": "references/dev11-lean-reverse",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "Spec.lean",
+        "lean-toolchain",
+        "Definitions.lean"
+      ],
+      "editable": [
+        "Proof.lean"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "lean"
+      ],
+      "tags": [
+        "proof_repair"
+      ],
+      "entry": {
+        "file": "Proof.lean",
+        "theorem": "reverse_twice",
+        "statement": "theorem reverse_twice (xs : List Nat) : xs.reverse.reverse = xs :="
+      },
+      "cases": "cases/dev11-lean-reverse.json",
+      "artifact_sha256": {
+        "Definitions.lean": "6cef5e8a16047ee84e1ba7392d5877f339adce04e8977f07809655bb8fdf3086",
+        "Proof.lean": "368f2312f3fbcff61b99cd022417371554c2abb0da6a51f0f2f80aa97aea695d",
+        "README.md": "d76c43f5ebb5b08a22f9e2a3845a6b8215790364fcd97e8e152e0bb6346006c9",
+        "Spec.lean": "4465e4660157d170f4607af8c703a3003dc5c8cabc6eb535d19e89e8e911fc65",
+        "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+      },
+      "case_sha256": "2ea958c2567a24868c523d25f2db93b91ea627eb5859a9a7478fa5fd71db2487",
+      "reference_sha256": {
+        "Proof.lean": "af6caf5d574cb3008b50795059da79235e2c8b4262389b68f14a2e88e6a8dc16"
+      }
+    },
+    {
+      "id": "dev12-lean-append",
+      "split": "development",
+      "language": "lean",
+      "title": "Prove the append law for a recursive total",
+      "fixture": "fixtures/dev12-lean-append",
+      "reference": "references/dev12-lean-append",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "Spec.lean",
+        "lean-toolchain",
+        "Definitions.lean"
+      ],
+      "editable": [
+        "Proof.lean"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "lean"
+      ],
+      "tags": [
+        "proof_repair"
+      ],
+      "entry": {
+        "file": "Proof.lean",
+        "theorem": "total_append",
+        "statement": "theorem total_append (xs ys : List Nat) : total (xs ++ ys) = total xs + total ys :="
+      },
+      "cases": "cases/dev12-lean-append.json",
+      "artifact_sha256": {
+        "Definitions.lean": "b23f3c601ce0bb97e0a7d5caa014d0339791ab82f1999e8474252d0253a9d0ea",
+        "Proof.lean": "4f8f0fe80e27a545b9b20d7dc87e9e8839e5b8cbcafd73cbcb94ec9e236d1250",
+        "README.md": "5cf613dd32165c6b18cfc990a628fb6c0b74074f9da4fc926f963270c3e217b7",
+        "Spec.lean": "00b7ddaf86583a6f327e750b09ec9cc0bc4b47c80c1c349ac1783a225ee750b0",
+        "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+      },
+      "case_sha256": "c12bc9f25195e0a5400d97b4b5c584fdda064603e4c7676ecbf1a007742b396c",
+      "reference_sha256": {
+        "Proof.lean": "117cd70eaa69d47e8a09ade7ece50fbb3cd477259fbeaef64d7c9b22c9ccf185"
+      }
+    },
+    {
+      "id": "reserved01-atomic-settings",
+      "split": "reserved",
+      "language": "python",
+      "title": "Atomic settings transactions",
+      "fixture": "fixtures/reserved01-atomic-settings",
+      "reference": "references/reserved01-atomic-settings",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.py",
+        "docs/architecture.md",
+        "docs/recovery.md"
+      ],
+      "editable": [
+        "transactions.py",
+        "cli.py"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "python3"
+      ],
+      "tags": [
+        "multi_file",
+        "cli",
+        "sustained_context",
+        "restart",
+        "compaction"
+      ],
+      "entry": {
+        "file": "transactions.py",
+        "function": "apply",
+        "cli": "cli.py"
+      },
+      "cases": "cases/reserved01-atomic-settings.json",
+      "artifact_sha256": {
+        "README.md": "19bce07eda32f4e10d574b596c05cd298ede63fd13ead6458d6902c5f736ed46",
+        "cli.py": "cde80b6e00a545ee0ff6f7b6328dd749a4691496abd0769b505a6c9c62b19f91",
+        "docs/architecture.md": "7d1b056423ce801d874dc373fccb8a67f997889c15ad8c1327cebda69712dbd8",
+        "docs/recovery.md": "98d9bb1e6e02c17ec67a71d2c6fc071a673342a5dc41491a753a7acb7c042f51",
+        "test_public.py": "620ab6216850ed07ea10466b7a8418614cf9fe2d93624503ed52aa48d9e75b22",
+        "transactions.py": "d76f2db5aa0824c05f70f8e90fcb5597847cdfc36589b323522084bdcf10d92c"
+      },
+      "case_sha256": "c9f211c3292601931b4b2ccc5e5c718fd61f5c8170b832deb9c1078f1da6c94e",
+      "reference_sha256": {
+        "cli.py": "519fca109dd84da6ec20acade1722125aa721763dd29189753af5dc07f875ce4",
+        "transactions.py": "b2222688b53b5b3ba0784d1e4e4b7943cd96ea1673666bcf9151b4fdf266aacb"
+      },
+      "sustained_acceptance": {
+        "requires_successful_compaction": true,
+        "requires_durable_restart": true,
+        "task_checker_alone_sufficient": false
+      }
+    },
+    {
+      "id": "reserved02-js-ledger",
+      "split": "reserved",
+      "language": "javascript",
+      "title": "Normalize and report a small event ledger",
+      "fixture": "fixtures/reserved02-js-ledger",
+      "reference": "references/reserved02-js-ledger",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.js",
+        "index.js",
+        "docs/architecture.md",
+        "docs/session.md"
+      ],
+      "editable": [
+        "normalize.js",
+        "report.js"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "node"
+      ],
+      "tags": [
+        "multi_file",
+        "repo_navigation",
+        "sustained_context",
+        "restart",
+        "compaction"
+      ],
+      "entry": {
+        "file": "index.js",
+        "function": "summarize"
+      },
+      "cases": "cases/reserved02-js-ledger.json",
+      "artifact_sha256": {
+        "README.md": "77ddd4edfd7f451da26e67eb1dc3eb8a9dbef51286ee311c0c1f8f42b93accb9",
+        "docs/architecture.md": "c007350d4fd2b5b0cbc779dba30d2e33394c7ae9132090c202b1ad0481296cef",
+        "docs/session.md": "31d38174ac14ae1bac0210fa2f334a1779f6c1c94a264c30ae54e4c99b547e2c",
+        "index.js": "58517c20d15b3b270dd4d340b8912ebd7fa53147a11a311b60a3d2fd8b2b3288",
+        "normalize.js": "7e756cb086abc9a647c7a029283a005695cd9f08557b113605e4f7641248f992",
+        "report.js": "08ca70ca385f0112c2e3d2988eded52a03772e4a762626d665252b636848456b",
+        "test_public.js": "36d83bc21cfceafdf1d259d82ce671fe51c98393696634163a66737aa9c213a2"
+      },
+      "case_sha256": "5ae58cb4ed41654478bbc528bccf19976649df855dd016c6aa95d05f3fceaa49",
+      "reference_sha256": {
+        "normalize.js": "f3a6ab6e156fcc2775e9e10cba05d99643bdfc0fbbae773f88506d09eb9b2330",
+        "report.js": "6d9d79828add6b70691c226034b5e9c70649d8aed78cd94870b49393a91ca05e"
+      },
+      "sustained_acceptance": {
+        "requires_successful_compaction": true,
+        "requires_durable_restart": true,
+        "task_checker_alone_sufficient": false
+      }
+    },
+    {
+      "id": "reserved03-rust-path",
+      "split": "reserved",
+      "language": "rust",
+      "title": "Lexical relative-path normalization",
+      "fixture": "fixtures/reserved03-rust-path",
+      "reference": "references/reserved03-rust-path",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "test_public.rs"
+      ],
+      "editable": [
+        "solution.rs"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "rustc"
+      ],
+      "tags": [],
+      "entry": {
+        "file": "solution.rs",
+        "function": "normalize",
+        "rust_probe": "path"
+      },
+      "cases": "cases/reserved03-rust-path.json",
+      "artifact_sha256": {
+        "README.md": "187ca02a9005899de7e4197a3ec082ea98ad6bceea22d41e23efa15b7418c90e",
+        "solution.rs": "872ba8f38af4cc22b1855abf042fa9d6d21461be191bccc41e96f7f5c76ceddf",
+        "test_public.rs": "d1f27f2bf9eba556d43431bcf22371b2310c832791c9ebbc6f090c9865c62a14"
+      },
+      "case_sha256": "09dcf8609aab609e82974796d1c7e8dd6cbb6221682bf0e24cff4e1ee1cf3278",
+      "reference_sha256": {
+        "solution.rs": "752431fe051e273c8bd103b36d6141ed891dc8be955ee8a993fc0f98527cae13"
+      }
+    },
+    {
+      "id": "reserved04-lean-map",
+      "split": "reserved",
+      "language": "lean",
+      "title": "Prove map preserves append",
+      "fixture": "fixtures/reserved04-lean-map",
+      "reference": "references/reserved04-lean-map",
+      "task_file": "README.md",
+      "immutable": [
+        "README.md",
+        "Spec.lean",
+        "lean-toolchain",
+        "Definitions.lean"
+      ],
+      "editable": [
+        "Proof.lean"
+      ],
+      "checker_timeout_seconds": 120,
+      "requirements": [
+        "lean"
+      ],
+      "tags": [
+        "proof_repair"
+      ],
+      "entry": {
+        "file": "Proof.lean",
+        "theorem": "transform_append",
+        "statement": "theorem transform_append {α β : Type} (f : α → β) (xs ys : List α) : transform f (xs ++ ys) = transform f xs ++ transform f ys :="
+      },
+      "cases": "cases/reserved04-lean-map.json",
+      "artifact_sha256": {
+        "Definitions.lean": "233a7144867ca24d35594832aec4e4e62e60f4c9de5348e1a3792bffdc853800",
+        "Proof.lean": "ba2dac7d09c1e4c9d6aac4d16cf585b2b7d6f445858b4661ce967266aec19fb9",
+        "README.md": "2c9d819104357d84fc3ea6bef11a0b714010993c408d44d5d56b7c0be4a88877",
+        "Spec.lean": "de5be9859847940f20e736548218e4c7546b6aa6757aac9f38f57590637f61a6",
+        "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+      },
+      "case_sha256": "9e68202a657619739d83f9a5ea4a10302ee55c79d225493b1ec9806d779f0e30",
+      "reference_sha256": {
+        "Proof.lean": "20187bc0b35586d0aba783c776b19d42b0c63a7e7020b8c63040d8c3dc30f23c"
+      }
+    }
+  ]
+}

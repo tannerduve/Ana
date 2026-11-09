@@ -1,5 +1,17 @@
-import Harness.Core.State
+import Harness.Core.Context
 import Mathlib.Data.PFunctor.Univariate.Basic
+
+/-!
+# Effect Signatures
+
+Describes harness interaction as a polynomial functor. `ToolAPI` abstracts tool calls and their
+result types. `Effect` lists the operations: control, model, tool, ask, wait and finish.
+`Response` assigns each operation its observation type. A `finish` effect has no reply.
+
+`InteractionF` is generic over `ToolAPI`. `Action`, `Reply` and `HarnessF` fix it to the
+concrete `CodingAPI`, which `step` uses. `actionToJson`, `replyToJson` and `replyFromJson`
+serialize these operations and replies for journals and adapters.
+-/
 
 namespace Harness
 open Lean

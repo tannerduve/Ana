@@ -7,7 +7,7 @@ incomplete response into an executable batch. This is a requirement about the
 harness's authority checks. It does not establish that a permitted operation is
 wise, that a model answer is true, or that prompt injection has been solved.
 
-The approval channel, initial configuration, executable and session storage are
+The approval channel, operator recovery assertions, initial configuration, executable and session storage are
 trusted inputs. An attacker who can forge approval observations or rewrite the
 journal is outside the present model. Journal checksums detect damage, not an
 adversary able to recompute them. An approved process has its operating-system
@@ -30,15 +30,80 @@ Current evidence is deliberately narrower than these requirements:
 
 | Status | What the repository establishes |
 | --- | --- |
-| **Proved in Lean** | [Invariants.lean](../Harness/Proofs/Invariants.lean) proves reachable dispatch ceilings, authorization of emitted tool requests, rejection of a changed grant when approval is required, terminal behavior and termination of the turn after consumed cancellation. Accepted tool responses have consistent retained content and normalized fields, pass whole-batch validation and preserve the accepted blocks. [Configuration.lean](../Harness/Proofs/Configuration.lean) proves that every typed continuation preserves the entire configuration and every reachable state retains the initial configuration. |
+| **Proved in Lean** | [Invariants.lean](../Harness/Proofs/Invariants.lean) proves reachable dispatch ceilings, authorization of emitted tool requests under the executable permission predicate, rejection of a changed grant when approval is required, terminal behavior and termination of the turn after consumed cancellation. Accepted model responses that request tools have consistent retained content and normalized fields, pass whole-batch validation and preserve the accepted blocks. [Configuration.lean](../Harness/Proofs/Configuration.lean) proves that every typed continuation preserves the entire configuration and every reachable state retains the initial configuration. |
+| **Proved compaction properties** | [Compaction.lean](../Harness/Proofs/Compaction.lean) proves that summary observations preserve raw history; accepted summaries are complete, consistent, nonempty, tool-free and bounded, and their reconstructed context passes the executable size and tool-pairing checks. Rejected, failed and canceled summaries preserve the prior view. Emitted summary requests have an admitted source plan; summary admission reserves the shared attempt ledger. Task and summary requests preserve frozen instructions. These are structural properties, not summary fidelity or task-quality guarantees. |
 | **Proved, limited replay claim** | [Recovery.lean](../Harness/Core/Recovery.lean) proves deterministic replay for the same initial state and record sequence. This is not a proof of durable writes, exactly-once external effects, or equivalence to every possible live execution. |
 | **Executable tests** | [Core](../Tests/Core.lean), [provider](../Tests/Provider.lean) and [recovery](../Tests/Recovery.lean) fixtures exercise malformed batches, approval changes, usage, limits and record ordering. [Properties.lean](../Tests/Properties.lean) adds 900 Plausible-generated provider/core cases with reproducible seeds and shrinking. These properties exercise serialization and transitions; they are not IO-effect tests or proofs. |
 | **Real HTTP tests** | [provider_transport.py](../Tests/provider_transport.py) calls the compiled Lean adapter against local servers. It checks escaping, credential suppression, ambient configuration, redirects, retries, incomplete/invalid bodies, output bounds, full-transfer deadlines and cancellation. No real provider or production credential is involved. |
 | **Generated real IO tests** | [RuntimeProperties.lean](../Tests/RuntimeProperties.lean) passes 100 Plausible-generated Unicode filesystem/journal cases (seeds 52000–52099), including stale/ambiguous edits leaving bytes unchanged, symlink/path escapes and an independent SHA-256 oracle. Each case follows a fixed operation sequence. Failures report seed/input; this IO suite does not yet shrink automatically. |
 | **Native ABI tests** | [native_abi.py](../Tests/native_abi.py) invokes the compiled Lean test driver through the real Rust boundary. Three cases repeat sensitive calls 10,000 times, checking binary/empty buffers, Unicode and borrowed inputs, boxed integers above 2³², descriptor ownership, and nonblocking `none` versus empty EOF. Independent Python oracles check hashes, metadata and process bytes. Descriptor counts do not establish heap-leak freedom or memory safety. |
-| **Crash tests** | [crash_recovery.py](../Tests/crash_recovery.py) injects an intent-write failure and three actual process crashes: after durable intent, after the external effect before completion, and after durable completion. An independent counter records actual external invocations. This covers selected boundaries, not every storage failure or scheduler interleaving. |
+| **CLI and sustained-session tests** | [integration.py](../Tests/integration.py) passes 17 tests, including a scripted task that installs a summary, yields after a durable completion, restarts, and finishes with preserved counts and raw history. It also checks explicit resolution of a recorded interruption with remaining calls in the batch. [Compaction.lean](../Tests/Compaction.lean) tests repeated summaries, source ranges, malformed/oversized output, bounded retries, cancellation and serialization. These use scripted responses rather than a live task-quality benchmark. |
+| **Crash and recovery tests** | [crash_recovery.py](../Tests/crash_recovery.py) passes 10 tests covering intent-write failure; crashes after intent, effect and completion; postimage reconciliation; unchanged/conflicting files; and explicit process resolution. Further faults cover resolution writes, a crash after durable resolution, and failed file or directory synchronization during reconciliation. Counters and file contents check for repeated effects. These are selected failures and process crashes, not exhaustive interleavings or simulated power loss. |
 | **Trusted adapter obligations** | Lean IO implements filesystem access, process supervision, HTTP orchestration and journal handling. Rust syscall/crypto bindings and unsafe Lean ABI conversions, curl, the Lean runtime, the OS and filesystem remain trusted. Real-process, fake-server and crash tests must validate these boundaries; changing the implementation language does not make them kernel-verified. |
-| **Still needed** | A full reachable-history invariant, approval provenance across traces, comprehensive crash and hostile-filesystem tests, conditional progress arguments, explicit uncertain-edit reconciliation, tested compaction and stronger process isolation. |
+| **Still needed** | A full reachable-history invariant, approval provenance across traces, comprehensive crash and hostile-filesystem tests, conditional progress arguments, empirical summary-fidelity and long-task measurements, broader uncertain-effect recovery, and stronger process isolation. |
+
+The [source/axiom audit](../scripts/check_core.py) checks 24 selected theorem
+reports against `propext`, `Quot.sound` and `Classical.choice`, and rejects the
+listed proof placeholders, unsafe substitutions and runtime imports in the core.
+The count is an audit manifest, not 24 independent end-to-end guarantees. See the
+[deterministic gate report](../eval/reports/2026-11-09-sustained-gates.md) for the
+tested executable and the split between 900 pure and 100 real-IO generated cases.
+
+## Recovery and scheduled restarts
+
+Schema-2 sessions require the identical executable. Schema-1 sessions are refused;
+there is no guessed migration. Compaction settings are frozen with the rest of
+the configuration: `compactionEnabled=true`, `compactAtPercent=75`,
+`compactionKeepMessages=4`, and `maxSummaryBytes=12000` by default. The request
+allowance is a byte estimator, not an exact provider token ceiling. Summary
+failures leave the prior view intact and still consume reserved attempts.
+
+An edit intent records the expected preimage and intended postimage. Resume can
+reconcile matching current contents without another write, after a bounded
+no-follow read, a second identity check, and file/directory synchronization.
+Preimage matches and conflicts remain unresolved. Matching contents establish
+the desired file state under the single-writer and durability assumptions; they
+do not establish exactly-once execution. Failed synchronization prevents the
+resolution from being recorded.
+
+Uncertain process outcomes require an operator to inspect the effect and settle
+any original processes before using, for example:
+
+```sh
+harness inspect SESSION
+harness resolve SESSION --operation 7 --status completed --exit-code 0 \
+  --note 'Inspected output and confirmed all original processes stopped' --resources-settled
+harness resume SESSION
+```
+
+`--status abandoned` omits the exit code and retains uncertainty about prior
+effects. The `--resources-settled` flag is an assertion, not a verified process
+cleanup claim. The journal labels operator provenance; results are explicitly
+unverified. Resolution performs no command or inference. Exact IDs, one-use
+resolution, retained batch positions and reservation counts are checked by
+replay and tests.
+
+The terminal theorem applies to `step` on a stopped state. Resolution instead
+uses the saved pre-tool state and supplies a replacement tool observation. It
+can therefore reopen a recorded `recoveryRequired` stop without continuing the
+stopped state through `step`. In validated replayed sessions, ordinary final
+outcomes are not reopened, and cancellation markers are not silently removed.
+Other unresolved intents and damaged storage still refuse automatic resume.
+
+The budget and configuration proofs define `Reachable` through initialization
+and ordinary typed `step` replies. Applying those guarantees to a saved state's
+continuation requires establishing that state's reachability. No current theorem
+connects every replayed recovery cursor and resolution to this predicate or
+proves preservation across the full administrative recovery trace. The recovery
+checks and tests exercise that boundary; deterministic replay alone does not
+prove it.
+
+`run` and `resume` accept `--yield-after N` for planned restarts. Exit 75 means
+the invocation yielded after durable completions, with no unresolved intent or
+terminal record. `resume` preserves call counts and configuration and admits a
+fresh elapsed-time allowance. This scheduling control does not count as another
+model/tool attempt. The scripted compaction/restart test verifies the saved
+summary, transcript and counters across this boundary.
 
 Direct edits currently assume a single writer. A preimage hash does not lock out a
 concurrent writer. Process groups support cancellation of cooperating local
@@ -76,26 +141,27 @@ is stopped by a working deadline mechanism. Even under those assumptions,
 termination may mean a limit, cancellation or recovery requirement rather than
 successful task completion.
 
-The next release gates are:
+The remaining release gates are:
 
-1. **Native migration:** pass the existing deterministic suite against the actual
-   Lean adapters and Rust ABI, including the additional representation and
-   ownership checks. Exercise fake HTTP servers, nonzero exits, large and invalid UTF-8
-   output, cancellation, failed cleanup, denied paths and stale edits. Keep the
-   pure generated properties separate from tests that perform real IO.
-2. **Broader generated IO tests:** extend the current generated-data cases to
+1. **Broader generated IO tests:** extend the current generated-data cases to
    bounded operation sequences against fresh temporary workspaces. Compare results and final bytes with a
    small independent model: create/read roundtrips, exact edits, stale-preimage
    rejection leaving bytes unchanged, and journal prefix recovery. Recreate the
    fixture for every shrink; record the seed and minimized sequence. A discarded
    or inconclusive run must not pass. Expand coverage with scheduled seeds while
    retaining fixed regression seeds.
-3. **More fault and adversarial tests:** extend the four existing failure cases to
+2. **More fault and adversarial tests:** extend the selected failure cases to
    additional dispatch, flush and completion interleavings. Continue counting
    external invocations independently. Race symlink replacement, interrupt both
    event orderings, test lock contention and storage failures, and verify that no
    uncertain mutation is dispatched again automatically.
-4. **Sustained operation:** prove the additional history and approval properties,
-   establish compaction and restart gates, then measure task success and recovery
-   on a reserved workload. A plausible test run or a successful demonstration
-   cannot substitute for these gates.
+3. **Measured sustained operation:** exercise the implemented compaction/restart
+   path on separate development and held-out workloads. Measure task success,
+   summary omissions, recovery, interventions and usage against the pinned
+   baseline. Keep these results separate from structural proofs and scripted
+   protocol tests; the deterministic gates do not establish workload parity.
+4. **Deployment boundaries:** establish the remaining history/approval and
+   conditional progress claims, and test an isolated process profile before
+   advertising containment of untrusted commands. Model-accessible artifact
+   retrieval, streaming, broader uncertain-effect resolution and automatic
+   storage repair remain unimplemented.

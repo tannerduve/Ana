@@ -135,6 +135,49 @@ def run : IO Unit := do
       | .ok c => c.terminal && !c.pending && c.state.toolDispatches == 0
       | .error _ => false
   | _ => throw <| IO.userError "consistency failure emitted a nonterminal action"
+  let processCall : ToolCall := {id := "uncertain-process", operation := .runProcess {argv := #["/bin/true"]}}
+  let processState := {s1 with phase := .tool processCall [call], toolDispatches := 1}
+  let interrupted : ToolObservation ToolResult := .uncertain "lost completion"
+  let pending ← IO.ofExcept <| Harness.Recovery.replay processState [intent processState]
+  let resolution := Harness.Recovery.Resolution.processCompleted 0 "checked output and settled original process"
+  let resolved ← IO.ofExcept <| Harness.Recovery.resolve pending processState.nextId resolution
+  check "explicit process resolution preserves the reserved batch and counts" <|
+    resolved.state.modelAttempts == processState.modelAttempts && resolved.state.toolDispatches == 1 &&
+    resolved.state.nextId == processState.nextId + 1 && !resolved.pending &&
+      (match resolved.state.phase with | .controlTools [remaining] => remaining == call | _ => false)
+  check "resolution cannot settle an operation twice" <|
+    failed (Harness.Recovery.resolve resolved processState.nextId resolution)
+  check "resolution must match exact operation ID" <|
+    failed (Harness.Recovery.resolve pending (processState.nextId + 1) resolution)
+  let uncertain ← IO.ofExcept <| Harness.Recovery.replay processState [intent processState,
+    completion processState.nextId (toJson interrupted)]
+  check "typed uncertain completion retains the original batch position" <|
+    (Harness.Recovery.target uncertain).isSome && !uncertain.pending
+  let stopped ← match (step uncertain.state).1 with
+    | .finish outcome => IO.ofExcept <| Harness.Recovery.applyRecord uncertain (terminal uncertain.state outcome)
+    | _ => throw <| IO.userError "uncertain tool did not stop"
+  let resolutionRecord := Json.mkObj [("kind", toJson "resolution"), ("id", toJson processState.nextId),
+    ("resolution", toJson resolution), ("source", toJson "operator"), ("resourcesSettled", toJson true)]
+  let reopened ← IO.ofExcept <| Harness.Recovery.applyRecord stopped resolutionRecord
+  check "durable operator assertion reopens only a recovery stop" <|
+    sameState reopened.state resolved.state && !reopened.terminal && reopened.suspended.isNone
+  check "operator assertion must attest settled resources" <|
+    failed (Harness.Recovery.applyRecord stopped (resolutionRecord.mergeObj
+      (Json.mkObj [("resourcesSettled", toJson false)])))
+  let pre := String.ofList (List.replicate 64 'a')
+  let post := String.ofList (List.replicate 64 'b')
+  let editCall : ToolCall := {id := "edit", operation := .editFile {
+    path := "file", old := "old", new := "new", expectedSha256 := pre}}
+  let editState := {processState with phase := .tool editCall []}
+  let witness : Harness.Recovery.EditWitness := {path := "file", preimage := pre, postimage := post}
+  let editPending ← IO.ofExcept <| Harness.Recovery.replay editState [
+    (intent editState).mergeObj (Json.mkObj [("editWitness", toJson (some witness))])]
+  check "preimage cannot be presented as a completed edit" <|
+    failed (Harness.Recovery.resolve editPending editState.nextId (.editPostimage pre))
+  let reconciled ← IO.ofExcept <| Harness.Recovery.resolve editPending editState.nextId (.editPostimage post)
+  check "postimage reconciliation settles without a second reservation" <|
+    reconciled.state.toolDispatches == 1 && reconciled.state.nextId == editState.nextId + 1 &&
+    (Harness.Recovery.target reconciled).isNone
   IO.println "recovery: journal ordering, typed replay, terminal, and phase serialization checks passed"
 
 end Tests.Recovery

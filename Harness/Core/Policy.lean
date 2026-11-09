@@ -1,5 +1,18 @@
 import Harness.Core.Protocol
 
+/-!
+# Tool Call Decoding and Authorization
+
+Turns model-proposed `RawCall`s into typed `ToolCall`s and decides whether they may run.
+`decodeCall` rejects unknown tools and arguments, then applies defaults and range checks.
+`safePath` is only a lexical path guard, and symlink checks happen in the filesystem adapter.
+`validateBatch` checks the whole batch: it must be nonempty, within the size limit and free of
+duplicate IDs.
+
+`policy` assigns each call a `Decision`. `authorized` allows a call outright, or allows an `ask`
+call when a grant matches the entire typed call.
+-/
+
 namespace Harness
 open Lean
 

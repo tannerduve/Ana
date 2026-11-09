@@ -8,7 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Install native build and transport dependencies
-        run: sudo apt-get update && sudo apt-get install -y build-essential libssl-dev curl
+        run: sudo apt-get update && sudo apt-get install -y build-essential libssl-dev curl bubblewrap
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.16.0
       - name: Install elan
         run: |
           curl -sSfL https://github.com/leanprover/elan/releases/download/v4.1.2/elan-x86_64-unknown-linux-gnu.tar.gz -o /tmp/elan.tar.gz
@@ -21,7 +24,14 @@ jobs:
           rustup toolchain install 1.97.1 --profile minimal --component rustfmt --component clippy
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
       - name: Build pinned Lean project
-        run: lake build
+        run: |
+          if ! lake exe cache get --cache-from=master Mathlib.Data.PFunctor.Univariate.Basic; then
+            echo 'Mathlib cache unavailable; building the pinned dependency from source.'
+          fi
+          lake build
+          lake build eval_tools
+      - name: Install pinned evaluation baseline
+        run: npm ci --prefix eval/baseline --ignore-scripts
       - name: Check Rust bindings
         run: |
           cargo fmt --manifest-path runtime/native/Cargo.toml --check
@@ -39,3 +49,12 @@ jobs:
           python3 Tests/integration.py
           python3 Tests/crash_recovery.py
           python3 Tests/session_boundaries.py
+          python3 Tests/evaluation.py
+          python3 Tests/evaluation_baseline.py
+          python3 Tests/evaluation_isolation.py
+          python3 Tests/continuation_audit.py
+          python3 Tests/evaluation_patches.py
+          python3 Tests/evaluation_window.py
+          python3 Tests/public_reporting.py
+          python3 eval/corpus/test_checkers.py
+          python3 eval/corpus/validate.py --output /tmp/corpus-validation.json

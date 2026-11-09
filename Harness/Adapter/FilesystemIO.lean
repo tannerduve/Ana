@@ -57,6 +57,37 @@ private def utf8 (bytes : ByteArray) : IO String :=
   | some text => pure text
   | none => throw <| IO.userError "file is not valid UTF-8"
 
+/-- Bounded, no-follow identity observation for recovery; never changes a file. -/
+def fileIdentity (workspace path : String) : IO String := do
+  Native.sha256 (← readFile workspace path)
+
+/-- Before recording recovery, settle the matched file and its directory entry.
+The original process may have died between rename and directory synchronization.
+The same single-writer assumption as atomicWrite applies. -/
+def confirmFileIdentity (workspace path expected : String) : IO String :=
+  withParent workspace path fun parent name =>
+    withFD (openReadAt parent name) fun fd => do
+      unless (← Native.stat fd).kind == 1 do throw <| IO.userError "recovery target is not a regular file"
+      let actual ← Native.sha256 (← readBounded fd maxFileBytes)
+      unless actual == expected do throw <| IO.userError "recovery target changed before synchronization"
+      Native.sync fd
+      Native.sync parent
+      return actual
+
+/-- Compute the intended edit identity before its durable dispatch intent.
+Execution still rechecks the preimage; concurrent writers remain unsupported. -/
+def editIdentities (workspace : String) (args : EditArgs) : IO (String × String) := do
+  let bytes ← readFile workspace args.path
+  let preimage ← Native.sha256 bytes
+  unless preimage == args.expectedSha256 do
+    throw <| IO.userError "preimage changed; read the file again before editing"
+  let text ← utf8 bytes
+  if args.old.isEmpty || (text.splitOn args.old).length != 2 then
+    throw <| IO.userError "old must match exactly once; choose a larger unique span"
+  let postimage := (text.replace args.old args.new).toUTF8
+  if postimage.size > maxFileBytes then throw <| IO.userError "new content exceeds file-size limit"
+  return (preimage, ← Native.sha256 postimage)
+
 /-- Output text originates in valid UTF-8. A byte cap may split at most one codepoint. -/
 def utf8Prefix (bytes : ByteArray) (maximum : Nat) : String := Id.run do
   let retained := bytes.extract 0 maximum

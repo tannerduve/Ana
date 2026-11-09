@@ -101,6 +101,11 @@ def run : IO Unit := do
     | _ => false
   let request : ModelRequest := { model := "configured-model", system := "frozen instructions", messages := [{ role := "assistant", content := content }], maxTokens := 42 }
   let encoded := encodeRequest request
+  let summary := encodeRequest {request with purpose := .summary}
+  check "summary transport omits tools and tool choice" <|
+    (summary.getObjVal? "tools").toOption.isNone && (summary.getObjVal? "tool_choice").toOption.isNone &&
+    (summary.getObjValAs? String "system").toOption == some request.system &&
+    (summary.getObjVal? "messages").toOption == some (toJson request.messages)
   check "request preserves content blocks" <|
     match encoded.getObjVal? "messages" with
     | .ok value => value == toJson request.messages
@@ -182,6 +187,6 @@ def run : IO Unit := do
     check s!"{reason} cannot admit apparently complete tool calls" <|
       stoppedFailure rejected && rejected.toolDispatches == 0 && rejected.seenCallIds.isEmpty &&
       toJson rejected.history == toJson admitted.history && rejected.knownInputTokens == 12
-  IO.println "provider: 28 contract checks passed (including normalization through core continuations)"
+  IO.println "provider: 29 contract checks passed (including normalization through core continuations)"
 
 end Tests.Provider

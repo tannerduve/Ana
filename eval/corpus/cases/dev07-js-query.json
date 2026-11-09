@@ -1,0 +1,77 @@
+[
+  {
+    "args": [
+      ""
+    ],
+    "value": {}
+  },
+  {
+    "args": [
+      "?a=1&a=2&b"
+    ],
+    "value": {
+      "a": [
+        "1",
+        "2"
+      ],
+      "b": [
+        ""
+      ]
+    }
+  },
+  {
+    "args": [
+      "a+b=x%3Dy+z&%CE%BB=%F0%9F%99%82"
+    ],
+    "value": {
+      "a b": [
+        "x=y z"
+      ],
+      "λ": [
+        "🙂"
+      ]
+    }
+  },
+  {
+    "args": [
+      "__proto__=x&constructor=y&__proto__=z"
+    ],
+    "value": {
+      "__proto__": [
+        "x",
+        "z"
+      ],
+      "constructor": [
+        "y"
+      ]
+    }
+  },
+  {
+    "args": [
+      "&&=v&&"
+    ],
+    "value": {
+      "": [
+        "v"
+      ]
+    }
+  },
+  {
+    "args": [
+      "x=%"
+    ],
+    "error": "URIError"
+  },
+  {
+    "args": [
+      "x=%GG"
+    ],
+    "error": "URIError"
+  },
+  {
+    "args": [
+      "x=%FF"
+    ],
+    "error": "URIError"
+  }
+]

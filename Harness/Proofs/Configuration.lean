@@ -25,9 +25,20 @@ theorem config_consumeModel (s : State) (observation : ModelObservation) :
 
 theorem config_admitModel (s : State) : (admitModel s).config = s.config := by
   unfold admitModel
-  split
-  · split <;> rfl
-  · rfl
+  repeat' first | rfl | split | (unfold admitTask) | (unfold admitSummary)
+
+theorem config_consumeSummary (s : State) (plan : SummaryPlan) (observation : ModelObservation) :
+    (consumeSummary s plan observation).config = s.config := by
+  cases observation with
+  | interrupted => rfl
+  | uncertain message => simp only [consumeSummary]; unfold retryOrStop; split <;> rfl
+  | failure kind message =>
+    cases kind <;> simp only [consumeSummary]
+    all_goals first | rfl | (unfold retryOrStop; split <;> rfl)
+  | success response =>
+    cases hu : response.usage <;> cases hs : response.stop <;>
+      simp only [consumeSummary, hs, hu, accountUsage]
+    all_goals repeat' first | rfl | split | (unfold installSummary; dsimp only)
 
 theorem config_admitTool (s : State) (call : ToolCall) (rest : List ToolCall) :
     (admitTool s call rest).config = s.config := by
@@ -90,6 +101,14 @@ theorem config_preserved (s : State) :
     by_cases permitted : (decide (0 < s.modelAttempts) && decide (s.modelAttempts ≤ s.config.maxModelAttempts)) = true
     · erw [if_pos permitted]; exact fun response => config_consumeModel _ response
     · erw [if_neg permitted]; intro response; exact response.elim
+  case summary =>
+    cases hpending : s.pendingSummary with
+    | none => intro response; exact response.elim
+    | some plan =>
+      dsimp only
+      by_cases permitted : (decide (0 < s.modelAttempts) && decide (s.modelAttempts ≤ s.config.maxModelAttempts) && planValid s plan) = true
+      · erw [if_pos permitted]; exact fun response => config_consumeSummary _ plan response
+      · erw [if_neg permitted]; intro response; exact response.elim
   case tool call rest =>
     by_cases permitted : (authorized s.config s.grant call && decide (0 < s.toolDispatches) && decide (s.toolDispatches ≤ s.config.maxToolCalls)) = true
     · erw [if_pos permitted]; exact fun response => config_consumeTool _ call rest response

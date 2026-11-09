@@ -1,0 +1,107 @@
+{
+  "authorized_budget_usd": "150.00",
+  "total_accounted_usd": "19.211732",
+  "remaining_authorized_usd": "130.788268",
+  "provider_requests": 737,
+  "unknown_usage_requests": 0,
+  "cost_basis": "Configured token prices applied to provider-reported usage. Unknown usage retains reservations. This is accounting, not a provider invoice or enforced global billing limit.",
+  "prices_per_million": {
+    "input": "4",
+    "output": "20",
+    "cache_read": "0.2",
+    "cache_write": "5"
+  },
+  "cohorts": [
+    {
+      "category": "local_comparison",
+      "artifact_directory": "lean-harness-m4-comparison",
+      "ledger_sha256": "ef9a1ea194d3771c78d0a65578f60b82f9181aa2664f2e0d86752a2d21aee4c1",
+      "provider_requests": 550,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "12.466740",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "continuation",
+      "artifact_directory": "lean-harness-m4-continuation",
+      "ledger_sha256": "51c9d8f3541eb46c04ba24f3acd3733b930811e0b4f144953e46d46cf81f26b7",
+      "provider_requests": 18,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "0.530532",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "pilot",
+      "artifact_directory": "lean-harness-m4-pilot",
+      "ledger_sha256": "8d17424ecbb854b694280493339d120e0fe44036841e2cf8e6d9cee2a46ac2a5",
+      "provider_requests": 15,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "0.393292",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "public_initial",
+      "artifact_directory": "lean-harness-public-live-20261109",
+      "ledger_sha256": "4c548046efab86a84d39c7253a629ee44f6d54275145357d63d6a544872835fd",
+      "provider_requests": 38,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "1.361820",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "public_django",
+      "artifact_directory": "lean-harness-public-django-live-20261109",
+      "ledger_sha256": "723c9b7ebc57ff7b5b8d71c0896b57f823ec115a7f62482a8057d9c902ab2a18",
+      "provider_requests": 7,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "0.118788",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "public_repeat",
+      "artifact_directory": "lean-harness-public-repeat-20261109",
+      "ledger_sha256": "15157648052471083810c9c2fa1103bf22fcda50f9dba2f89b3f2a786393a2a4",
+      "provider_requests": 42,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "1.317148",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "public_coq_retry",
+      "artifact_directory": "lean-harness-public-coq-retry-20261109",
+      "ledger_sha256": "0f0a4c24da55cedddfcb8ba57b7beddfd22428709bfb8d8a8f5431f51d1bdd08",
+      "provider_requests": 8,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "0.132176",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "flask_budget_diagnostic",
+      "artifact_directory": "lean-harness-public-flask-diagnostic-20261109",
+      "ledger_sha256": "fe9e4b456555740179604323edf04d30b82983dc82cddb99243f792cc7792d69",
+      "provider_requests": 57,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "2.652148",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "module_header_authoring_initial_format_failure",
+      "artifact_directory": "opus-module-headers",
+      "ledger_sha256": "263efbb710f2982313f73f92cf33b3371fa67563320581e40858569e693a686d",
+      "provider_requests": 1,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "0.119044",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "category": "module_header_authoring",
+      "artifact_directory": "opus-module-headers-retry1",
+      "ledger_sha256": "84a5c9656622819775248cdeaeedbd9b69f82a70d9697af3367e758dd1fa8e64",
+      "provider_requests": 1,
+      "unknown_usage_requests": 0,
+      "accounted_usd": "0.120044",
+      "model": "claude-opus-5-5"
+    }
+  ],
+  "authoring_note": "Two Opus5.5 requests wrote eight module headers. The first response could not be parsed by the initial documentation script; its provider cost is retained. Authoring and pilot calls are excluded from benchmark scores."
+}

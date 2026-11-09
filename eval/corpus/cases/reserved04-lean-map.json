@@ -1,0 +1,10 @@
+[
+  {
+    "theorem": "transform_append",
+    "allowed_axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
+  }
+]

@@ -17,14 +17,36 @@ def BudgetValid (s : State) : Prop :=
 @[simp] theorem budget_appendResult (s : State) (c : ToolCall) (t : String) (b : Bool) :
     BudgetValid (appendResult s c t b) = BudgetValid s := rfl
 
- theorem budget_admitModel (s : State) (h : BudgetValid s) : BudgetValid (admitModel s) := by
-  unfold admitModel
+ theorem budget_admitTask (s : State) (h : BudgetValid s) : BudgetValid (admitTask s) := by
+  unfold admitTask
+  split
+  · split
+    · split
+      · simp only [BudgetValid] at *
+        constructor <;> omega
+      · exact h
+    · exact h
+  · exact h
+
+ theorem budget_admitSummary (s : State) (plan : SummaryPlan) (h : BudgetValid s) :
+    BudgetValid (admitSummary s plan) := by
+  unfold admitSummary
   split
   · split
     · simp only [BudgetValid] at *
       constructor <;> omega
     · exact h
   · exact h
+
+ theorem budget_admitModel (s : State) (h : BudgetValid s) : BudgetValid (admitModel s) := by
+  unfold admitModel
+  split
+  · exact budget_admitSummary _ _ h
+  · split
+    · split
+      · exact budget_admitSummary _ _ h
+      · exact budget_admitTask _ h
+    · exact budget_admitTask _ h
 
  theorem budget_admitTool (s : State) (c : ToolCall) (rest : List ToolCall)
     (h : BudgetValid s) : BudgetValid (admitTool s c rest) := by
@@ -63,6 +85,25 @@ def BudgetValid (s : State) : Prop :=
       simp only [consumeModel, hs, hu, accountUsage]
     all_goals repeat' first | exact h | split
 
+ theorem budget_installSummary (s : State) (plan : SummaryPlan) (response : ModelResponse)
+    (h : BudgetValid s) : BudgetValid (installSummary s plan response) := by
+  unfold installSummary
+  dsimp only
+  split <;> exact h
+
+ theorem budget_consumeSummary (s : State) (plan : SummaryPlan) (o : ModelObservation)
+    (h : BudgetValid s) : BudgetValid (consumeSummary s plan o) := by
+  cases o with
+  | interrupted => exact h
+  | uncertain m => simp only [consumeSummary]; unfold retryOrStop; split <;> exact h
+  | failure k m =>
+    cases k <;> simp only [consumeSummary]
+    all_goals first | exact h | (unfold retryOrStop; split <;> exact h)
+  | success r =>
+    cases hu : r.usage <;> cases hs : r.stop <;>
+      simp only [consumeSummary, hs, hu, accountUsage]
+    all_goals repeat' first | exact h | exact budget_installSummary _ _ _ h | split
+
  theorem budget_consumeTool (s : State) (c : ToolCall) (rest : List ToolCall)
     (o : ToolObservation ToolResult) (h : BudgetValid s) :
     BudgetValid (consumeTool s c rest o) := by
@@ -95,6 +136,14 @@ theorem budget_preserved (s : State) (h : BudgetValid s) :
     by_cases hg : (decide (0 < s.modelAttempts) && decide (s.modelAttempts ≤ s.config.maxModelAttempts)) = true
     · erw [if_pos hg]; exact fun r => budget_consumeModel _ r h
     · erw [if_neg hg]; intro r; exact r.elim
+  case summary =>
+    cases hpending : s.pendingSummary with
+    | none => intro r; exact r.elim
+    | some plan =>
+      dsimp only
+      by_cases hg : (decide (0 < s.modelAttempts) && decide (s.modelAttempts ≤ s.config.maxModelAttempts) && planValid s plan) = true
+      · erw [if_pos hg]; exact fun r => budget_consumeSummary _ plan r h
+      · erw [if_neg hg]; intro r; exact r.elim
   case tool c rest =>
     by_cases hg : (authorized s.config s.grant c && decide (0 < s.toolDispatches) && decide (s.toolDispatches ≤ s.config.maxToolCalls)) = true
     · erw [if_pos hg]; exact fun r => budget_consumeTool _ c rest r h
@@ -109,6 +158,14 @@ theorem emitted_tool_authorized (s : State) (c : ToolCall)
     by_cases hg : (decide (0 < s.modelAttempts) && decide (s.modelAttempts ≤ s.config.maxModelAttempts)) = true
     · simp only [hg] at h; contradiction
     · simp only [hg] at h; contradiction
+  case summary =>
+    cases hpending : s.pendingSummary with
+    | none => simp [hpending] at h
+    | some plan =>
+      simp only [hpending] at h
+      by_cases hg : (decide (0 < s.modelAttempts) && decide (s.modelAttempts ≤ s.config.maxModelAttempts) && planValid s plan) = true
+      · simp only [hg] at h; contradiction
+      · simp only [hg] at h; contradiction
   case tool call rest =>
     by_cases hg : (authorized s.config s.grant call && decide (0 < s.toolDispatches) && decide (s.toolDispatches ≤ s.config.maxToolCalls)) = true
     · simp only [hg] at h

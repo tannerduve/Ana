@@ -1,5 +1,22 @@
 import Lean
 
+/-!
+# Protocol Data Types
+
+Defines the serializable vocabulary shared by the core and adapters:
+
+- `Config` holds limits, compaction settings and the `CommandPolicy`.
+- `ListArgs`, `ReadArgs` and the other argument records carry tool arguments.
+- `ToolOp`, `ToolCall` and `RawCall` represent tool calls.
+- `Message`, `ModelRequest` and `ModelResponse` represent model exchanges.
+- `ModelObservation`, `ToolObservation`, `ApprovalObservation`, `WaitObservation` and
+  `ControlObservation` are the observation types.
+- `Outcome` lists terminal results.
+
+These are plain data definitions with JSON instances. This module contains no validation or
+transition logic.
+-/
+
 namespace Harness
 open Lean
 
@@ -17,6 +34,10 @@ structure Config where
   maxModelAttempts : Nat := 20
   maxToolCalls : Nat := 100
   maxContextBytes : Nat := 200000
+  compactionEnabled : Bool := true
+  compactAtPercent : Nat := 75
+  compactionKeepMessages : Nat := 4
+  maxSummaryBytes : Nat := 12000
   maxOutputTokens : Nat := 4096
   maxRetries : Nat := 2
   operationTimeoutMs : Nat := 120000
@@ -25,6 +46,7 @@ structure Config where
   maxElapsedMs : Nat := 1800000
   maxBatchCalls : Nat := 32
   commands : CommandPolicy := .ask
+  testEndpoint : String := ""
   deriving Repr, ToJson, FromJson
 
 structure ListArgs where
@@ -164,11 +186,16 @@ inductive Outcome where
   | recoveryRequired (message : String)
   deriving Repr, BEq, DecidableEq, ToJson, FromJson
 
+inductive ModelPurpose where
+  | task | summary
+  deriving Repr, BEq, DecidableEq, ToJson, FromJson
+
 structure ModelRequest where
   model : String
   system : String
   messages : List Message
   maxTokens : Nat
+  purpose : ModelPurpose := .task
   deriving Repr, ToJson, FromJson
 
 end Harness

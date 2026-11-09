@@ -1,0 +1,154 @@
+[
+  {
+    "args": [
+      {
+        "a": {
+          "x": 1
+        }
+      },
+      [
+        {
+          "op": "set",
+          "path": [
+            "a",
+            "x"
+          ],
+          "value": 2
+        },
+        {
+          "op": "set",
+          "path": [
+            "a",
+            "y"
+          ],
+          "value": [
+            3
+          ]
+        }
+      ]
+    ],
+    "value": {
+      "a": {
+        "x": 2,
+        "y": [
+          3
+        ]
+      }
+    }
+  },
+  {
+    "args": [
+      {
+        "x": 1
+      },
+      [
+        {
+          "op": "delete",
+          "path": [
+            "x"
+          ]
+        }
+      ]
+    ],
+    "value": {}
+  },
+  {
+    "args": [
+      {
+        "a": {}
+      },
+      [
+        {
+          "op": "set",
+          "path": [
+            "a",
+            "x"
+          ],
+          "value": 2
+        },
+        {
+          "op": "delete",
+          "path": [
+            "absent"
+          ]
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      {
+        "a": []
+      },
+      [
+        {
+          "op": "set",
+          "path": [
+            "a",
+            "x"
+          ],
+          "value": 2
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      {},
+      [
+        {
+          "op": "set",
+          "path": [],
+          "value": 2
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      {},
+      [
+        {
+          "op": "set",
+          "path": [
+            "x"
+          ]
+        }
+      ]
+    ],
+    "error": "ValueError"
+  },
+  {
+    "args": [
+      {
+        "x": {
+          "a": [
+            1
+          ]
+        }
+      },
+      []
+    ],
+    "value": {
+      "x": {
+        "a": [
+          1
+        ]
+      }
+    },
+    "no_alias": true
+  },
+  {
+    "cli_input": "{\"settings\":{\"x\":1},\"operations\":[{\"op\":\"delete\",\"path\":[\"x\"]}]}",
+    "cli_json": {},
+    "exit": 0
+  },
+  {
+    "cli_input": "{\"settings\":{},\"operations\":[{\"op\":\"delete\",\"path\":[\"x\"]}]}",
+    "exit": 2,
+    "empty_stdout": true
+  }
+]

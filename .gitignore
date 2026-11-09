@@ -3,3 +3,7 @@
 __pycache__/
 *.pyc
 /runtime/native/target/
+/eval/baseline/node_modules/
+/eval/.venv/
+/eval/runs/
+/eval/vendor/

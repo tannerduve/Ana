@@ -18,7 +18,7 @@ private def tool (name description : String) (fields : List (String × Json))
       ("properties", Json.mkObj fields), ("required", toJson required),
       ("additionalProperties", toJson false)])]
 
-/-- The static v1 coding registry. Schemas match the core decoder and runtime helper. -/
+/-- The static coding registry. Schemas match the core decoder and IO adapters. -/
 def toolSchemas : Array Json := #[
   tool "list"
     "List workspace files recursively in stable sorted traversal order. Paths are relative to the workspace; symlinks and parent traversal are rejected. Results are bounded by limit; ignored metadata directories are omitted. Inspect a subdirectory by calling list again with its path."
@@ -60,9 +60,12 @@ def toolSchemas : Array Json := #[
 
 /-- Encode normalized history without flattening or reconstructing opaque blocks. -/
 def encodeRequest (request : ModelRequest) : Json :=
-  Json.mkObj [("model", toJson request.model), ("system", toJson request.system),
+  let body := Json.mkObj [("model", toJson request.model), ("system", toJson request.system),
     ("max_tokens", toJson request.maxTokens), ("messages", toJson request.messages),
-    ("tools", toJson toolSchemas), ("stream", toJson false)]
+    ("stream", toJson false)]
+  match request.purpose with
+  | .task => body.mergeObj (Json.mkObj [("tools", toJson toolSchemas)])
+  | .summary => body
 
 private def fieldString (json : Json) (key : String) : Except String String := do
   (← json.getObjVal? key).getStr?

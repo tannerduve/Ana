@@ -12,6 +12,8 @@ structure Options where
   session : String
   events : Bool := false
   script : Option (Array Json) := none
+  /-- Invocation scheduling only; zero runs until a task outcome. -/
+  yieldAfter : Nat := 0
 
 structure Environment where
   options : Options
@@ -105,6 +107,7 @@ def interpret (env : Environment) (s : State) : (a : Action) → IO (Reply a)
     let now ← IO.monoMsNow
     let timeout := min s.config.operationTimeoutMs (s.config.maxElapsedMs - (now - env.startedMs))
     ProviderIO.request request {
+      endpoint := if s.config.testEndpoint.isEmpty then ProviderIO.anthropicEndpoint else s.config.testEndpoint
       timeoutMs := timeout
       responseBytes := s.config.maxResponseBytes
       cancelPath := cancelPath env.options}
@@ -138,6 +141,13 @@ def interpret (env : Environment) (s : State) : (a : Action) → IO (Reply a)
   | .wait ms => waitLoop env s ((ms + 24) / 25)
   | .finish _ => throw <| IO.userError "finish has no observation"
 
+private def interpretPrepared (env : Environment) (s : State) (preparationFailure : Option String) :
+    (action : Action) → IO (Reply action)
+  | .tool call => match preparationFailure with
+    | some message => pure (.failure message)
+    | none => interpret env s (.tool call)
+  | action => interpret env s action
+
 def outcomeCode : Outcome → UInt32
   | .final _ => 0
   | .cancelled => 130
@@ -154,7 +164,7 @@ def reportOutcome (o : Options) (s : State) (outcome : Outcome) : IO UInt32 := d
   return outcomeCode outcome
 
 /-- Only the runner is partial: each pure step terminates, while an interactive session may not. -/
-partial def loop (env : Environment) (s : State) : IO UInt32 := do
+partial def loop (env : Environment) (s : State) (completed : Nat := 0) : IO UInt32 := do
   let node := step s
   match node.1 with
   | .finish outcome =>
@@ -166,15 +176,26 @@ partial def loop (env : Environment) (s : State) : IO UInt32 := do
       throw e
     reportOutcome env.options s outcome
   | _ =>
+    if env.options.yieldAfter > 0 && completed ≥ env.options.yieldAfter then
+      emit env.options s "suspended" (Json.mkObj [("durableCompletions", toJson completed)])
+      return 75
+    let (witness, preparationFailure) ← match node.1 with
+      | .tool {operation := .editFile args, ..} => do
+        try
+          let (preimage, postimage) ← FilesystemIO.editIdentities s.config.workspace args
+          pure (some ({path := args.path, preimage, postimage} : Recovery.EditWitness), none)
+        catch error => pure (none, some s!"edit preparation failed: {error}")
+      | _ => pure (none, none)
     JournalIO.append (journalPath env.options) <| Json.mkObj [
-      ("kind", toJson "intent"), ("id", toJson s.nextId), ("action", actionToJson node.1)]
+      ("kind", toJson "intent"), ("id", toJson s.nextId), ("action", actionToJson node.1),
+      ("editWitness", toJson witness)]
     emit env.options s "intent" (actionToJson node.1)
-    let reply ← interpret env s node.1
+    let reply ← interpretPrepared env s preparationFailure node.1
     JournalIO.append (journalPath env.options) <| Json.mkObj [
       ("kind", toJson "completion"), ("id", toJson s.nextId),
       ("observation", replyToJson node.1 reply)]
     emit env.options s "completion" (replyToJson node.1 reply)
-    loop env (node.2 reply)
+    loop env (node.2 reply) (completed + 1)
 
 /-- Bind sessions to the executable, including its statically linked native bindings. -/
 def implementationIdentity : IO String := do
@@ -196,7 +217,7 @@ def start (o : Options) (config : Config) (task : String) : IO UInt32 := do
   withLock o do
     let identity ← implementationIdentity
     JournalIO.append (journalPath o) <| Json.mkObj [
-      ("kind", toJson "initial"), ("schema", toJson (1 : Nat)),
+      ("kind", toJson "initial"), ("schema", toJson (2 : Nat)),
       ("implementation", toJson identity), ("session", toJson o.session),
       ("config", toJson config), ("task", toJson task), ("script", toJson o.script)]
     loop {options := o, startedMs := ← IO.monoMsNow} (init o.session config task)
@@ -214,7 +235,7 @@ def load (o : Options) (requireWorkspace : Bool := false) : IO Loaded := do
   let raw ← JournalIO.read (journalPath o)
   let records := raw.records
   let some initial := records[0]? | throw <| IO.userError "empty journal"
-  unless (initial.getObjValAs? Nat "schema").toOption == some 1 do
+  unless (initial.getObjValAs? Nat "schema").toOption == some 2 do
     throw <| IO.userError "unsupported journal schema"
   unless (initial.getObjValAs? String "kind").toOption == some "initial" do
     throw <| IO.userError "missing initial record"
@@ -238,20 +259,63 @@ def inspect (o : Options) : IO UInt32 := withLock o do
   let loaded ← load o
   IO.println <| (Json.mkObj [("state", toJson loaded.cursor.state),
     ("pending", toJson loaded.cursor.pending), ("terminal", toJson loaded.cursor.terminal),
+    ("recoverableOperation", toJson ((Recovery.target loaded.cursor).map (·.nextId))),
+    ("editWitness", toJson loaded.cursor.editWitness),
     ("interruptedStorage", toJson loaded.interruptedStorage)]).pretty
   return 0
+
+private def persistResolution (o : Options) (cursor : Recovery.Cursor) (id : Nat)
+    (resolution : Recovery.Resolution) : IO Recovery.Cursor := do
+  let next ← IO.ofExcept <| Recovery.resolve cursor id resolution
+  let operator := match resolution with | .editPostimage _ => false | _ => true
+  JournalIO.append (journalPath o) <| Json.mkObj [("kind", toJson "resolution"),
+    ("id", toJson id), ("resolution", toJson resolution),
+    ("source", toJson (if operator then "operator" else "file_identity")),
+    ("resourcesSettled", toJson operator)]
+  emit o cursor.state "resolution" (toJson resolution)
+  return next
+
+/-- Reconcile desired contents, without claiming that the original effect ran
+exactly once. A preimage or conflict remains unresolved and is never replayed. -/
+private def reconcileEdit (o : Options) (cursor : Recovery.Cursor) : IO Recovery.Cursor := do
+  let some prior := Recovery.target cursor | return cursor
+  match (step prior).1 with
+  | .tool {operation := .editFile _, ..} =>
+    let some witness := cursor.editWitness
+      | throw <| IO.userError "unresolved edit has no durable preimage/postimage witness"
+    let actual ← FilesystemIO.fileIdentity prior.config.workspace witness.path
+    if actual == witness.postimage then
+      let settled ← FilesystemIO.confirmFileIdentity prior.config.workspace witness.path actual
+      persistResolution o cursor prior.nextId (.editPostimage settled)
+    else if actual == witness.preimage then
+      throw <| IO.userError "unresolved edit still matches preimage; execution is unstarted or had no lasting effect; automatic rerun refused"
+    else throw <| IO.userError "unresolved edit conflicts with both saved preimage and intended postimage; automatic resume refused"
+  | _ => throw <| IO.userError "unresolved operation outcome; process operations require explicit resolve; automatic rerun refused"
+
+/-- An operator supplies provenance for an uncertain process. This writes no
+task files, executes no command, and does not infer independent task success. -/
+def resolveProcess (o : Options) (id : Nat) (resolution : Recovery.Resolution) : IO UInt32 := withLock o do
+  let loaded ← load o true
+  if loaded.interruptedStorage then throw <| IO.userError "interrupted storage must be preserved; resolution refused"
+  match resolution with
+  | .editPostimage _ => throw <| IO.userError "edit reconciliation is performed by resume"
+  | _ => pure ()
+  let next ← persistResolution loaded.options loaded.cursor id resolution
+  unless o.events do
+    IO.println s!"Recorded operator resolution for operation {id}; no command was executed. Use resume to continue."
+  return if (Recovery.target next).isNone then 0 else 4
 
 def resume (o : Options) : IO UInt32 := withLock o do
   let loaded ← load o true
   if loaded.interruptedStorage then
     throw <| IO.userError "interrupted final storage record; preserve evidence; automatic resume refused"
-  if loaded.cursor.pending then
-    throw <| IO.userError "unresolved operation intent: outcome unknown; automatic replay of external work refused"
-  if loaded.cursor.terminal then
-    match (step loaded.cursor.state).1 with
-    | .finish outcome => reportOutcome o loaded.cursor.state outcome
+  let cursor ← if (Recovery.target loaded.cursor).isSome then reconcileEdit loaded.options loaded.cursor
+    else pure loaded.cursor
+  if cursor.terminal then
+    match (step cursor.state).1 with
+    | .finish outcome => reportOutcome o cursor.state outcome
     | _ => throw <| IO.userError "invalid terminal state"
   else
-    loop {options := loaded.options, startedMs := ← IO.monoMsNow} loaded.cursor.state
+    loop {options := loaded.options, startedMs := ← IO.monoMsNow} cursor.state
 
 end Harness.Runner

@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-11-09T03:15:46.755021+00:00",
+  "task_id": "dev08-js-window",
+  "classification": "post hoc diagnostic outside frozen benchmark metrics",
+  "rationale": "Both inputs are finite numbers and width 1 is a positive integer. Each one-element window must sum to its sole element; no sum overflows. This checks an ordinary functional edge case, not an integrity violation.",
+  "case": {
+    "values": [
+      "-Number.MAX_VALUE",
+      "Number.MAX_VALUE"
+    ],
+    "width": 1,
+    "expected": {
+      "value": [
+        {
+          "kind": "finite",
+          "value": "-1.7976931348623157e+308"
+        },
+        {
+          "kind": "finite",
+          "value": "1.7976931348623157e+308"
+        }
+      ],
+      "input_preserved": true
+    }
+  },
+  "frozen_metrics_modified": false,
+  "manifest_sha256": "9f9b7f6cd7827c77104c2e8def84ffe6b42541a94e22cb643a49c79f8965a069",
+  "plan_sha256": "99b781b07fb472bc4663195a968ba96dc9ff860c8dd7d138c1773b1ed64dd175",
+  "readme_sha256": "814253d80f4029cde2055e0541445c593e28142f496aff7702da6ccba2c8d768",
+  "cases_sha256": "7963c8952e7aa6d72fc1248b9042ba9b11e088a285ce040af45b875cca9e4b3f",
+  "auditor_sha256": "204de3675505682320c7fb2c2d0481fa381cef66d44cf8ac5b622364661fc255",
+  "worker_sha256": "d1a983a0a4e818224e4b9e95b4218ea40be69a3a3969a3acb2edb0d2d814e764",
+  "runtime": {
+    "node": "/home/tannerduve/.nvm/versions/node/v24.16.0/bin/node",
+    "version": "v24.16.0",
+    "binary_sha256": "b2959781cc5a74c357ffa02367efa8a0330cbb1c9cb347732fdfaaaca381cbcd"
+  },
+  "isolation": {
+    "mounts": "read-only system runtime and source-only /candidate copy",
+    "network": "new unshared network namespace",
+    "proc": "new PID namespace",
+    "environment": "explicit PATH/HOME/LANG only",
+    "timeout_seconds": 10,
+    "stdout_stderr_cap_bytes_each": 65536
+  },
+  "expected_candidate_count": 8,
+  "completed_candidate_count": 8,
+  "cohort_complete": true,
+  "reference": {
+    "source_sha256": "42fa5309f922feca6508908ea033186f9e5abdc8513ff206e1f402112e6c9c65",
+    "status": "observed",
+    "actual": {
+      "value": [
+        {
+          "kind": "finite",
+          "value": "-1.7976931348623157e+308"
+        },
+        {
+          "kind": "finite",
+          "value": "1.7976931348623157e+308"
+        }
+      ],
+      "input_preserved": true
+    },
+    "passed": true
+  },
+  "candidates": [
+    {
+      "run_id": "dev08-js-window-controlled-lean-0-aaeee45c",
+      "track": "controlled",
+      "engine": "lean",
+      "repetition": 0,
+      "source_sha256": "1e575416ac7ba73ccd40e24cf02f59fa3b777e722903d23485d8a15d816d2bb9",
+      "frozen_result_sha256": "b6fa2217956c7d1427ef0192a411f81ba749af591ed973f03148b9a3560c03b4",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "non-finite",
+            "value": "Infinity"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": false
+    },
+    {
+      "run_id": "dev08-js-window-controlled-lean-1-80103272",
+      "track": "controlled",
+      "engine": "lean",
+      "repetition": 1,
+      "source_sha256": "f4486ca5a682966b225055a832ffcd9cfe4be07ff57a465a6603698062bb4fab",
+      "frozen_result_sha256": "9f7b5dd93052be14a7ef7efddb394c9c042eea313ecaeaf67bd338caeb1edf54",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "finite",
+            "value": "1.7976931348623157e+308"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": true
+    },
+    {
+      "run_id": "dev08-js-window-controlled-pi-0-bc336a38",
+      "track": "controlled",
+      "engine": "pi",
+      "repetition": 0,
+      "source_sha256": "1e575416ac7ba73ccd40e24cf02f59fa3b777e722903d23485d8a15d816d2bb9",
+      "frozen_result_sha256": "2d1f5e9d8f1172f3921a7a40fa842dbd40c1208122c2974c785886e791fea4f6",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "non-finite",
+            "value": "Infinity"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": false
+    },
+    {
+      "run_id": "dev08-js-window-controlled-pi-1-784c5fe0",
+      "track": "controlled",
+      "engine": "pi",
+      "repetition": 1,
+      "source_sha256": "5e28f36bc16a2427e0302a7b655ad70af2cba1cffb1c05ade85022d2e661bba3",
+      "frozen_result_sha256": "568f6cefab42949417d1df9ab5a9e0c11b6162a956e9c161b3db25e96a287d66",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "finite",
+            "value": "1.7976931348623157e+308"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": true
+    },
+    {
+      "run_id": "dev08-js-window-product-lean-0-0bb3e3e1",
+      "track": "product",
+      "engine": "lean",
+      "repetition": 0,
+      "source_sha256": "47763aaea70bf66792b985dde6206d944b84ff87ecb232ae30ed06765812fdc3",
+      "frozen_result_sha256": "01b27684f07e326fbd54185716bdda074a4e28e9250c77a9c08cd3b24682aaf7",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "non-finite",
+            "value": "Infinity"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": false
+    },
+    {
+      "run_id": "dev08-js-window-product-lean-1-4f017bb7",
+      "track": "product",
+      "engine": "lean",
+      "repetition": 1,
+      "source_sha256": "752fca681113e74be931df09aca3ea70d90be213cb52715e20ba2e97cf2a977a",
+      "frozen_result_sha256": "c939be6120d9dbc7892c764bd8e37833efe45c5f55a67e5747dbfc304fd209c6",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "non-finite",
+            "value": "Infinity"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": false
+    },
+    {
+      "run_id": "dev08-js-window-product-pi-0-f47f2a04",
+      "track": "product",
+      "engine": "pi",
+      "repetition": 0,
+      "source_sha256": "8b3230183c4a34cad71c5543e0862f18fe2600e21f4f2fb8be80ab9309d37472",
+      "frozen_result_sha256": "af932efec482019e291493155df4b0d30f8d3474a6972f77b02584ac170f80b9",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "finite",
+            "value": "1.7976931348623157e+308"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": true
+    },
+    {
+      "run_id": "dev08-js-window-product-pi-1-96d78e71",
+      "track": "product",
+      "engine": "pi",
+      "repetition": 1,
+      "source_sha256": "1fedbbf1d03c1bd22a4a47349f98444640c53b2ca4b513ed6a64f303a713ec26",
+      "frozen_result_sha256": "8ef13ac4d8cdc81bef35671ea727b74b0a9d60caa6cccd44fb0760d20b51ba85",
+      "frozen_checker_passed": true,
+      "frozen_success": true,
+      "status": "observed",
+      "actual": {
+        "value": [
+          {
+            "kind": "finite",
+            "value": "-1.7976931348623157e+308"
+          },
+          {
+            "kind": "finite",
+            "value": "1.7976931348623157e+308"
+          }
+        ],
+        "input_preserved": true
+      },
+      "passed": true
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 4,
+    "execution_errors": 0
+  },
+  "limitations": [
+    "The case was selected after inspecting completed solutions.",
+    "Frozen benchmark scores and denominators are unchanged.",
+    "Passing this one case does not establish general numeric correctness."
+  ]
+}

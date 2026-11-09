@@ -70,7 +70,8 @@ run in their own process group. Both pipes are drained; deadlines, cancellation
 files, and SIGINT/SIGTERM initiate TERM, then KILL, and direct-child reaping.
 A residual group after leader exit produces `uncertain`. Descendants that detach
 into another process group, or survive abrupt harness death such as SIGKILL,
-require stronger OS isolation. The journal retains an unresolved intent in that case.
+require stronger OS isolation. Abrupt death can leave an unresolved intent;
+a returned uncertain observation also requires recovery.
 
 Output retains a bounded display prefix (default 64 KiB, maximum 1 MiB) and,
 when configured, a local artifact prefix of at most 16 MiB. Truncation is
@@ -83,7 +84,8 @@ referenced local path directly.
 HTTP uses one curl process without redirects or retries. Credentials come only from
 `ANTHROPIC_API_KEY`; they are sent only to the fixed Anthropic Messages endpoint.
 An explicit numeric HTTP loopback endpoint supports fake-server tests and receives
-no API key. Headers and the body go through stdin, never command arguments or a
+no API key. Set the frozen `testEndpoint` configuration field to use it; other
+endpoint overrides are rejected. Headers and the body go through stdin, never command arguments or a
 temporary file. Curl configuration files and proxy variables are disabled.
 Response bytes are bounded. The process supervisor checks cancellation throughout
 the request; its deadline covers connect, upload, and response. Transport loss and
@@ -92,6 +94,34 @@ incomplete responses report unknown outcome. Streaming progress remains deferred
 Approval polls `/dev/tty` with cancellation/deadline checks. Only the exact line
 `yes` approves; EOF, unavailable terminal, or another answer denies. The Lean
 core binds the observation to the exact displayed operation and configuration.
+
+## Context and compaction
+
+The authoritative `history` retains accepted task messages and tool results.
+`activeView` can replace an older prefix in the next request with a summary;
+`summaries` retains each accepted summary's source range and complete response.
+Compaction runs between completed tool batches. Its request keeps the frozen
+instructions, adds an explicit summary instruction, and omits tools from the
+provider request. Summary attempts and retries use the same model-attempt ledger
+as task inference.
+
+| Configuration | Default | Meaning |
+| --- | --- | --- |
+| `compactionEnabled` | `true` | Attempt compaction when a valid source and suffix fit. |
+| `compactAtPercent` | `75` | Trigger relative to `maxContextBytes`; interpreted within 1–99. |
+| `compactionKeepMessages` | `4` | Retain at least this many recent raw messages, with a minimum of two and valid tool pairing. |
+| `maxSummaryBytes` | `12000` | Maximum UTF-8 bytes in accepted summary text. |
+| `maxContextBytes` | `200000` | Conservative request-byte allowance, including 16 KiB for schemas and framing. This is not a provider token bound. |
+
+A complete summary must contain nonempty text and no tool calls. The core checks
+the reconstructed task context's size and tool-result pairing before installing
+it. Rejection, interruption, or failure preserves the previous active view;
+configured transient failures may retry within the attempt limit. If no usable
+view fits, the session stops explicitly. These checks establish structure, not
+summary fidelity or successful completion of a long task. Raw history and summary
+records still grow, and the journal limit below still applies.
+
+## Persistence and recovery
 
 Journal frames include a version, contiguous sequence number, previous hash,
 record, and SHA-256 checksum over canonical JSON. Each append fsyncs the file
@@ -104,10 +134,10 @@ The filesystem must honor file and directory `fsync`; network filesystem
 durability is not claimed. Journal guarantees also depend on the Lean runner
 holding its session lock and recording intent before dispatch.
 
-The executable hash binds resume to the same build. Sessions from earlier builds,
-including the former Python-backed and C-native implementations, require their
-original executable and runtime; this build refuses them rather than guessing a
-migration. The fingerprint covers the executable, including statically linked
+Session and state schemas are now version 2; journal framing remains version 1.
+The executable hash also binds resume to the same build. Version-1 sessions and
+sessions from another executable require their original build; there is no
+automatic migration. The fingerprint covers the executable, including statically linked
 dependencies; it does not identify curl or dynamically linked system libraries.
 
 Sessions default to `$XDG_STATE_HOME/lean-harness/sessions`, or
@@ -115,6 +145,61 @@ Sessions default to `$XDG_STATE_HOME/lean-harness/sessions`, or
 not contain one another, including through symlinks. This keeps direct file tools
 away from the journal. Approved processes still have the user's OS permissions.
 Resume rechecks the workspace path; offline inspect/replay works even if it is gone.
+
+Before an edit can dispatch, the runner records its path, expected preimage hash,
+and intended postimage hash with the intent. Recovery distinguishes these cases:
+
+| Saved state | Resume behavior |
+| --- | --- |
+| Durable completed observation | Replay the observation without repeating the operation. |
+| Uncertain edit whose current bytes match the postimage | Recheck through no-follow descriptors, fsync the file and parent, record a resolution, then continue the original batch. |
+| Edit still matching the preimage | Stop: it may be unstarted or have had no lasting effect. Never infer that rerunning is safe. |
+| Conflicting edit contents, missing witness, or unsafe path | Stop for manual investigation. |
+| Uncertain process | Require an explicit operator resolution. No command is automatically repeated. |
+| Other unresolved intents, or an incomplete journal tail | Refuse automatic resume. |
+
+Postimage reconciliation establishes the observed desired contents under the
+single-writer and filesystem durability assumptions. It does not establish that
+the edit executed exactly once. It also handles a recorded uncertain/interrupted
+edit completion. The replay cursor retains the pre-operation batch position,
+including reserved counts and remaining calls.
+
+Inspect a process recovery stop, then supply its exact `recoverableOperation` ID:
+
+```sh
+harness inspect SESSION
+harness resolve SESSION --operation 7 --status completed --exit-code 0 \
+  --note 'Inspected the result and confirmed the original processes have stopped' \
+  --resources-settled
+harness resume SESSION
+```
+
+Use `--status abandoned` without `--exit-code` when the outcome remains unknown.
+The nonempty note is limited to 2048 bytes; completed exit codes must be in 0–255.
+`--resources-settled` is an operator assertion that the original process and its
+descendants can no longer act, not an OS check. Resolution writes a distinct
+journal record with operator provenance and an explicitly unverified result. It
+executes no command and does not resume inference; `resume` is a separate action.
+An abandoned result preserves the uncertainty of prior effects. Wrong operation
+IDs and repeated resolutions are rejected. Cancellation markers are not silently
+cleared by either command.
+
+For a planned restart, `run` and `resume` accept `--yield-after N`. After N durable
+completions in that invocation, the runner emits `suspended` and exits 75 with no
+pending intent or terminal record. A task that has already finished reports its
+outcome instead. Zero disables this scheduling limit. For example:
+
+```sh
+harness run --workspace PATH --config CONFIG --task TEXT --session SESSION --yield-after 12
+harness inspect SESSION
+harness resume SESSION --yield-after 12
+```
+
+Repeated resumes preserve cumulative call counts and frozen configuration; each
+invocation gets a fresh elapsed-time allowance. Yielding itself does not create
+a model or tool attempt.
+
+## Deterministic validation
 
 Tests use Python 3, a C compiler for injected syscall failures, and `sha256sum` as
 an independent hash oracle. The C fault fixtures are test-only. The ABI suite
@@ -138,3 +223,8 @@ python3 Tests/crash_recovery.py
 python3 Tests/session_boundaries.py
 python3 scripts/check_core.py
 ```
+
+The [sustained-session gate report](../eval/reports/2026-11-09-sustained-gates.md)
+records the compaction/restart and recovery checks for schema 2. Streaming,
+model-accessible artifact retrieval, broader uncertain-effect recovery,
+automatic storage repair, and OS sandboxing remain outside this implementation.

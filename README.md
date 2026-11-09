@@ -25,7 +25,7 @@ step : State → HarnessF State
 
 `step` is pure and total. The effect signature is generic over a `ToolAPI`; the current `step` uses the coding tool set.
 
-`State` is JSON-serializable: phase, history, frozen config, counters, call IDs, and an optional exact-call grant. `step` reconstructs continuations from this data; closures are never persisted.
+`State` is JSON-serializable: phase, history, active context, frozen config, counters, call IDs, and an optional exact-call grant. `step` reconstructs continuations from this data; closures are never persisted.
 
 Before accepting a model response, the [core](Harness/Core/ModelResponse.lean) checks that its tool calls and text match the retained content blocks. It validates the whole tool batch before dispatch: schemas, path syntax, bounds, and duplicate IDs. Calls run sequentially, with budget reserved before dispatch. An edit requires a matching file SHA-256 and exactly one occurrence of the text to replace.
 
@@ -36,7 +36,9 @@ Before accepting a model response, the [core](Harness/Core/ModelResponse.lean) c
 | [Lean IO](Harness/Adapter) | Files, supervised processes, approvals, and durable journal writes |
 | [Rust native bindings](runtime/native/src) | Linux file descriptors, process primitives, signals, and SHA-256 through a direct Lean C ABI |
 
-The runner writes an intent record before each effect and a completion record before the core consumes the reply. Replay feeds recorded replies through `step` without calling the model or tools. IO functions perform one operation; permission, retry, and budget decisions stay in the core. The native library is Rust, with no handwritten C shim. Python is used only for tests and evaluation.
+The runner writes an intent record before each effect and a completion record before the core consumes the reply. Replay feeds recorded replies through `step` without calling the model or tools. IO functions perform one operation; permission, retry, and budget decisions stay in the core. The native library is Rust, with no handwritten C shim. Python supports tests and evaluation; Node runs the Pi comparison baseline. Neither is needed to run the harness.
+
+At complete tool-batch boundaries, the core can request a summary and install it alongside a recent, protocol-valid suffix. The raw transcript stays intact. Summary calls use the same attempt budget, and failed summaries leave the previous context view intact.
 
 ## Run it
 
@@ -50,13 +52,13 @@ export ANTHROPIC_API_KEY=...
   --task 'Fix the parser bug' --session /path/to/session
 ```
 
-`inspect SESSION`, `replay SESSION`, `resume SESSION`, and `cancel SESSION` operate on an existing session. Add `--json` to print JSONL events. See the [runtime reference](runtime/README.md) for details.
+`inspect SESSION`, `replay SESSION`, `resume SESSION`, and `cancel SESSION` operate on an existing session. `resolve` records an explicit operator decision about an uncertain command. Add `--json` for JSONL events or `--yield-after N` to suspend after N durable completions. See the [runtime reference](runtime/README.md) for details.
 
 Keep session storage outside the workspace. The default is `~/.local/state/lean-harness/sessions` (or `$XDG_STATE_HOME/lean-harness/sessions`).
 
 ## Verification and testing
 
-**Formal verification.** [Lean proofs](Harness/Proofs) cover call limits, authorization of emitted tools, grants bound to exact calls, frozen configuration, rejection of inconsistent model responses, and stopping after consumed cancellation. They describe the executable core. The replay theorem currently establishes determinism.
+**Formal verification.** [Lean proofs](Harness/Proofs) cover call limits, tool authorization, exact-call grants, frozen configuration, malformed-response rejection, and consumed cancellation. Compaction proofs cover raw-history preservation, bounded valid installed contexts, and summary-attempt accounting. These describe the executable core. The replay theorem currently establishes determinism.
 
 **Testing.** [Plausible](Tests/Properties.lean) checks 900 generated protocol cases; another [100 generated cases](Tests/RuntimeProperties.lean) exercise real files and journals. Integration and fault tests cover HTTP, process cleanup, path escapes, stale edits, failed writes, and crashes around persistence boundaries. [Native ABI tests](Tests/native_abi.py) exercise actual Lean/Rust values and descriptor ownership. CI also rejects proof placeholders and checks theorem axioms.
 
@@ -64,8 +66,8 @@ IO, Rust's unsafe FFI bindings, and the OS remain outside the proofs. Neither pr
 
 ## Status and limits
 
-A [live Opus 5.5 run through the Lean runtime and Rust bindings](eval/reports/2026-11-09-rust-native.md) fixed a parser bug and passed the independent checker. Broader reliability and parity remain unmeasured. See the [development report](eval/reports/2026-11-08-development.md).
+A working Linux CLI with tested compaction, durable restarts, and conservative recovery. The [evaluation report](eval/reports/2026-11-09-comparison.md) compares it with pinned Pi on local coding tasks and selected SWE-bench Lite and Terminal-Bench tasks. The workload is small; it does not establish general parity or production readiness.
 
-There is no compaction: runs stop at the context byte limit. Resume refuses an intent without a completion because the operation may already have had effects.
+Resume reconciles an uncertain edit only when the file matches its recorded intended postimage and synchronization succeeds. Other uncertain effects require explicit handling. Uncompactable context still stops at the configured limit; summary fidelity requires evaluation.
 
 There is no OS sandbox. Process calls ask for approval by default. Use an isolated environment for untrusted work.

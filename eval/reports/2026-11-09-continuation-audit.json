@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "cohort": "lean-harness-m4-continuation",
+  "binary_sha256": "69b48cdce05cd3a9bc8fd64e6e1d5dd1bace6b50cf4f5f65e8c290fc384f3fcb",
+  "audit": "independent framed-observation reconstruction; generated summary fidelity not assessed",
+  "expected_runs": 2,
+  "audited_runs": 2,
+  "passed": true,
+  "runs": [
+    {
+      "run": "dev01-inventory-cli-product-lean-0-c4eb3e55",
+      "status": "passed",
+      "successful_summaries": 4,
+      "summary_operation_ids": [
+        6,
+        15,
+        24,
+        33
+      ],
+      "restart_operations": [
+        8,
+        16,
+        24,
+        32
+      ],
+      "post_summary_restart_operations": [
+        8,
+        16,
+        24,
+        32
+      ],
+      "process_invocations": 5,
+      "model_attempts": 9,
+      "tool_dispatches": 7,
+      "unknown_usage": 0,
+      "raw_history_messages": 10,
+      "journal_frames": 74,
+      "accounted_usd": 0.269224
+    },
+    {
+      "run": "dev01-inventory-cli-product-lean-1-8ca47c7d",
+      "status": "passed",
+      "successful_summaries": 4,
+      "summary_operation_ids": [
+        6,
+        15,
+        24,
+        33
+      ],
+      "restart_operations": [
+        8,
+        16,
+        24,
+        32
+      ],
+      "post_summary_restart_operations": [
+        8,
+        16,
+        24,
+        32
+      ],
+      "process_invocations": 5,
+      "model_attempts": 9,
+      "tool_dispatches": 7,
+      "unknown_usage": 0,
+      "raw_history_messages": 10,
+      "journal_frames": 74,
+      "accounted_usd": 0.261308
+    }
+  ]
+}

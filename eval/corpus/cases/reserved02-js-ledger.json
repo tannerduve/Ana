@@ -1,0 +1,109 @@
+[
+  {
+    "args": [
+      []
+    ],
+    "value": []
+  },
+  {
+    "args": [
+      [
+        {
+          "id": "1",
+          "account": "b",
+          "delta": 3
+        },
+        {
+          "id": "2",
+          "account": "a",
+          "delta": 2
+        },
+        {
+          "id": "1",
+          "account": "b",
+          "delta": 3
+        },
+        {
+          "id": "3",
+          "account": "b",
+          "delta": -1
+        }
+      ]
+    ],
+    "value": [
+      {
+        "account": "a",
+        "balance": 2,
+        "events": 1
+      },
+      {
+        "account": "b",
+        "balance": 2,
+        "events": 2
+      }
+    ]
+  },
+  {
+    "args": [
+      [
+        {
+          "id": "1",
+          "account": "x",
+          "delta": 2
+        },
+        {
+          "id": "2",
+          "account": "x",
+          "delta": -2
+        }
+      ]
+    ],
+    "value": []
+  },
+  {
+    "args": [
+      [
+        {
+          "id": "1",
+          "account": "a",
+          "delta": 1
+        },
+        {
+          "id": "1",
+          "account": "b",
+          "delta": 1
+        }
+      ]
+    ],
+    "error": "RangeError"
+  },
+  {
+    "args": [
+      [
+        {
+          "id": "1",
+          "account": "",
+          "delta": 1
+        }
+      ]
+    ],
+    "error": "RangeError"
+  },
+  {
+    "args": [
+      [
+        {
+          "id": "1",
+          "account": "a",
+          "delta": 9007199254740991
+        },
+        {
+          "id": "2",
+          "account": "a",
+          "delta": 1
+        }
+      ]
+    ],
+    "error": "RangeError"
+  }
+]

@@ -176,6 +176,8 @@ private def runCLI (output : EventIO.Output) (args : List String) : IO UInt32 :=
           pure {config with capabilityPolicy := policy}
       if config.model.isEmpty || config.operationTimeoutMs == 0 || config.maxElapsedMs == 0 then
         throw <| IO.userError "model and positive operation/session time limits are required"
+      if config.modelBackend != .anthropic && !config.testEndpoint.isEmpty then
+        throw <| IO.userError "testEndpoint is only supported by the anthropic backend"
       if config.maxArtifactBytes > 16 * 1024 * 1024 || config.maxSessionArtifactBytes > 256 * 1024 * 1024 then
         throw <| IO.userError "artifact limits exceed supported bounds (16 MiB each, 256 MiB per session)"
       if config.toolchainRoots.size > 8 then throw <| IO.userError "at most eight toolchain roots are supported"

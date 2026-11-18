@@ -23,8 +23,25 @@ inductive ExecutionProfile where
   | host | bubblewrap
   deriving Repr, BEq, DecidableEq, ToJson, FromJson
 
+inductive ModelBackend where
+  | anthropic | claudeCode | codex
+  deriving Repr, BEq, DecidableEq
+
+instance : ToJson ModelBackend where
+  toJson backend := toJson (match backend with
+    | .anthropic => "anthropic" | .claudeCode => "claude-code" | .codex => "codex")
+
+instance : FromJson ModelBackend where
+  fromJson? value := do
+    match ← value.getStr? with
+    | "anthropic" => pure .anthropic
+    | "claude-code" => pure .claudeCode
+    | "codex" => pure .codex
+    | _ => throw "modelBackend must be anthropic, claude-code, or codex"
+
 structure Config where
   model : String
+  modelBackend : ModelBackend := .anthropic
   instructions : String := "Use the available tools to complete the user's task. Check your work and explain the result."
   workspace : String := ""
   /-- Validated, nonsecret application data frozen at session creation. -/

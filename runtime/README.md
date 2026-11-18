@@ -120,6 +120,23 @@ window. Regular-file output still depends on filesystem responsiveness.
 
 ## Provider and approvals
 
+`modelBackend` selects `anthropic` (the default), `claude-code`, or `codex` and is
+frozen with the session configuration. The CLI backends use the installed official
+executables and their saved sign-in; the harness never reads OAuth credentials.
+See the [quickstart](../README.md#getting-started) and example configs for login
+and invocation commands. The following HTTP transport description applies to the
+`anthropic` backend.
+
+CLI backends start a fresh process in private scratch outside the application
+workspace and session, then normalize structured proposals into the same typed
+model observation consumed by the engine. The installed executable must also be
+outside those roots. CLI authentication, internal retries and schema generation
+are trusted adapter behavior. A model-attempt reservation counts one CLI
+invocation, not each upstream inference request. Output bytes and elapsed time
+are enforced locally; `maxOutputTokens` is advisory for CLI backends. Progress is
+buffered until completion, and native CLI sessions are not resumed. Harness
+journal replay, follow-ups, permissions and cumulative tool budgets still apply.
+
 One curl invocation performs one provider attempt, with redirects and hidden
 retries disabled. Credentials come from `ANTHROPIC_API_KEY` and go only to the
 fixed Anthropic endpoint through stdin configuration. Ambient curl configuration

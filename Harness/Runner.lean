@@ -5,6 +5,7 @@ import Harness.Adapter.ProviderIO
 import Harness.Adapter.ProcessIO
 import Harness.Adapter.ApprovalIO
 import Harness.Adapter.EventIO
+import Harness.Adapter.CLIProvider
 import Harness.Adapter.ApplicationIO
 import Harness.Adapter.PersistenceIO
 
@@ -79,6 +80,10 @@ def interpret (env : Environment app) (s : State app) : (a : Action app) → IO 
       | none => return .failure .invalidRequest "script exhausted"
     let now ← IO.monoMsNow
     let timeout := min s.config.operationTimeoutMs (s.config.maxElapsedMs - (now - env.startedMs))
+    if s.config.modelBackend != .anthropic then
+      return ← CLIProvider.request s.config.modelBackend request timeout
+        (some (env.startedMs + s.config.maxElapsedMs)) (cancelPath env.options s.turn)
+        s.config.maxResponseBytes s.config.workspace env.options.session
     ProviderIO.request request {
       endpoint := if s.config.testEndpoint.isEmpty then ProviderIO.anthropicEndpoint else s.config.testEndpoint
       timeoutMs := timeout

@@ -57,8 +57,8 @@ On Ubuntu/Debian, install the system dependencies:
 sudo apt-get update
 sudo apt-get install -y git build-essential libssl-dev curl bubblewrap
 
-git clone https://github.com/tannerduve/lean-harness.git
-cd lean-harness
+git clone https://github.com/tannerduve/Ana.git
+cd Ana
 lake build
 .lake/build/bin/harness --help
 ```

@@ -70,6 +70,7 @@ jobs:
           python3 Tests/capability_policy.py
           python3 Tests/native_abi.py
           python3 Tests/provider_transport.py
+          python3 Tests/cli_providers.py
           python3 Tests/provider_streaming.py
           python3 Tests/provider_json_bounds.py
           python3 Tests/event_output.py

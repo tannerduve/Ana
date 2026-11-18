@@ -1,0 +1,12 @@
+{
+  "modelBackend": "claude-code",
+  "model": "opus",
+  "commands": "ask",
+  "executionProfile": "bubblewrap",
+  "maxModelAttempts": 20,
+  "maxToolCalls": 100,
+  "maxContextBytes": 200000,
+  "maxOutputTokens": 4096,
+  "operationTimeoutMs": 180000,
+  "maxElapsedMs": 1800000
+}

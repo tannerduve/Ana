@@ -14,8 +14,8 @@ abbrev FD := UInt32
 @[extern "harness_open_write_at"] opaque openWriteAt (parent : FD) (name : @& String)
   (exclusive append : Bool) (mode : UInt32) : IO FD
 @[extern "harness_close"] opaque close (fd : FD) : IO Unit
-/-- Owns an independently reopened nonblocking stdout/stderr sink. Never changes
-the inherited open-file-description flags; unsupported descriptor types fail. -/
+/-- Owns a nonblocking stdout/stderr sink. Regular/pipe/TTY sinks are reopened;
+stream sockets use per-write nonblocking flags. Inherited flags never change. -/
 @[extern "harness_open_output"] opaque openOutput (standardFd : UInt32) : IO FD
 @[extern "harness_read"] opaque read (fd : FD) (maxBytes : UInt64) : IO ByteArray
 @[extern "harness_write"] opaque write (fd : FD) (bytes : @& ByteArray) : IO Unit

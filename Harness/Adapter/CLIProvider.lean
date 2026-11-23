@@ -80,8 +80,7 @@ private def claudeUsage (value : Json) : Option Usage := do
   let cacheWrite := (raw.getObjValAs? Nat "cache_creation_input_tokens").toOption.getD 0
   return {
     inputTokens := input + cacheRead + cacheWrite, outputTokens := output
-    raw := Json.mkObj [("input_tokens", toJson input), ("output_tokens", toJson output),
-      ("cache_read_input_tokens", toJson cacheRead), ("cache_creation_input_tokens", toJson cacheWrite)]}
+    raw }
 
 private def codexUsage (value : Json) : Option Usage := do
   let raw ← (value.getObjVal? "usage").toOption
@@ -91,8 +90,7 @@ private def codexUsage (value : Json) : Option Usage := do
   if cached > input then none else
     some {
       inputTokens := input, outputTokens := output
-      raw := Json.mkObj [("input_tokens", toJson input), ("output_tokens", toJson output),
-        ("cached_input_tokens", toJson cached)]}
+      raw }
 
 private def malformed : ModelObservation := .failure .malformed "CLI returned an invalid or incomplete inference response"
 

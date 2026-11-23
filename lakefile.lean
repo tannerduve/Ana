@@ -54,3 +54,6 @@ lean_lib Tests
 
 @[default_target] lean_exe durable_session_contracts where
   root := `Tests.DurableSessions
+
+lean_exe matrix_sandbox_contracts where
+  root := `Tests.MatrixSandbox

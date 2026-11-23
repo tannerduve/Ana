@@ -51,6 +51,8 @@ structure Application where
   resolutionFromJson : FromJson Resolution
   defaultInstructions : String
   schemas : Array Json
+  /-- Frozen application configuration selects the advertised registry. -/
+  schemasFor : Config → Array Json := fun _ => schemas
   decode : RawCall → Except String Operation
   name : Operation → String
   args : Operation → Json

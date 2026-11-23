@@ -116,6 +116,31 @@ structure Plan where
   args : Array String
   inherited : Array FD
 
+private structure Mount where
+  source : String
+  destination : String
+  readOnly : Bool
+  deriving Inhabited
+
+private def resourceSources (ctx : ToolContext) (session : String)
+    (base : Array (String × String)) : IO (Array Mount) := do
+  unless ctx.resourceMounts.size ≤ 16 do throw <| IO.userError "too many application resource mounts"
+  let home ← homePath
+  let mut result := base.map fun (source, destination) => {source, destination, readOnly := true : Mount}
+  let mut names : Array String := #[]
+  for resource in ctx.resourceMounts do
+    unless !resource.name.isEmpty && resource.name.length ≤ 64 && resource.name.toList.all
+        (fun character => character.isAlphanum || character == '-' || character == '_') &&
+        !names.contains resource.name do throw <| IO.userError "invalid or duplicate application resource mount"
+    let source ← canonical resource.path
+    unless source == resource.path do throw <| IO.userError "application resource must retain its canonical identity"
+    if source == "/" || overlaps source ctx.workspace || overlaps source session ||
+        home.any (containsPath source) || result.any (fun previous => overlaps previous.source source) then
+      throw <| IO.userError "application resource overlaps private storage, workspace, or another mount"
+    names := names.push resource.name
+    result := result.push {source, destination := s!"/opt/harness/resources/{resource.name}", readOnly := resource.readOnly}
+  return result
+
 private def withDirectories (sources : List String) (owned : Array FD)
     (body : Array FD → IO α) : IO α :=
   match sources with
@@ -140,16 +165,17 @@ remapped to 3 + index by Native.spawn and consumed/closed by bubblewrap. -/
 def withPlan (ctx : ToolContext) (args : ProcessArgs) (statusWriter : FD)
     (body : Plan → IO α) : IO α := do
   let session := ((System.FilePath.mk ctx.artifactDir).parent.getD ".").toString
-  let mounts ← mountSources ctx.workspace session ctx.toolchainRoots
+  let base ← mountSources ctx.workspace session ctx.toolchainRoots
+  let mounts ← resourceSources ctx session base
   withDataFD "127.0.0.1 localhost\n::1 localhost\n" fun hosts =>
   withDataFD "hosts: files\n" fun nsswitch =>
   FilesystemIO.withWorkspaceDir ctx.workspace args.cwd fun _ =>
-    withDirectories (ctx.workspace :: mounts.toList.map Prod.fst) #[] fun descriptors => do
+    withDirectories (ctx.workspace :: mounts.toList.map (·.source)) #[] fun descriptors => do
       let workspaceInfo ← Native.stat descriptors[0]!
       for fd in descriptors.extract 1 descriptors.size do
         let info ← Native.stat fd
         if info.device == workspaceInfo.device && info.inode == workspaceInfo.inode then
-          throw <| IO.userError "read-only mount aliases the writable workspace"
+          throw <| IO.userError "application mount aliases the workspace"
       let toolPaths := (List.range ctx.toolchainRoots.size).map
         (fun index => s!"/opt/harness/toolchains/{index}/bin")
       let path := String.intercalate ":" (toolPaths ++ ["/usr/bin", "/bin"])
@@ -158,18 +184,20 @@ def withPlan (ctx : ToolContext) (args : ProcessArgs) (statusWriter : FD)
         "--clearenv", "--setenv", "HOME", "/tmp/home", "--setenv", "TMPDIR", "/tmp",
         "--setenv", "PATH", path, "--setenv", "LANG", "C.UTF-8"]
       for index in [:mounts.size] do
-        flags := flags ++ #["--ro-bind-fd", toString (4 + index), mounts[index]!.2]
+        flags := flags ++ #[if mounts[index]!.readOnly then "--ro-bind-fd" else "--bind-fd",
+          toString (4 + index), mounts[index]!.destination]
       let mut inherited := descriptors
       flags := flags ++ #["--dir", "/etc", "--ro-bind-data", toString (3 + inherited.size), "/etc/hosts"]
       inherited := inherited.push hosts
       flags := flags ++ #["--ro-bind-data", toString (3 + inherited.size), "/etc/nsswitch.conf"]
       inherited := inherited.push nsswitch
+      let workspaceBind := if ctx.workspaceReadOnly then "--ro-bind-fd" else "--bind-fd"
       flags := flags ++ #["--symlink", "usr/bin", "/bin", "--proc", "/proc", "--dev", "/dev",
-        "--tmpfs", "/tmp", "--dir", "/tmp/home", "--bind-fd", "3", "/workspace"]
+        "--tmpfs", "/tmp", "--dir", "/tmp/home", workspaceBind, "3", "/workspace"]
       -- Mount after private base filesystems, so /tmp workspaces remain visible.
       -- A second setup FD refers to the same open root; bwrap consumes each FD.
       if ctx.workspace != "/workspace" then
-        flags := flags ++ #["--bind-fd", toString (3 + inherited.size), ctx.workspace]
+        flags := flags ++ #[workspaceBind, toString (3 + inherited.size), ctx.workspace]
         inherited := inherited.push descriptors[0]!
       flags := flags ++ #["--chdir", ctx.workspace ++ "/" ++ String.intercalate "/" (parts args.cwd),
         "--json-status-fd", toString (3 + inherited.size), "--"] ++ args.argv

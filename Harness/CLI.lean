@@ -1,6 +1,7 @@
 import Harness.Runner
 import Harness.Applications.CodingIO
 import Harness.Applications.InventoryIO
+import Harness.Applications.MatrixIO
 
 /-! Statically installed application selection. New sessions freeze the chosen
 application and validated configuration; resume selects only the saved identity.
@@ -8,7 +9,7 @@ No journal can name an executable, dynamic plugin or arbitrary interpreter. -/
 
 open Lean Harness
 
-private def usage : String := "harness run [--application coding|inventory] --config CONFIG --task TEXT [--workspace PATH] [--data FILE] [--restrict-capabilities FILE] [--session PATH] [--json] [--script FILE] [--yield-after N]\nharness resume SESSION [--json] [--yield-after N]\nharness continue SESSION --task TEXT [--json] [--yield-after N]\nharness inspect SESSION\nharness replay SESSION\nharness cancel SESSION\nharness resolve SESSION --operation ID --status completed|abandoned --note TEXT [--resources-settled] [--exit-code N] [--json]\nharness policy check PARENT CHILD\nharness policy restrict PARENT LIMIT\nCoding requires --workspace. Inventory freezes --data as starting stock; reservations change only that session's inventory.\nPolicies are lists of allow-rule lists; LIMIT and --restrict-capabilities take one allow-rule list. A restriction adds a ceiling and cannot grant new authority. Process rules authorize an exact launch, not its downstream filesystem effects."
+private def usage : String := "harness run [--application coding|inventory|matrix] --config CONFIG (--task TEXT|--task-file FILE) [--workspace PATH] [--data FILE] [--restrict-capabilities FILE] [--session PATH] [--json] [--script FILE] [--yield-after N]\nharness resume SESSION [--json] [--yield-after N]\nharness continue SESSION --task TEXT [--json] [--yield-after N]\nharness inspect SESSION\nharness replay SESSION\nharness cancel SESSION\nharness resolve SESSION --operation ID --status completed|abandoned --note TEXT [--resources-settled] [--exit-code N] [--json]\nharness policy check PARENT CHILD\nharness policy restrict PARENT LIMIT\nCoding and managed Matrix require --workspace. Matrix's bridge supplies its frozen configuration. --task-file reads a JSON string. Inventory freezes --data as starting stock; reservations change only that session's inventory.\nPolicies are lists of allow-rule lists; LIMIT and --restrict-capabilities take one allow-rule list. A restriction adds a ceiling and cannot grant new authority. Process rules authorize an exact launch, not its downstream filesystem effects."
 
 private def value (args : List String) (key : String) : Option String :=
   match args with
@@ -38,7 +39,7 @@ where
       else loop tail ("--json" :: seen)
     | flag :: _value :: tail, seen =>
       if seen.contains flag then .error s!"duplicate option: {flag}"
-      else if ["--application", "--data", "--workspace", "--config", "--task", "--session",
+      else if ["--application", "--data", "--workspace", "--config", "--task", "--task-file", "--session",
           "--script", "--yield-after", "--restrict-capabilities"].contains flag then
         loop tail (flag :: seen)
       else .error s!"unknown option: {flag}"
@@ -96,6 +97,7 @@ private def installed (name : String)
   match name with
   | "coding" => body Coding.application CodingIO.runtime
   | "inventory" => body Inventory.application InventoryIO.runtime
+  | "matrix" => body Matrix.application MatrixIO.runtime
   | _ => throw <| IO.userError s!"unknown installed application: {name}"
 
 private def yieldAfter (options : List String) : IO Nat :=
@@ -145,7 +147,7 @@ private def runCLI (output : EventIO.Output) (args : List String) : IO UInt32 :=
   | "run" :: options =>
     IO.ofExcept (parseOptions options)
     installed ((value options "--application").getD "coding") fun app runtime => do
-      let workspace ← if app.id == "coding" then required options "--workspace" else do
+      let workspace ← if app.id != "inventory" then required options "--workspace" else do
         if (value options "--workspace").isSome then
           throw <| IO.userError "inventory has no workspace authority"
         pure ""
@@ -183,7 +185,11 @@ private def runCLI (output : EventIO.Output) (args : List String) : IO UInt32 :=
       if config.toolchainRoots.size > 8 then throw <| IO.userError "at most eight toolchain roots are supported"
       if config.executionProfile == .host && !config.toolchainRoots.isEmpty then
         throw <| IO.userError "toolchainRoots requires the bubblewrap execution profile"
-      let task ← required options "--task"
+      let task ← match value options "--task-file" with
+        | none => required options "--task"
+        | some path => do
+          if (value options "--task").isSome then throw <| IO.userError "supply either --task or --task-file"
+          IO.ofExcept ((← readBoundedJson "task" path).getStr?)
       let id ← IO.monoNanosNow
       let session ← match value options "--session" with
         | some path => absolute path

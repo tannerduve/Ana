@@ -87,13 +87,40 @@ pub fn open_output(fd: u32) -> io::Result<u32> {
     if !matches!(fd, 1 | 2) {
         return Err(io::Error::from_raw_os_error(libc::EINVAL));
     }
+    open_output_sink(fd)
+}
+
+fn open_output_sink(fd: u32) -> io::Result<u32> {
     let mut metadata = MaybeUninit::<libc::stat>::uninit();
     // SAFETY: fstat initializes metadata on success; fd is a standard descriptor.
     checked(unsafe { libc::fstat(fd as RawFd, metadata.as_mut_ptr()) })?;
     let metadata = unsafe { metadata.assume_init() };
     let kind = metadata.st_mode & libc::S_IFMT;
+    // Node's stdio pipes are Unix stream sockets. A duplicate can safely share
+    // their description because write_available uses per-call MSG_DONTWAIT,
+    // never F_SETFL, and MSG_NOSIGNAL. Do not broaden this to arbitrary sockets.
+    if kind == libc::S_IFSOCK {
+        let mut socket_type: libc::c_int = 0;
+        let mut length = std::mem::size_of_val(&socket_type) as libc::socklen_t;
+        checked(unsafe {
+            libc::getsockopt(
+                fd as RawFd,
+                libc::SOL_SOCKET,
+                libc::SO_TYPE,
+                (&mut socket_type as *mut libc::c_int).cast(),
+                &mut length,
+            )
+        })?;
+        if socket_type != libc::SOCK_STREAM {
+            return Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "output socket must be a stream",
+            ));
+        }
+        return descriptor(unsafe { libc::fcntl(fd as RawFd, libc::F_DUPFD_CLOEXEC, 3) });
+    }
     // TTYs and /dev/null are supported character sinks; arbitrary devices and
-    // sockets have no safe generic reopening contract here.
+    // other devices have no safe generic reopening contract here.
     if kind != libc::S_IFREG
         && kind != libc::S_IFIFO
         && !(kind == libc::S_IFCHR
@@ -201,7 +228,18 @@ pub fn write_available(fd: u32, bytes: &[u8], offset: u64) -> io::Result<u64> {
         .get(offset..)
         .ok_or_else(|| io::Error::from_raw_os_error(libc::EINVAL))?;
     // SAFETY: remaining is valid for the length supplied, including an empty slice.
-    let count = unsafe { libc::write(raw_fd(fd)?, remaining.as_ptr().cast(), remaining.len()) };
+    let descriptor = raw_fd(fd)?;
+    let mut count = unsafe {
+        libc::send(
+            descriptor,
+            remaining.as_ptr().cast(),
+            remaining.len(),
+            libc::MSG_DONTWAIT | libc::MSG_NOSIGNAL,
+        )
+    };
+    if count < 0 && io::Error::last_os_error().raw_os_error() == Some(libc::ENOTSOCK) {
+        count = unsafe { libc::write(descriptor, remaining.as_ptr().cast(), remaining.len()) };
+    }
     if count >= 0 {
         return Ok(count as u64);
     }
@@ -213,6 +251,34 @@ pub fn write_available(fd: u32, bytes: &[u8], offset: u64) -> io::Result<u64> {
         Ok(0)
     } else {
         Err(error)
+    }
+}
+
+#[cfg(test)]
+mod output_socket_tests {
+    use super::*;
+    use std::os::unix::net::UnixStream;
+
+    #[test]
+    fn stream_output_is_nonblocking_without_changing_inherited_flags() {
+        let (source, peer) = UnixStream::pair().unwrap();
+        let original = source.as_raw_fd();
+        let flags = unsafe { libc::fcntl(original, libc::F_GETFL) };
+        let opened = open_output_sink(original as u32).unwrap();
+        let owned = unsafe { OwnedFd::from_raw_fd(opened as RawFd) };
+        let bytes = vec![b'x'; 65536];
+        let mut blocked = false;
+        for _ in 0..1000 {
+            if write_available(opened, &bytes, 0).unwrap() == 0 {
+                blocked = true;
+                break;
+            }
+        }
+        assert!(blocked, "undrained stream must reach bounded backpressure");
+        assert_eq!(unsafe { libc::fcntl(original, libc::F_GETFL) }, flags);
+        drop(peer);
+        assert!(write_available(opened, b"closed", 0).is_err());
+        drop(owned);
     }
 }
 

@@ -41,6 +41,7 @@ PURE_APPLICATION_MODULES = {
     'Harness.Applications.InventoryData',
     'Harness.Applications.InventoryValidity',
     'Harness.Applications.Inventory',
+    'Harness.Applications.Matrix',
 }
 pure_application_paths = [ROOT / (module.replace('.', '/') + '.lean')
                           for module in sorted(PURE_APPLICATION_MODULES)]
@@ -103,6 +104,7 @@ names += ['Harness.result_step_contract', 'Harness.result_step_contract_all',
           'Harness.Recovery.resolve_ordinary_continuation',
           'Harness.Recovery.recover_tool_ordinary_continuation']
 names += ['Harness.Inventory.reserve_stock_contract']
+names += ['Harness.Matrix.laws', 'Harness.Matrix.uncertain_receipt_cannot_claim_settlement']
 names += ['Harness.Coding.laws', 'Harness.Inventory.laws', 'Harness.Inventory.decoded_result_valid',
           'Harness.coding_emitted_paths_safe', 'Harness.coding_replay_emitted_paths_safe',
           'Harness.decoded_call_valid', 'Harness.reachable_application_valid',

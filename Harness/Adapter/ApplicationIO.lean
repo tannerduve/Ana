@@ -67,6 +67,12 @@ structure OperationContext where
   sessionId : String
   /-- Logical operation ID, preserved across restart and reconciliation. -/
   operationId : Nat
+  /-- Remaining validated batch, including this call, before preparation effects. -/
+  batchTools : List String := []
+  startedMs : Nat := 0
+  timeoutMs : Nat := 0
+  invocationDeadlineMs : Option Nat := none
+  cancelPath : String := ""
 
 /-- Application IO is invoked only by the shared durable runner. Reconciliation
 returns evidence for pure validation; it never dispatches the lost operation. -/
@@ -79,6 +85,8 @@ structure Runtime (app : Application) where
   validateIdentity : String → Config → IO Unit := fun _ _ => pure ()
   validate : String → Config → IO Unit
   execute : Config → ToolContext → (call : Call app) → IO (ToolObservation (app.Result call.operation))
+  /-- Preparation may read evidence or persist private metadata, but must not
+  dispatch an external mutation before the runner commits its intent. -/
   prepare : Config → OperationContext → Call app → IO (Option app.Witness) := fun _ _ _ => pure none
   reconcile : Config → OperationContext → Call app → Option app.Witness → IO app.Resolution := fun _ _ _ _ =>
     throw <| IO.userError "unresolved application operation; automatic replay refused"

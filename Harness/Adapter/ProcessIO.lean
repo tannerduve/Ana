@@ -393,6 +393,8 @@ def validateSandbox (workspace session : String) (profile : ExecutionProfile)
 /-- Carry out one already-authorized process tool inside a validated working directory.
 The process group is supervised, but working-directory confinement is not a sandbox. -/
 def run (context : ToolContext) (args : ProcessArgs) : IO (ToolObservation ToolResult) := do
+  if context.executionProfile == .host && (context.workspaceReadOnly || !context.resourceMounts.isEmpty) then
+    return .failure "scoped application processes require bubblewrap; host execution cannot enforce their mounts"
   let operationStarted ← IO.monoMsNow
   if ← cancelled context.cancelPath then return .interrupted "cancelled before process launch"
   if args.argv.isEmpty then return .failure "process argv must not be empty"

@@ -25,6 +25,7 @@ structure Environment (app : Application := Coding.application) where
   startedMs : Nat
   runtime : ApplicationIO.Runtime app
   writer : JournalIO.Writer
+  toolStartedMs : Option Nat := none
 
 def journalPath (o : Options) : String := o.session ++ "/journal.jsonl"
 /-- Cancellation targets a particular user turn. Keeping old markers avoids
@@ -36,6 +37,11 @@ abbrev canonicalSessionPath := ApplicationIO.canonicalSessionPath
 abbrev validateSessionWorkspace := ApplicationIO.validateSessionWorkspace
 
 variable {app : Application}
+
+private def batchTools (s : State app) : List String :=
+  match s.phase with
+  | .tool call remaining => (call :: remaining).map fun queued => app.name queued.operation
+  | _ => []
 
 def emit (o : Options) (s : State app) (kind : String) (data : Json) : IO Unit := do
   if o.events then
@@ -97,16 +103,19 @@ def interpret (env : Environment app) (s : State app) : (a : Action app) → IO 
     if ← interrupted env s then return .interrupted "cancelled or deadline expired before dispatch"
     let now ← IO.monoMsNow
     let remaining := s.config.maxElapsedMs - (now - env.startedMs)
-    let timeout := min s.config.operationTimeoutMs remaining
+    let operationRemaining := s.config.operationTimeoutMs - (now - env.toolStartedMs.getD now)
+    if operationRemaining == 0 then return .failure "operation limit reached during preparation; tool was not dispatched"
+    let timeout := min operationRemaining remaining
     try
       let context : ToolContext := {
         sessionPath := env.options.session
         sessionId := s.sessionId
         operationId := s.nextId
+        batchTools := batchTools s
         workspace := s.config.workspace
         timeoutMs := timeout
         invocationDeadlineMs := some (env.startedMs + s.config.maxElapsedMs)
-        localDeadline := s.config.operationTimeoutMs < remaining
+        localDeadline := operationRemaining < remaining
         outputBytes := s.config.maxToolOutputBytes
         artifactDir := env.options.session ++ "/artifacts"
         cancelPath := cancelPath env.options s.turn
@@ -180,11 +189,17 @@ partial def loop (env : Environment app) (s : State app) (completed : Nat := 0) 
     if env.options.yieldAfter > 0 && completed ≥ env.options.yieldAfter then
       emit env.options s "suspended" (Json.mkObj [("durableCompletions", toJson completed)])
       return 75
+    let preparingAt ← IO.monoMsNow
+    let operationEnv := {env with toolStartedMs := some preparingAt}
     let (witness, preparationFailure) ← match node.1 with
       | .tool call => do
         try
           let witness ← env.runtime.prepare s.config
-            {session := env.options.session, sessionId := s.sessionId, operationId := s.nextId} call
+            {session := env.options.session, sessionId := s.sessionId, operationId := s.nextId,
+              batchTools := batchTools s, startedMs := preparingAt,
+              timeoutMs := min s.config.operationTimeoutMs (s.config.maxElapsedMs - (preparingAt - env.startedMs)),
+              invocationDeadlineMs := some (env.startedMs + s.config.maxElapsedMs),
+              cancelPath := cancelPath env.options s.turn} call
           let decoded : Option app.Witness ← IO.ofExcept <| fromJson? (toJson witness)
           unless toJson decoded == toJson witness do
             throw <| IO.userError "application witness cannot be serialized losslessly"
@@ -194,7 +209,7 @@ partial def loop (env : Environment app) (s : State app) (completed : Nat := 0) 
       | _ => pure (none, none)
     let operation : Persistence.Operation app := {id := s.nextId, action := node.1, witness}
     let savedReply ← PersistenceIO.operation env.writer operation
-      (interpretPrepared env s preparationFailure node.1) (emit env.options s)
+      (interpretPrepared operationEnv s preparationFailure node.1) (emit env.options s)
     loop env (node.2 savedReply) (completed + 1)
 
 /-- Bind sessions to the executable, including its statically linked native bindings. -/
@@ -233,6 +248,7 @@ structure Loaded (app : Application := Coding.application) where
   cursor : Recovery.Cursor app
   options : Options
   interruptedStorage : Bool
+  journalCursor : Journal.Cursor := {}
 
 /-- Offline inspection/replay only needs the journal. Resume requests workspace
 validation explicitly before it can advance or dispatch another operation. -/
@@ -262,7 +278,7 @@ private def loadRecords (app : Application) (o : Options) (raw : JournalIO.ReadR
   let cursor ← IO.ofExcept <| Recovery.replay (init session config task app) (records.toList.drop 1)
   return {
     cursor, options := {o with script},
-    interruptedStorage := raw.interrupted}
+    interruptedStorage := raw.interrupted, journalCursor := raw.cursor}
 
 def load (app : Application) (o : Options) (requireSessionIdentity : Bool := false) : IO (Loaded app) := do
   let raw ← JournalIO.read (journalPath o)
@@ -276,6 +292,7 @@ def inspect (app : Application) (o : Options) : IO UInt32 := withLock o do
     ("pending", toJson loaded.cursor.pending), ("terminal", toJson loaded.cursor.terminal),
     ("recoverableOperation", toJson ((Recovery.target loaded.cursor).map (·.nextId))),
     ("editWitness", toJson loaded.cursor.editWitness),
+    ("journal", toJson loaded.journalCursor),
     ("interruptedStorage", toJson loaded.interruptedStorage)]).pretty
   return 0
 

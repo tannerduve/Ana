@@ -5,9 +5,10 @@ Ana is a terminal agent harness written in Lean. Give it a task: a model propose
 | Application | Tools |
 | --- | --- |
 | **Coding** | Inspect repositories, read/search/edit files, run permitted commands and tests, explain the work |
+| **Matrix** | Run a managed Matrix role with scoped coding tools, the pinned `lake_build` client, and structured selector/reviewer submissions |
 | **Inventory** | Query local stock, calculate replenishment totals and reserve stock with recoverable receipts; no file-editing or command tools |
 
-Both use the same execution core and durable runner. Other applications can be compiled in through the [application interface](docs/Applications.md). Backends: direct Anthropic API, official Claude Code CLI or official Codex CLI.
+All applications use the same execution core and durable runner. [Matrix integration](docs/Matrix.md) requires the coordinated platform and agent releases, including their Python build client. Other applications can be compiled in through the [application interface](docs/Applications.md). Backends: direct Anthropic API, official Claude Code CLI or official Codex CLI.
 
 **Working prototype for supervised Linux use.** [Durable-session validation](docs/reports/2026-11-11-durable-sessions.md) covers both applications; live task evaluations cover coding only. [eval/](eval/README.md) contains results, limitations, benchmark tooling and the Pi baseline.
 

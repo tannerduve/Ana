@@ -40,7 +40,7 @@ def modelRequest (s : State app) : ModelRequest :=
         (toJson s.artifacts).compress)]}]
   { model := s.config.model, system := s.config.instructions,
     messages := catalog ++ activeMessages s ++ [budgetMessage s],
-    maxTokens := s.config.maxOutputTokens, purpose := .task, tools := app.schemas }
+    maxTokens := s.config.maxOutputTokens, purpose := .task, tools := app.schemasFor s.config }
 
 /-- Conservative byte admission, including the actual offered schemas and a 16KiB framing allowance.
 This deliberately does not claim an exact provider token bound. -/

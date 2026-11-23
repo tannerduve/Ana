@@ -29,6 +29,7 @@ import Harness.Proofs.Turns
 import Harness.Proofs.IntentIdentity
 import Harness.Proofs.ApplicationCoding
 import Harness.Proofs.ApplicationInventory
+import Harness.Proofs.ApplicationMatrix
 import Harness.Proofs.ApplicationObservations
 import Harness.Proofs.ApplicationOperations
 import Harness.Proofs.ApplicationRendering
